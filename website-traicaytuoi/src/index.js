@@ -2,7 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import "./App.css";
 import reportWebVitals from './reportWebVitals';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import 'lightbox2/dist/css/lightbox.min.css';
+import 'lightbox2/dist/js/lightbox-plus-jquery.min.js';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

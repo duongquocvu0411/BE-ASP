@@ -58,107 +58,71 @@ const TrangchuNguoidung = () => {
   const layBanners = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/banners`);
-      setBanners(response.data);
+      setBanners(response.data || []); // Đảm bảo banners là mảng
     } catch (error) {
-      console.error("Lỗi khi lấy banners:", error);
-      toast.error("Không thể tải banners!", {
-        position: "top-right",
+      console.error('Lỗi khi lấy banners:', error);
+      toast.error('Không thể tải banners!', {
+        position: 'top-right',
         autoClose: 3000,
       });
+      setBanners([]); // Gán giá trị mặc định khi lỗi
     }
   };
+
   const layDanhMuc = async () => {
     try {
-      const phanHoi = await axios.get(`${process.env.REACT_APP_BASEURL}/api/danhmucsanpham`);
-      setDanhMuc(phanHoi.data);
-    } catch (loi) {
-      console.error('Lỗi khi lấy danh mục:', loi);
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/danhmucsanpham`);
+      setDanhMuc(response.data || []); // Đảm bảo danh mục là mảng
+    } catch (error) {
+      console.error('Lỗi khi lấy danh mục:', error);
+      setDanhMuc([]); // Gán giá trị mặc định khi lỗi
     }
   };
 
   const layDactrungs = async () => {
     setDangtai(true);
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASEURL}/api/dactrung`
-      );
-      const data = response.data;
-
-      // Sắp xếp theo thứ tự hiển thị (thutuhienthi)
-      const sortedData = data.sort((a, b) => a.thutuhienthi - b.thutuhienthi);
-
-      setDactrungs(sortedData);
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/dactrung`);
+      const data = response.data || [];
+      setDactrungs(data.sort((a, b) => a.thutuhienthi - b.thutuhienthi));
     } catch (error) {
-      console.error("Lỗi khi lấy danh sách đặc trưng:", error);
-      toast.error("Không thể tải danh sách đặc trưng!", {
-        position: "top-right",
+      console.error('Lỗi khi lấy danh sách đặc trưng:', error);
+      toast.error('Không thể tải danh sách đặc trưng!', {
+        position: 'top-right',
         autoClose: 3000,
       });
+      setDactrungs([]); // Gán giá trị mặc định khi lỗi
     } finally {
       setDangtai(false);
     }
   };
 
-
   const laySanPham = async () => {
-    setDangtai(true); // Bắt đầu trạng thái tải
+    setDangtai(true);
     try {
-      // Tạo URL dựa trên danh mục được chọn
       const url = danhMucDuocChon
         ? `${process.env.REACT_APP_BASEURL}/api/sanpham/danhmuc/${danhMucDuocChon}`
         : `${process.env.REACT_APP_BASEURL}/api/sanpham`;
+      const response = await axios.get(url);
+      const data = response.data || [];
 
-      const phanHoi = await axios.get(url);
+      const sanPhamDangSale = data.filter(
+        (sp) => sp.sanphamSales?.some((sale) => sale.trangthai === 'Đang áp dụng')
+      );
+      const sanPhamKhongSale = data.filter(
+        (sp) => !sp.sanphamSales?.some((sale) => sale.trangthai === 'Đang áp dụng')
+      );
 
-      if (phanHoi.status === 200 && Array.isArray(phanHoi.data)) {
-        // Lọc sản phẩm khuyến mãi và không khuyến mãi
-        const sanPhamDangSale = phanHoi.data.filter(
-          (sp) => sp.sanphamSales && sp.sanphamSales.some((sale) => sale.trangthai === 'Đang áp dụng')
-        );
-
-        const sanPhamKhongSale = phanHoi.data.filter(
-          (sp) => !sp.sanphamSales || !sp.sanphamSales.some((sale) => sale.trangthai === 'Đang áp dụng')
-        );
-
-        setSanPhamSale(sanPhamDangSale);
-        setSanPham(sanPhamKhongSale);
-      } else {
-        // Trường hợp không có sản phẩm nào
-        setSanPham([]);
-        setSanPhamSale([]);
-      }
+      setSanPhamSale(sanPhamDangSale);
+      setSanPham(sanPhamKhongSale);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        // Xử lý khi danh mục không có sản phẩm
-        setSanPham([]);
-        setSanPhamSale([]);
-      } else {
-        console.error('Lỗi khi lấy sản phẩm:', error);
-        toast.warning('Có lỗi khi lấy sản phẩm', {
-          position: 'top-right',
-          autoClose: 3000,
-        });
-      }
+      console.error('Lỗi khi lấy sản phẩm:', error);
+      setSanPham([]);
+      setSanPhamSale([]);
     } finally {
-      setDangtai(false); // Kết thúc trạng thái tải
+      setDangtai(false);
     }
   };
-
-
-  // const tinhThoiGianConLai = (thoigianbatdau, thoigianketthuc) => {
-  //   const now = new Date();
-  //   const ketthuc = new Date(thoigianketthuc);
-
-  //   if (now > ketthuc) return 'Đã kết thúc';
-
-  //   const khoangThoiGian = ketthuc - now;
-  //   const ngay = Math.floor(khoangThoiGian / (1000 * 60 * 60 * 24));
-  //   const gio = Math.floor((khoangThoiGian % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //   const phut = Math.floor((khoangThoiGian % (1000 * 60 * 60)) / (1000 * 60));
-  //   const giay = Math.floor((khoangThoiGian % (1000 * 60)) / 1000);
-
-  //   return `${ngay} ngày ${gio} giờ ${phut} phút ${giay} giây`;
-  // };
 
   return (
     <>
@@ -308,14 +272,15 @@ const TrangchuNguoidung = () => {
               </div>
             </div>
             {/* Hiển thị sản phẩm */}
+            {/* Hiển thị sản phẩm */}
             <div className="tab-content mt-4">
               <div className="tab-pane fade show p-0 active">
                 {dangtai ? (
-                  <div className='text-center'>
-                    <Spinner animation='border' variant='primary' />
+                  <div className="text-center">
+                    <Spinner animation="border" variant="primary" />
                     <p>Đang tải dữ liệu...</p>
                   </div>
-                ) : sanPham.length > 0 ? (
+                ) : sanPham?.length > 0 ? (
                   <div className="row g-4">
                     {sanPhamHienTai.map((sanPham) => (
                       <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
@@ -324,36 +289,40 @@ const TrangchuNguoidung = () => {
                           <div className="fruite-img position-relative">
                             <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                               <img
-                                src={sanPham.hinhanh}
+                                src={sanPham.hinhanh || "/path/to/default-image.jpg"}
                                 className="img-fluid w-100 rounded-top"
-                                alt={sanPham.tieude}
-                                style={{ height: 250, objectFit: 'cover' }}
+                                alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                                style={{ height: 250, objectFit: "cover" }}
                               />
                             </Link>
-                            {sanPham.trangthai === 'Hết hàng' && (
-                              <div className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-                                style={{ zIndex: 1, padding: '5px 10px', borderRadius: '5px' }}>
+                            {sanPham.trangthai === "Hết hàng" && (
+                              <div
+                                className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
+                                style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
+                              >
                                 <span className="text-white small fw-bold">Hết hàng</span>
                               </div>
                             )}
                           </div>
-                          <div className="text-white bg-secondary px-2 py-1 rounded position-absolute"
-                            style={{ top: 10, left: 10 }}>
-                            {sanPham.danhmucsanphamName}
+                          <div
+                            className="text-white bg-secondary px-2 py-1 rounded position-absolute"
+                            style={{ top: 10, left: 10 }}
+                          >
+                            {sanPham.danhmucsanphamName || "Danh mục không rõ"}
                           </div>
                           <div className="p-3 rounded-bottom">
-                            <h3 className=" fw-bold">{sanPham.tieude}</h3>
+                            <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
                             <h5 className="fw-bold">
-                              {sanPham.moTaChung.length > 10 ? (
+                              {sanPham.moTaChung?.length > 10 ? (
                                 <>
-                                  {sanPham.moTaChung.slice(0, 10)}{' '}
+                                  {sanPham.moTaChung.slice(0, 10)}{" "}
                                   <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                     (Xem chi tiết)
                                   </Link>
                                 </>
                               ) : (
                                 <>
-                                  {sanPham.moTaChung}{' '}
+                                  {sanPham.moTaChung || "Không có mô tả"}{" "}
                                   <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                     (Xem chi tiết)
                                   </Link>
@@ -362,11 +331,12 @@ const TrangchuNguoidung = () => {
                             </h5>
                             <div className="d-flex justify-content-between align-items-center">
                               <p className="text-dark fs-5 fst-italic mb-0">
-                                {parseFloat(sanPham.giatien).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                                vnđ / {sanPham.don_vi_tinh}
+                                {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                                  minimumFractionDigits: 3,
+                                })}{" "}
+                                vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
                               </p>
-
-                              {sanPham.trangthai !== 'Hết hàng' && (
+                              {sanPham.trangthai !== "Hết hàng" && (
                                 <button
                                   onClick={() => addToCart(sanPham)}
                                   className="btn border border-secondary rounded-pill px-3 text-primary"
@@ -389,19 +359,26 @@ const TrangchuNguoidung = () => {
                 {/* Phân trang cho sản phẩm thông thường */}
                 <div className="d-flex justify-content-center mt-4">
                   <ul className="pagination pagination-sm m-0">
-                    <li className={`page-item ${trangHienTai === 1 ? 'disabled' : ''}`}>
-                      <button className="page-link" onClick={() => datTrangHienTai(1)}>«</button>
+                    <li className={`page-item ${trangHienTai === 1 ? "disabled" : ""}`}>
+                      <button className="page-link" onClick={() => datTrangHienTai(1)}>
+                        «
+                      </button>
                     </li>
                     {[...Array(tongSoTrang)].map((_, i) => (
-                      <li key={i + 1} className={`page-item ${trangHienTai === i + 1 ? 'active' : ''}`}>
-                        <button className="page-link" onClick={() => datTrangHienTai(i + 1)}>{i + 1}</button>
+                      <li key={i + 1} className={`page-item ${trangHienTai === i + 1 ? "active" : ""}`}>
+                        <button className="page-link" onClick={() => datTrangHienTai(i + 1)}>
+                          {i + 1}
+                        </button>
                       </li>
                     ))}
-                    <li className={`page-item ${trangHienTai === tongSoTrang ? 'disabled' : ''}`}>
-                      <button className="page-link" onClick={() => datTrangHienTai(tongSoTrang)}>»</button>
+                    <li className={`page-item ${trangHienTai === tongSoTrang ? "disabled" : ""}`}>
+                      <button className="page-link" onClick={() => datTrangHienTai(tongSoTrang)}>
+                        »
+                      </button>
                     </li>
                   </ul>
                 </div>
+
                 {/* Hiển thị sản phẩm khuyến mãi */}
                 <div className="container-fluid fruite py-5 OurProduct bg-light">
                   <div className="container py-5">
@@ -411,10 +388,10 @@ const TrangchuNguoidung = () => {
                         <Spinner animation="border" variant="primary" />
                         <p>Đang tải dữ liệu...</p>
                       </div>
-                    ) : sanPhamSale.length > 0 ? (
+                    ) : sanPhamSale?.length > 0 ? (
                       <div className="row g-4">
                         {sanPhamSale.map((sanPham) => {
-                          const sale = sanPham.sanphamSales.find((sale) => sale.trangthai === 'Đang áp dụng');
+                          const sale = sanPham.sanphamSales?.find((sale) => sale.trangthai === "Đang áp dụng");
                           const ngayHethan = new Date(sale?.thoigianketthuc);
                           const daHethan = ngayHethan <= new Date();
 
@@ -424,36 +401,36 @@ const TrangchuNguoidung = () => {
                                 <div className="fruite-img position-relative">
                                   <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                     <img
-                                      src={sanPham.hinhanh}
+                                      src={sanPham.hinhanh || "/path/to/default-image.jpg"}
                                       className="img-fluid w-100 rounded-top"
-                                      alt={sanPham.tieude}
-                                      style={{ height: 250, objectFit: 'cover' }}
+                                      alt={sanPham.tieude || "Không có tiêu đề"}
+                                      style={{ height: 250, objectFit: "cover" }}
                                     />
                                   </Link>
                                   <div
                                     className="position-absolute top-0 start-0 px-3 py-1 bg-danger text-white rounded-end"
                                     style={{
-                                      fontSize: '0.9rem',
-                                      fontWeight: 'bold',
-                                      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
+                                      fontSize: "0.9rem",
+                                      fontWeight: "bold",
+                                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
                                     }}
                                   >
                                     <Countdown date={ngayHethan} renderer={renderer} />
                                   </div>
                                 </div>
                                 <div className="p-3">
-                                  <h3 className="fw-bold">{sanPham.tieude}</h3>
+                                  <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
                                   <h5 className="fw-bold">
-                                    {sanPham.moTaChung.length > 10 ? (
+                                    {sanPham.moTaChung?.length > 10 ? (
                                       <>
-                                        {sanPham.moTaChung.slice(0, 10)}{' '}
+                                        {sanPham.moTaChung.slice(0, 10)}{" "}
                                         <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                           (Xem chi tiết)
                                         </Link>
                                       </>
                                     ) : (
                                       <>
-                                        {sanPham.moTaChung}{' '}
+                                        {sanPham.moTaChung || "Không có mô tả"}{" "}
                                         <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                           (Xem chi tiết)
                                         </Link>
@@ -461,15 +438,17 @@ const TrangchuNguoidung = () => {
                                     )}
                                   </h5>
                                   <div className="d-flex justify-content-between align-items-center">
-                                    <p className="text-muted mb-0" style={{ textDecoration: 'line-through' }}>
-                                      {parseFloat(sanPham.giatien).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
+                                    <p className="text-muted mb-0" style={{ textDecoration: "line-through" }}>
+                                      {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                                        minimumFractionDigits: 3,
+                                      })}{" "}
                                       vnđ
                                     </p>
                                     <p className="text-danger fw-bold mb-0">
-
-                                      {sale?.giasale && parseFloat(sale.giasale).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                                      vnđ ({sanPham.don_vi_tinh})
-
+                                      {parseFloat(sale?.giasale || 0).toLocaleString("vi-VN", {
+                                        minimumFractionDigits: 3,
+                                      })}{" "}
+                                      vnđ ({sanPham.don_vi_tinh || "Đơn vị không rõ"})
                                     </p>
                                   </div>
                                   {!daHethan && (
@@ -496,16 +475,25 @@ const TrangchuNguoidung = () => {
                     {/* Phân trang cho sản phẩm khuyến mãi */}
                     <div className="d-flex justify-content-center mt-4">
                       <ul className="pagination pagination-sm m-0">
-                        <li className={`page-item ${trangHienTaiSale === 1 ? 'disabled' : ''}`}>
-                          <button className="page-link" onClick={() => datTrangHienTaiSale(1)}>«</button>
+                        <li className={`page-item ${trangHienTaiSale === 1 ? "disabled" : ""}`}>
+                          <button className="page-link" onClick={() => datTrangHienTaiSale(1)}>
+                            «
+                          </button>
                         </li>
                         {[...Array(tongSoTrangSale)].map((_, i) => (
-                          <li key={i + 1} className={`page-item ${trangHienTaiSale === i + 1 ? 'active' : ''}`}>
-                            <button className="page-link" onClick={() => datTrangHienTaiSale(i + 1)}>{i + 1}</button>
+                          <li
+                            key={i + 1}
+                            className={`page-item ${trangHienTaiSale === i + 1 ? "active" : ""}`}
+                          >
+                            <button className="page-link" onClick={() => datTrangHienTaiSale(i + 1)}>
+                              {i + 1}
+                            </button>
                           </li>
                         ))}
-                        <li className={`page-item ${trangHienTaiSale === tongSoTrangSale ? 'disabled' : ''}`}>
-                          <button className="page-link" onClick={() => datTrangHienTaiSale(tongSoTrangSale)}>»</button>
+                        <li className={`page-item ${trangHienTaiSale === tongSoTrangSale ? "disabled" : ""}`}>
+                          <button className="page-link" onClick={() => datTrangHienTaiSale(tongSoTrangSale)}>
+                            »
+                          </button>
                         </li>
                       </ul>
                     </div>
@@ -513,10 +501,10 @@ const TrangchuNguoidung = () => {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
-
       {/* Fruits Shop End */}
       <Footerusers />
       <ToastContainer />

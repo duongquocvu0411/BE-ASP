@@ -37,11 +37,19 @@ const Cuahang = () => {
       const url = danhMucDuocChon
         ? `${process.env.REACT_APP_BASEURL}/api/sanpham/danhmuc/${danhMucDuocChon}`
         : `${process.env.REACT_APP_BASEURL}/api/sanpham`;
-
+  
       const phanHoi = await axios.get(url);
-      setSanPham(phanHoi.data);
+  
+      // Đảm bảo phanHoi.data là mảng
+      if (Array.isArray(phanHoi.data)) {
+        setSanPham(phanHoi.data);
+      } else {
+        setSanPham([]); // Không có dữ liệu, đặt giá trị rỗng
+      }
     } catch (error) {
-      toast.error("Có lỗi khi lấy danh sách sản phẩm", { position: "top-right", autoClose: 3000 });
+      console.error("Lỗi khi lấy sản phẩm:", error);
+      
+      setSanPham([]); // Nếu lỗi, vẫn đặt danh sách sản phẩm là rỗng
     } finally {
       setDangtai(false);
     }

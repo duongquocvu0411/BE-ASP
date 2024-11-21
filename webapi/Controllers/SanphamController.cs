@@ -45,43 +45,22 @@ namespace webapi.Controllers
                 .Include(s => s.Danhmucsanpham)
                 .Include(s => s.Images)
                 .Include(s => s.ChiTiet)
-                .Include(s => s.SanphamSales) // Include SanphamSales để lấy dữ liệu khuyến mãi
+                .Include(s => s.SanphamSales)
                 .ToListAsync();
 
-            var sanpham = sanphams.Select(s => new
+            // Cập nhật Hinhanh cho từng sản phẩm
+            foreach (var sanpham in sanphams)
             {
-                s.Id,
-                s.Tieude,
-                s.Giatien,
-                Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
-                s.Trangthai,
-                s.don_vi_tinh,
-                s.danhmucsanpham_id,
-                DanhmucsanphamName = s.Danhmucsanpham?.Name,
-                Images = s.Images
-                    .Where(img => img != null)
-                    .Select(img => new
-                    {
-                        img.Id,
-                        img.sanphams_id,
-                        Hinhanh = !string.IsNullOrEmpty(img.hinhanh) ? GetImageUrl(img.hinhanh) : string.Empty
-                    })
-                    .ToList(),
-                   
-
-                SanphamSales = s.SanphamSales.Select(sale => new
+                sanpham.Hinhanh = !string.IsNullOrEmpty(sanpham.Hinhanh) ? GetImageUrl(sanpham.Hinhanh) : string.Empty;
+                foreach (var image in sanpham.Images)
                 {
-                    sale.Id,
-                    sale.giasale,
-                    sale.thoigianbatdau,
-                    sale.thoigianketthuc,
-                    sale.trangthai
-                }).ToList(),
-                MoTaChung = s.ChiTiet?.mo_ta_chung
-            }).ToList();
+                    image.hinhanh = !string.IsNullOrEmpty(image.hinhanh) ? GetImageUrl(image.hinhanh) : string.Empty;
+                }
+            }
 
-            return Ok(sanpham);
+            return Ok(sanphams);
         }
+
 
         /// <summary>
         /// Lấy sản phẩm theo {id} xem chi tiết sản phẩm
@@ -98,7 +77,7 @@ namespace webapi.Controllers
                 .Include(s => s.Images)
                 .Include(s => s.Danhmucsanpham)
                 .Include(s => s.Danhgiakhachhangs)
-                .Include(s => s.SanphamSales) // Bao gồm thông tin sale
+                .Include(s => s.SanphamSales)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (sanpham == null)
@@ -106,57 +85,17 @@ namespace webapi.Controllers
                 return NotFound(new { message = "Sản phẩm không tồn tại" });
             }
 
-            return new JsonResult(new
+            // Cập nhật Hinhanh và các đường dẫn ảnh
+            sanpham.Hinhanh = !string.IsNullOrEmpty(sanpham.Hinhanh) ? GetImageUrl(sanpham.Hinhanh) : string.Empty;
+            foreach (var img in sanpham.Images)
             {
-                sanpham.Id,
-                sanpham.Tieude,
-                sanpham.Giatien,
-                sanpham.Hinhanh,
-                sanpham.Trangthai,
-                sanpham.don_vi_tinh,
-                sanpham.danhmucsanpham_id,
-                DanhmucsanphamName = sanpham.Danhmucsanpham?.Name,
-                ChiTiet = sanpham.ChiTiet == null ? null : new
-                {
-                    sanpham.ChiTiet.Id,
-                    sanpham.ChiTiet.mo_ta_chung,
-                    sanpham.ChiTiet.hinh_dang,
-                    sanpham.ChiTiet.cong_dung,
-                    sanpham.ChiTiet.xuat_xu,
-                    sanpham.ChiTiet.khoi_luong,
-                    sanpham.ChiTiet.bao_quan,
-                    sanpham.ChiTiet.thanh_phan_dinh_duong,
-                    sanpham.ChiTiet.ngay_thu_hoach,
-                    sanpham.ChiTiet.huong_vi,
-                    sanpham.ChiTiet.nong_do_duong,
-                    sanpham.ChiTiet.bai_viet
-                },
-                Images = sanpham.Images.Select(img => new
-                {
-                    img.Id,
-                    img.sanphams_id,
-                    img.hinhanh
-                }),
-                SanphamSales = sanpham.SanphamSales.Select(sale => new
-                {
-                    sale.Id,
-                    sale.giasale,
-                    sale.trangthai,
-                    sale.thoigianbatdau,
-                    sale.thoigianketthuc
-                }),
-                Danhgiakhachhangs = sanpham.Danhgiakhachhangs.Select(dg => new
-                {
-                    dg.Id,
-                    dg.sanphams_id,
-                    dg.ho_ten,
-                    dg.so_sao,
-                    dg.tieude,
-                    dg.noi_dung,
-                    dg.Created_at
-                })
-            });
+                img.hinhanh = !string.IsNullOrEmpty(img.hinhanh) ? GetImageUrl(img.hinhanh) : string.Empty;
+            }
+
+            return Ok(sanpham);
         }
+
+
 
 
 
@@ -234,7 +173,7 @@ namespace webapi.Controllers
                     //Giasale = request.Sale.Giasale ?? 0,
                     //Trangthai = request.Sale.Trangthai ?? "Không áp dụng",
                     giasale = request.Sale.Giasale, // Gán giá trị mặc định nếu không có Giasale
-                    trangthai = request.Sale.Trangthai , // Mặc định trạng thái là 'inactive'
+                    trangthai = request.Sale.Trangthai, // Mặc định trạng thái là 'inactive'
                     thoigianbatdau = request.Sale.Thoigianbatdau,
                     thoigianketthuc = request.Sale.Thoigianketthuc
                 };
@@ -337,8 +276,8 @@ namespace webapi.Controllers
                     sanpham_id = sanpham.Id,
                     //Giasale = request.Sale.Giasale ?? 0,
                     //Trangthai = request.Sale.Trangthai ?? "Không áp dụng",
-                    giasale = request.Sale.Giasale ,
-                    trangthai = request.Sale.Trangthai ,
+                    giasale = request.Sale.Giasale,
+                    trangthai = request.Sale.Trangthai,
                     thoigianbatdau = request.Sale.Thoigianbatdau,
                     thoigianketthuc = request.Sale.Thoigianketthuc
                 };
@@ -444,14 +383,14 @@ namespace webapi.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        ///  Lấy sản phẩm theo danh mục {danhmucid}
-        /// </summary>
-        /// <returns> Lấy sản phẩm theo danh mục {danhmucid}  </returns>
 
-        // lấy sản phẩm theo danhmuc sản phẩm
-        [HttpGet("danhmuc/{danhmucId}")]
-        public async Task<ActionResult<IEnumerable<Sanpham>>> GetSanphamsByDanhMuc(int danhmucId)
+
+        /// <summary>
+        /// Lấy sản phẩm theo danh mục {danhmucid} nhưng không bao gồm sản phẩm có sale "Đang áp dụng"
+        /// </summary>
+        /// <returns>Danh sách sản phẩm theo danh mục nhưng không có sale "Đang áp dụng"</returns>
+        [HttpGet("danhmuc-no-active-sale/{danhmucId}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetSanphamsByDanhMucWithoutActiveSale(int danhmucId)
         {
             var sanphams = await _context.Sanpham
                 .Where(s => s.danhmucsanpham_id == danhmucId)
@@ -464,19 +403,34 @@ namespace webapi.Controllers
                 return NotFound(new { message = "Không có sản phẩm nào thuộc danh mục này." });
             }
 
-            // Chỉ trả về danh sách sản phẩm với các thông tin cơ bản mà không bao gồm chi tiết và đánh giá
-            var result = sanphams.Select(s => new
-            {
-                s.Id,
-                s.Tieude,
-                s.Giatien,
-                Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
-                s.Trangthai,
-                s.don_vi_tinh,
-                s.danhmucsanpham_id,
-                s.SanphamSales,
-                DanhmucsanphamName = s.Danhmucsanpham?.Name,
-            });
+            // Lọc sản phẩm theo các tiêu chí:
+            // - Không có sale nào ("SanphamSales.Count == 0")
+            // - Hoặc tất cả sale phải có trạng thái "Không áp dụng"
+            var result = sanphams
+                .Where(s => !s.SanphamSales.Any() || s.SanphamSales.All(sale => sale.trangthai == "Không áp dụng"))
+                .Select(s => new
+                {
+                    s.Id,
+                    s.Tieude,
+                    s.Giatien,
+                    Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
+                    s.Trangthai,
+                    s.don_vi_tinh,
+                    s.danhmucsanpham_id,
+                    DanhmucsanphamName = s.Danhmucsanpham?.Name,
+                    SanphamSales = s.SanphamSales
+                        .Where(sale => sale.trangthai == "Không áp dụng") // Chỉ giữ các sale "Không áp dụng"
+                        .Select(sale => new
+                        {
+                            sale.Id,
+                            sale.giasale,
+                            sale.thoigianbatdau,
+                            sale.thoigianketthuc,
+                            sale.trangthai
+                        })
+                        .ToList()
+                })
+                .ToList();
 
             return Ok(result);
         }
@@ -536,6 +490,96 @@ namespace webapi.Controllers
                 return StatusCode(500, new { uploaded = false, error = new { message = "Lỗi khi tải lên tệp", details = ex.Message } });
             }
         }
+        /// <summary>
+        /// Lấy danh sách sản phẩm và sale không áp dụng hoặc không có sale
+        /// </summary>
+        /// <returns>Danh sách sản phẩm và sale không áp dụng hoặc không có sale</returns>
+        [HttpGet("spkhongsale")]
+        public async Task<ActionResult<IEnumerable<object>>> GetSanphamkhongsal()
+        {
+            // Lấy danh sách sản phẩm và thông tin sale
+            var sanphams = await _context.Sanpham
+                .Include(s => s.Danhmucsanpham)
+                .Include(s => s.SanphamSales) // Include thông tin sale
+                .ToListAsync();
+
+            // Lọc và tạo danh sách kết quả
+            var result = sanphams.Select(s => new
+            {
+                s.Id,
+                s.Tieude,
+                s.Giatien,
+                Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
+                s.Trangthai,
+                s.don_vi_tinh,
+                DanhmucsanphamName = s.Danhmucsanpham?.Name,
+                SanphamSales = s.SanphamSales
+                    .Where(sale => sale.trangthai == "Không áp dụng") // Chỉ giữ các sale "Không áp dụng"
+                    .Select(sale => new
+                    {
+                        sale.Id,
+                        sale.giasale,
+                        sale.thoigianbatdau,
+                        sale.thoigianketthuc,
+                        sale.trangthai
+                    })
+                    .ToList()
+            }).ToList();
+
+            // Lọc các sản phẩm:
+            // - Hoặc có ít nhất một sale "Không áp dụng"
+            // - Hoặc không có sale nào (SanphamSales.Count == 0)
+            var filteredResult = result
+                .Where(r => r.SanphamSales.Count > 0 || !sanphams.FirstOrDefault(s => s.Id == r.Id)?.SanphamSales.Any() == true)
+                .ToList();
+
+            // Trả về kết quả
+            return Ok(filteredResult);
+        }
+
+        /// <summary>
+        /// Lấy danh sách sản phẩm có sale "Đang áp dụng"
+        /// </summary>
+        /// <returns>Danh sách sản phẩm và sale "Đang áp dụng"</returns>
+        [HttpGet("spcosale")]
+        public async Task<ActionResult<IEnumerable<object>>> GetsanphamSale()
+        {
+            // Lấy danh sách sản phẩm và thông tin sale
+            var sanphams = await _context.Sanpham
+                .Include(s => s.Danhmucsanpham)
+                .Include(s => s.SanphamSales) // Include thông tin sale
+                .ToListAsync();
+
+            // Lọc và tạo danh sách kết quả
+            var result = sanphams
+                .Where(s => s.SanphamSales.Any(sale => sale.trangthai == "Đang áp dụng")) // Chỉ giữ sản phẩm có ít nhất một sale "Đang áp dụng"
+                .Select(s => new
+                {
+                    s.Id,
+                    s.Tieude,
+                    s.Giatien,
+                    Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
+                    s.Trangthai,
+                    s.don_vi_tinh,
+                    DanhmucsanphamName = s.Danhmucsanpham?.Name,
+                    SanphamSales = s.SanphamSales
+                        .Where(sale => sale.trangthai == "Đang áp dụng") // Chỉ giữ các sale "Đang áp dụng"
+                        .Select(sale => new
+                        {
+                            sale.Id,
+                            sale.giasale,
+                            sale.thoigianbatdau,
+                            sale.thoigianketthuc,
+                            sale.trangthai
+                        })
+                        .ToList()
+                })
+                .ToList();
+
+            // Trả về kết quả
+            return Ok(result);
+        }
+
     }
-   
+
 }

@@ -384,12 +384,48 @@ namespace webapi.Controllers
         }
 
 
+        /// <summary>
+        ///  Lấy sản phẩm theo danh mục {danhmucid}
+        /// </summary>
+        /// <returns> Lấy sản phẩm theo danh mục {danhmucid}  </returns>
+
+        // lấy sản phẩm theo danhmuc sản phẩm
+        [HttpGet("danhmuc/{danhmucId}")]
+        public async Task<ActionResult<IEnumerable<Sanpham>>> GetSanphamsByDanhMuc(int danhmucId)
+        {
+            var sanphams = await _context.Sanpham
+                .Where(s => s.danhmucsanpham_id == danhmucId)
+                .Include(s => s.Danhmucsanpham)
+                .Include(s => s.SanphamSales)
+                .ToListAsync();
+
+            if (!sanphams.Any())
+            {
+                return NotFound(new { message = "Không có sản phẩm nào thuộc danh mục này." });
+            }
+
+            // Chỉ trả về danh sách sản phẩm với các thông tin cơ bản mà không bao gồm chi tiết và đánh giá
+            var result = sanphams.Select(s => new
+            {
+                s.Id,
+                s.Tieude,
+                s.Giatien,
+                Hinhanh = !string.IsNullOrEmpty(s.Hinhanh) ? GetImageUrl(s.Hinhanh) : string.Empty,
+                s.Trangthai,
+                s.don_vi_tinh,
+                s.danhmucsanpham_id,
+                s.SanphamSales,
+                DanhmucsanphamName = s.Danhmucsanpham?.Name,
+            });
+
+            return Ok(result);
+        }
 
         /// <summary>
         /// Lấy sản phẩm theo danh mục {danhmucid} nhưng không bao gồm sản phẩm có sale "Đang áp dụng"
         /// </summary>
         /// <returns>Danh sách sản phẩm theo danh mục nhưng không có sale "Đang áp dụng"</returns>
-        [HttpGet("danhmuc-no-active-sale/{danhmucId}")]
+        [HttpGet("danhmuc-khongsale/{danhmucId}")]
         public async Task<ActionResult<IEnumerable<object>>> GetSanphamsByDanhMucWithoutActiveSale(int danhmucId)
         {
             var sanphams = await _context.Sanpham

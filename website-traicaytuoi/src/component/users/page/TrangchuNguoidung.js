@@ -37,22 +37,14 @@ const TrangchuNguoidung = () => {
   const chiSoSanPhamDau = chiSoSanPhamCuoi - sanPhamMoiTrang;
   const sanPhamHienTai = sanPham.slice(chiSoSanPhamDau, chiSoSanPhamCuoi);
   const tongSoTrang = Math.ceil(sanPham.length / sanPhamMoiTrang);
-
-
-  // Phân trang sản phẩm khuyến mãi
-  const [trangHienTaiSale, datTrangHienTaiSale] = useState(1);
-  const sanPhamSaleMoiTrang = 4;
-  const chiSoSanPhamCuoiSale = trangHienTaiSale * sanPhamSaleMoiTrang;
-  const chiSoSanPhamDauSale = chiSoSanPhamCuoiSale - sanPhamSaleMoiTrang;
-  const sanPhamSaleHienTai = sanPhamSale.slice(chiSoSanPhamDauSale, chiSoSanPhamCuoiSale);
-  const tongSoTrangSale = Math.ceil(sanPhamSale.length / sanPhamSaleMoiTrang);
-
+ 
   // Gọi API lấy danh mục và sản phẩm
   useEffect(() => {
     laySanPham();
     layDanhMuc();
     layDactrungs()
     layBanners();
+    laySanPhamSale();
   }, [danhMucDuocChon]); // Chạy lại khi thay đổi danh mục
 
   const layBanners = async () => {
@@ -98,27 +90,35 @@ const TrangchuNguoidung = () => {
   };
 
   const laySanPham = async () => {
+  setDangtai(true);
+  try {
+    const url = danhMucDuocChon
+      ? `${process.env.REACT_APP_BASEURL}/api/Sanpham/danhmuc-khongsale/${danhMucDuocChon}`
+      : `${process.env.REACT_APP_BASEURL}/api/Sanpham/spkhongsale`;
+    const response = await axios.get(url);
+
+    if (response.data.length === 0) {
+      // Nếu không có sản phẩm nào
+      setSanPham([]); // Đặt danh sách sản phẩm thành mảng rỗng
+    } else {
+      setSanPham(response.data || []);
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy sản phẩm thông thường:', error);
+    setSanPham([]); // Nếu có lỗi, đặt danh sách sản phẩm thành mảng rỗng
+  } finally {
+    setDangtai(false);
+  }
+};
+
+  const laySanPhamSale = async () => {
     setDangtai(true);
     try {
-      const url = danhMucDuocChon
-        ? `${process.env.REACT_APP_BASEURL}/api/sanpham/danhmuc/${danhMucDuocChon}`
-        : `${process.env.REACT_APP_BASEURL}/api/sanpham`;
-      const response = await axios.get(url);
-      const data = response.data || [];
-
-      const sanPhamDangSale = data.filter(
-        (sp) => sp.sanphamSales?.some((sale) => sale.trangthai === 'Đang áp dụng')
-      );
-      const sanPhamKhongSale = data.filter(
-        (sp) => !sp.sanphamSales?.some((sale) => sale.trangthai === 'Đang áp dụng')
-      );
-
-      setSanPhamSale(sanPhamDangSale);
-      setSanPham(sanPhamKhongSale);
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/Sanpham/spcosale`);
+      setSanPhamSale(response.data || []);
     } catch (error) {
-      console.error('Lỗi khi lấy sản phẩm:', error);
-      setSanPham([]);
-      setSanPhamSale([]);
+      console.error('Lỗi khi lấy sản phẩm khuyến mãi:', error);
+      toast.error('Không thể tải sản phẩm khuyến mãi!', { position: 'top-right', autoClose: 3000 });
     } finally {
       setDangtai(false);
     }
@@ -271,91 +271,91 @@ const TrangchuNguoidung = () => {
                 </div>
               </div>
             </div>
-            {/* Hiển thị sản phẩm */}
+
             {/* Hiển thị sản phẩm */}
             <div className="tab-content mt-4">
               <div className="tab-pane fade show p-0 active">
-                {dangtai ? (
-                  <div className="text-center">
-                    <Spinner animation="border" variant="primary" />
-                    <p>Đang tải dữ liệu...</p>
-                  </div>
-                ) : sanPham?.length > 0 ? (
-                  <div className="row g-4">
-                    {sanPhamHienTai.map((sanPham) => (
-                      <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-                        {/* Hiển thị thông tin sản phẩm */}
-                        <div className="rounded position-relative fruite-item shadow-sm">
-                          <div className="fruite-img position-relative">
-                            <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                              <img
-                                src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                                className="img-fluid w-100 rounded-top"
-                                alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
-                                style={{ height: 250, objectFit: "cover" }}
-                              />
-                            </Link>
-                            {sanPham.trangthai === "Hết hàng" && (
-                              <div
-                                className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-                                style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
-                              >
-                                <span className="text-white small fw-bold">Hết hàng</span>
-                              </div>
-                            )}
-                          </div>
-                          <div
-                            className="text-white bg-secondary px-2 py-1 rounded position-absolute"
-                            style={{ top: 10, left: 10 }}
-                          >
-                            {sanPham.danhmucsanphamName || "Danh mục không rõ"}
-                          </div>
-                          <div className="p-3 rounded-bottom">
-                            <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
-                            <h5 className="fw-bold">
-                              {sanPham.moTaChung?.length > 10 ? (
-                                <>
-                                  {sanPham.moTaChung.slice(0, 10)}{" "}
-                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                    (Xem chi tiết)
-                                  </Link>
-                                </>
-                              ) : (
-                                <>
-                                  {sanPham.moTaChung || "Không có mô tả"}{" "}
-                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                    (Xem chi tiết)
-                                  </Link>
-                                </>
-                              )}
-                            </h5>
-                            <div className="d-flex justify-content-between align-items-center">
-                              <p className="text-dark fs-5 fst-italic mb-0">
-                                {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
-                                  minimumFractionDigits: 3,
-                                })}{" "}
-                                vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
-                              </p>
-                              {sanPham.trangthai !== "Hết hàng" && (
-                                <button
-                                  onClick={() => addToCart(sanPham)}
-                                  className="btn border border-secondary rounded-pill px-3 text-primary"
-                                >
-                                  <i className="fa fa-shopping-bag me-2 text-primary" />
-                                  Thêm vào giỏ
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center mt-4">
-                    <p>Không có sản phẩm nào trong danh mục này</p>
+              {dangtai ? (
+      <div className="text-center">
+        <Spinner animation="border" variant="primary" />
+        <p>Đang tải dữ liệu...</p>
+      </div>
+    ) : sanPhamHienTai.length > 0 ? ( // Kiểm tra có sản phẩm trong danh sách phân trang
+      <div className="row g-4">
+        {sanPhamHienTai.map((sanPham) => (
+          <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
+            {/* Hiển thị thông tin sản phẩm */}
+            <div className="rounded position-relative fruite-item shadow-sm">
+              <div className="fruite-img position-relative">
+                <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                  <img
+                    src={sanPham.hinhanh || "/path/to/default-image.jpg"}
+                    className="img-fluid w-100 rounded-top"
+                    alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                    style={{ height: 250, objectFit: "cover" }}
+                  />
+                </Link>
+                {sanPham.trangthai === "Hết hàng" && (
+                  <div
+                    className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
+                    style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
+                  >
+                    <span className="text-white small fw-bold">Hết hàng</span>
                   </div>
                 )}
+              </div>
+              <div
+                className="text-white bg-secondary px-2 py-1 rounded position-absolute"
+                style={{ top: 10, left: 10 }}
+              >
+                {sanPham.danhmucsanphamName || "Danh mục không rõ"}
+              </div>
+              <div className="p-3 rounded-bottom">
+                <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
+                <h5 className="fw-bold">
+                  {sanPham.moTaChung?.length > 10 ? (
+                    <>
+                      {sanPham.moTaChung.slice(0, 10)}{" "}
+                      <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                        (Xem chi tiết)
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      {sanPham.moTaChung || "Không có mô tả"}{" "}
+                      <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                        (Xem chi tiết)
+                      </Link>
+                    </>
+                  )}
+                </h5>
+                <div className="d-flex justify-content-between align-items-center">
+                  <p className="text-dark fs-5 fst-italic mb-0">
+                    {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                      minimumFractionDigits: 3,
+                    })}{" "}
+                    vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
+                  </p>
+                  {sanPham.trangthai !== "Hết hàng" && (
+                    <button
+                      onClick={() => addToCart(sanPham)}
+                      className="btn border border-secondary rounded-pill px-3 text-primary"
+                    >
+                      <i className="fa fa-shopping-bag me-2 text-primary" />
+                      Thêm vào giỏ
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div className="text-center mt-4">
+        <p>Danh mục này không có sản phẩm nào</p>
+      </div>
+    )}
                 {/* Phân trang cho sản phẩm thông thường */}
                 <div className="d-flex justify-content-center mt-4">
                   <ul className="pagination pagination-sm m-0">
@@ -378,133 +378,108 @@ const TrangchuNguoidung = () => {
                     </li>
                   </ul>
                 </div>
+              </div>
+            </div>
 
-                {/* Hiển thị sản phẩm khuyến mãi */}
-                <div className="container-fluid fruite py-5 OurProduct bg-light">
-                  <div className="container py-5">
-                    <h2 className="text-center text-uppercase fw-bold mb-4">Sản phẩm đang khuyến mãi</h2>
-                    {dangtai ? (
-                      <div className="text-center">
-                        <Spinner animation="border" variant="primary" />
-                        <p>Đang tải dữ liệu...</p>
-                      </div>
-                    ) : sanPhamSale?.length > 0 ? (
-                      <div className="row g-4">
-                        {sanPhamSale.map((sanPham) => {
-                          const sale = sanPham.sanphamSales?.find((sale) => sale.trangthai === "Đang áp dụng");
-                          const ngayHethan = new Date(sale?.thoigianketthuc);
-                          const daHethan = ngayHethan <= new Date();
+            {/* Hiển thị sản phẩm khuyến mãi */}
+            <div className="container-fluid fruite py-5 OurProduct bg-light">
+              <div className="container py-5">
+                <h2 className="text-center text-uppercase fw-bold mb-4">Sản phẩm đang khuyến mãi</h2>
+                {dangtai ? (
+                  <div className="text-center">
+                    <Spinner animation="border" variant="primary" />
+                    <p>Đang tải dữ liệu...</p>
+                  </div>
+                ) : sanPhamSale?.length > 0 ? (
+                  <div className="row g-4">
+                    {sanPhamSale.map((sanPham) => {
+                      const sale = sanPham.sanphamSales?.find((sale) => sale.trangthai === "Đang áp dụng");
+                      const ngayHethan = new Date(sale?.thoigianketthuc);
+                      const daHethan = ngayHethan <= new Date();
 
-                          return (
-                            <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-                              <div className="rounded position-relative fruite-item shadow-sm bg-white">
-                                <div className="fruite-img position-relative">
-                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                    <img
-                                      src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                                      className="img-fluid w-100 rounded-top"
-                                      alt={sanPham.tieude || "Không có tiêu đề"}
-                                      style={{ height: 250, objectFit: "cover" }}
-                                    />
-                                  </Link>
-                                  <div
-                                    className="position-absolute top-0 start-0 px-3 py-1 bg-danger text-white rounded-end"
-                                    style={{
-                                      fontSize: "0.9rem",
-                                      fontWeight: "bold",
-                                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
-                                    }}
-                                  >
-                                    <Countdown date={ngayHethan} renderer={renderer} />
-                                  </div>
-                                </div>
-                                <div className="p-3">
-                                  <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
-                                  <h5 className="fw-bold">
-                                    {sanPham.moTaChung?.length > 10 ? (
-                                      <>
-                                        {sanPham.moTaChung.slice(0, 10)}{" "}
-                                        <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                          (Xem chi tiết)
-                                        </Link>
-                                      </>
-                                    ) : (
-                                      <>
-                                        {sanPham.moTaChung || "Không có mô tả"}{" "}
-                                        <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                          (Xem chi tiết)
-                                        </Link>
-                                      </>
-                                    )}
-                                  </h5>
-                                  <div className="d-flex justify-content-between align-items-center">
-                                    <p className="text-muted mb-0" style={{ textDecoration: "line-through" }}>
-                                      {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
-                                        minimumFractionDigits: 3,
-                                      })}{" "}
-                                      vnđ
-                                    </p>
-                                    <p className="text-danger fw-bold mb-0">
-                                      {parseFloat(sale?.giasale || 0).toLocaleString("vi-VN", {
-                                        minimumFractionDigits: 3,
-                                      })}{" "}
-                                      vnđ ({sanPham.don_vi_tinh || "Đơn vị không rõ"})
-                                    </p>
-                                  </div>
-                                  {!daHethan && (
-                                    <button
-                                      onClick={() => addToCart(sanPham)}
-                                      className="btn border border-secondary rounded-pill px-3 text-primary"
-                                    >
-                                      <i className="fa fa-shopping-bag me-2 text-primary" />
-                                      Thêm vào giỏ
-                                    </button>
-                                  )}
-                                </div>
+                      return (
+                        <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
+                          <div className="rounded position-relative fruite-item shadow-sm bg-white">
+                            <div className="fruite-img position-relative">
+                              <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                                <img
+                                  src={sanPham.hinhanh || "/path/to/default-image.jpg"}
+                                  className="img-fluid w-100 rounded-top"
+                                  alt={sanPham.tieude || "Không có tiêu đề"}
+                                  style={{ height: 250, objectFit: "cover" }}
+                                />
+                              </Link>
+                              <div
+                                className="position-absolute top-0 start-0 px-3 py-1 bg-danger text-white rounded-end"
+                                style={{
+                                  fontSize: "0.9rem",
+                                  fontWeight: "bold",
+                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+                                }}
+                              >
+                                <Countdown date={ngayHethan} renderer={renderer} />
                               </div>
                             </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="text-center mt-4">
-                        <p>Không có sản phẩm nào đang khuyến mãi</p>
-                      </div>
-                    )}
-
-                    {/* Phân trang cho sản phẩm khuyến mãi */}
-                    <div className="d-flex justify-content-center mt-4">
-                      <ul className="pagination pagination-sm m-0">
-                        <li className={`page-item ${trangHienTaiSale === 1 ? "disabled" : ""}`}>
-                          <button className="page-link" onClick={() => datTrangHienTaiSale(1)}>
-                            «
-                          </button>
-                        </li>
-                        {[...Array(tongSoTrangSale)].map((_, i) => (
-                          <li
-                            key={i + 1}
-                            className={`page-item ${trangHienTaiSale === i + 1 ? "active" : ""}`}
-                          >
-                            <button className="page-link" onClick={() => datTrangHienTaiSale(i + 1)}>
-                              {i + 1}
-                            </button>
-                          </li>
-                        ))}
-                        <li className={`page-item ${trangHienTaiSale === tongSoTrangSale ? "disabled" : ""}`}>
-                          <button className="page-link" onClick={() => datTrangHienTaiSale(tongSoTrangSale)}>
-                            »
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
+                            <div className="p-3">
+                              <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
+                              <h5 className="fw-bold">
+                                {sanPham.moTaChung?.length > 10 ? (
+                                  <>
+                                    {sanPham.moTaChung.slice(0, 10)}{" "}
+                                    <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                                      (Xem chi tiết)
+                                    </Link>
+                                  </>
+                                ) : (
+                                  <>
+                                    {sanPham.moTaChung || "Không có mô tả"}{" "}
+                                    <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                                      (Xem chi tiết)
+                                    </Link>
+                                  </>
+                                )}
+                              </h5>
+                              <div className="d-flex justify-content-between align-items-center">
+                                <p className="text-muted mb-0" style={{ textDecoration: "line-through" }}>
+                                  {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                                    minimumFractionDigits: 3,
+                                  })}{" "}
+                                  vnđ
+                                </p>
+                                <p className="text-danger fw-bold mb-0">
+                                  {parseFloat(sale?.giasale || 0).toLocaleString("vi-VN", {
+                                    minimumFractionDigits: 3,
+                                  })}{" "}
+                                  vnđ ({sanPham.don_vi_tinh || "Đơn vị không rõ"})
+                                </p>
+                              </div>
+                              {!daHethan && (
+                                <button
+                                  onClick={() => addToCart(sanPham)}
+                                  className="btn border border-secondary rounded-pill px-3 text-primary"
+                                >
+                                  <i className="fa fa-shopping-bag me-2 text-primary" />
+                                  Thêm vào giỏ
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
+                ) : (
+                  <div className="text-center mt-4">
+                    <p>Không có sản phẩm nào đang khuyến mãi</p>
+                  </div>
+                )}
               </div>
             </div>
 
           </div>
         </div>
       </div>
+
       {/* Fruits Shop End */}
       <Footerusers />
       <ToastContainer />

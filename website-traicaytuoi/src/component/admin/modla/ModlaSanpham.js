@@ -63,21 +63,23 @@ const ModlaSanpham = ({
       setSaleData(
         product.sanphamSales && product.sanphamSales.length > 0
           ? {
-              ...product.sanphamSales[0],
-              thoigianbatdau: product.sanphamSales[0].thoigianbatdau
-                ? product.sanphamSales[0].thoigianbatdau.substring(0, 16)
-                : "",
-              thoigianketthuc: product.sanphamSales[0].thoigianketthuc
-                ? product.sanphamSales[0].thoigianketthuc.substring(0, 16)
-                : "",
-            }
+            ...product.sanphamSales[0],
+            thoigianbatdau: product.sanphamSales[0].thoigianbatdau
+              ? product.sanphamSales[0].thoigianbatdau.substring(0, 16)
+              : "",
+            thoigianketthuc: product.sanphamSales[0].thoigianketthuc
+              ? product.sanphamSales[0].thoigianketthuc.substring(0, 16)
+              : "",
+          }
           : null
       );
 
 
       // Hiển thị ảnh chính
       if (product.hinhanh) {
-        setXemtruocHinhAnh(`${process.env.REACT_APP_BASEURL}/${product.hinhanh}`);
+        setXemtruocHinhAnh(product.hinhanh); // Đảm bảo URL đầy đủ từ API
+      } else {
+        setXemtruocHinhAnh(""); // Reset nếu không có ảnh chính
       }
 
       // Hiển thị ảnh phụ từ API
@@ -210,7 +212,6 @@ const ModlaSanpham = ({
     hinhanhPhu.forEach((file) => {
       if (file) formData.append("Images", file);
     });
-
     // Thêm chi tiết sản phẩm nếu có bất kỳ trường nào được nhập
     if (Object.keys(chiTiet).some((key) => chiTiet[key])) {
       formData.append("ChiTiet.MoTaChung", chiTiet.moTaChung || "");
@@ -389,29 +390,45 @@ const ModlaSanpham = ({
             {existingHinhanhPhu.map((img, index) => (
               <Form.Group key={img.id} className="mb-3">
                 <Form.Label>Hình ảnh phụ {index + 1}</Form.Label>
-                <img src={`${process.env.REACT_APP_BASEURL}/${img.hinhanh}`} alt={`Ảnh phụ ${index + 1}`} width="200" />
-                <Button variant="danger" className="mt-2" onClick={() => handleRemoveImage(img.id, index)}>
-                  Xóa ảnh phụ
-                </Button>
+                <div>
+                  <img
+                    src={img.hinhanh}
+                    alt={`Ảnh phụ ${index + 1}`}
+                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
+                  />
+                  <Button
+                    variant="danger"
+                    onClick={() => handleRemoveImage(img.id, index)}
+                  >
+                    Xóa ảnh
+                  </Button>
+                </div>
               </Form.Group>
             ))}
 
             {/* Hiển thị input cho ảnh phụ mới */}
-            {Fileanhphu.map((input, index) => (
+            {Fileanhphu.map((_, index) => (
               <Form.Group key={index} className="mb-3">
                 <Form.Label>Hình ảnh phụ {index + 1}</Form.Label>
-                <Form.Control type="file" onChange={(e) => handleDoianhphu(index, e)} />
+                <Form.Control
+                  type="file"
+                  onChange={(e) => handleDoianhphu(index, e)}
+                />
                 {hinhanhPhu[index] && (
-                  <div>
-                    <img src={URL.createObjectURL(hinhanhPhu[index])} alt={`Ảnh phụ ${index + 1}`} width="200" />
-                    <Button variant="danger" onClick={() => handleXoaanhphu(index)}>
-                      Xóa ảnh phụ
-                    </Button>
-                  </div>
+                  <img
+                    src={URL.createObjectURL(hinhanhPhu[index])}
+                    alt={`Preview ${index + 1}`}
+                    style={{ width: "200px", height: "150px", marginTop: "10px" }}
+                  />
                 )}
+                <Button
+                  variant="danger"
+                  onClick={() => handleXoaanhphu(index)}
+                >
+                  Xóa ảnh
+                </Button>
               </Form.Group>
             ))}
-
             <Button onClick={handleThemanhphu}>Thêm ảnh phụ</Button>
 
             <Button
@@ -449,8 +466,8 @@ const ModlaSanpham = ({
         setChiTiet={setChiTiet}
         handleSaveChiTiet={handleSaveChiTiet}
       />
-        {/* Modal sale */}
-        <ModlaSanphamsale
+      {/* Modal sale */}
+      <ModlaSanphamsale
         show={showSaleModal}
         handleClose={() => setShowSaleModal(false)}
         saleData={saleData}

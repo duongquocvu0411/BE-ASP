@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HWlWMDqsYQk1N2ABqfl+7f5lyc0mtv+Do9hheIGBGtQ=",
+  "Hash": "+p2BgmzuPyiHBgyWYpsO3YYI3b+6aQW0H6X7kBTcFjw=",
   "Source": "webapi",
   "BasePath": "_content/webapi",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "webapi\\wwwroot",
       "Source": "webapi",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/c42edab7-9529-45d0-b838-075451bc8847_baner-1.png",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "banners/eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\hinhanhphu\\baner-1.png",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\baner-1.png",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "hinhanhphu/baner-1.png",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\hinhanhphu\\baner-1.png"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\hinhanhphu\\best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "hinhanhphu/best-product-1.jpg",
       "AssetKind": "All",
@@ -321,10 +321,29 @@
       "OriginalItemSpec": "wwwroot\\hinhanhphu\\best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\featur-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
+      "BasePath": "_content/webapi",
+      "RelativePath": "hinhanhphu/featur-2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\hinhanhphu\\featur-2.jpg"
+    },
+    {
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg",
+      "SourceId": "webapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg",
       "AssetKind": "All",
@@ -340,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp",
       "AssetKind": "All",
@@ -359,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp",
       "AssetKind": "All",
@@ -378,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp",
       "AssetKind": "All",
@@ -397,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg",
       "AssetKind": "All",
@@ -416,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg",
       "AssetKind": "All",
@@ -435,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "icon/fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg",
       "AssetKind": "All",
@@ -454,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\423715766_404396295394922_2349762636563174932_n.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\423715766_404396295394922_2349762636563174932_n.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/423715766_404396295394922_2349762636563174932_n.jpg",
       "AssetKind": "All",
@@ -473,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\image\\423715766_404396295394922_2349762636563174932_n.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-1.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-1.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/best-product-1.jpg",
       "AssetKind": "All",
@@ -492,10 +511,10 @@
       "OriginalItemSpec": "wwwroot\\image\\best-product-1.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/best-product-2.jpg",
       "AssetKind": "All",
@@ -511,29 +530,10 @@
       "OriginalItemSpec": "wwwroot\\image\\best-product-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-3.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-4.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
-      "BasePath": "_content/webapi",
-      "RelativePath": "image/best-product-3.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\best-product-3.jpg"
-    },
-    {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-4.jpg",
-      "SourceId": "webapi",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/best-product-4.jpg",
       "AssetKind": "All",
@@ -549,10 +549,10 @@
       "OriginalItemSpec": "wwwroot\\image\\best-product-4.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-5.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-5.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/best-product-5.jpg",
       "AssetKind": "All",
@@ -568,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\image\\best-product-5.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\featur-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\featur-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/featur-2.jpg",
       "AssetKind": "All",
@@ -587,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\image\\featur-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -606,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\image\\Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\single-item.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\single-item.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "image/single-item.jpg",
       "AssetKind": "All",
@@ -625,10 +625,10 @@
       "OriginalItemSpec": "wwwroot\\image\\single-item.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670143006019693_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670143006019693_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670143006019693_tải xuống.jpg",
       "AssetKind": "All",
@@ -644,10 +644,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670143006019693_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670143380829060_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670143380829060_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670143380829060_tải xuống.jpg",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670143380829060_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -682,10 +682,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670172019057391_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670172019057391_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670172019057391_tải xuống.jpg",
       "AssetKind": "All",
@@ -701,10 +701,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670172019057391_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -720,10 +720,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670209158968617_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670209158968617_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670209158968617_tải xuống.jpg",
       "AssetKind": "All",
@@ -739,10 +739,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670209158968617_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670210275085007_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670210275085007_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670210275085007_tải xuống.jpg",
       "AssetKind": "All",
@@ -758,10 +758,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670210275085007_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670211472759704_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670211472759704_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670211472759704_tải xuống.jpg",
       "AssetKind": "All",
@@ -777,10 +777,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670211472759704_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670212788264160_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670212788264160_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670212788264160_tải xuống.jpg",
       "AssetKind": "All",
@@ -796,10 +796,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670212788264160_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670213717129323_tải xuống.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670213717129323_tải xuống.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670213717129323_tải xuống.jpg",
       "AssetKind": "All",
@@ -815,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670213717129323_tải xuống.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -834,10 +834,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -853,10 +853,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -872,10 +872,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg",
       "AssetKind": "All",
@@ -891,10 +891,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638674724294791227_featur-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638674724294791227_featur-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638674724294791227_featur-2.jpg",
       "AssetKind": "All",
@@ -910,10 +910,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638674724294791227_featur-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638675330573394177_best-product-2.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638675330573394177_best-product-2.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638675330573394177_best-product-2.jpg",
       "AssetKind": "All",
@@ -929,10 +929,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638675330573394177_best-product-2.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676439497147007_best-product-5.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676439497147007_best-product-5.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638676439497147007_best-product-5.jpg",
       "AssetKind": "All",
@@ -948,10 +948,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638676439497147007_best-product-5.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676850256617920_best-product-4.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676850256617920_best-product-4.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638676850256617920_best-product-4.jpg",
       "AssetKind": "All",
@@ -967,10 +967,10 @@
       "OriginalItemSpec": "wwwroot\\upload\\638676850256617920_best-product-4.jpg"
     },
     {
-      "Identity": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676866676548070_best-product-5.jpg",
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676866676548070_best-product-5.jpg",
       "SourceId": "webapi",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\BE\\webapi\\webapi\\wwwroot\\",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
       "BasePath": "_content/webapi",
       "RelativePath": "upload/638676866676548070_best-product-5.jpg",
       "AssetKind": "All",
@@ -984,6 +984,82 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\638676866676548070_best-product-5.jpg"
+    },
+    {
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638677426847410164_featur-2.jpg",
+      "SourceId": "webapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
+      "BasePath": "_content/webapi",
+      "RelativePath": "upload/638677426847410164_featur-2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\638677426847410164_featur-2.jpg"
+    },
+    {
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678991290628344_Screenshot (874).png",
+      "SourceId": "webapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
+      "BasePath": "_content/webapi",
+      "RelativePath": "upload/638678991290628344_Screenshot (874).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\638678991290628344_Screenshot (874).png"
+    },
+    {
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678991354362257_Screenshot (876).png",
+      "SourceId": "webapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
+      "BasePath": "_content/webapi",
+      "RelativePath": "upload/638678991354362257_Screenshot (876).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\638678991354362257_Screenshot (876).png"
+    },
+    {
+      "Identity": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678992996674363_best-product-1.jpg",
+      "SourceId": "webapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\",
+      "BasePath": "_content/webapi",
+      "RelativePath": "upload/638678992996674363_best-product-1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\638678992996674363_best-product-1.jpg"
     }
   ]
 }

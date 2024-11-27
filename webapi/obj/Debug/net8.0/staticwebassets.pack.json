@@ -1,208 +1,224 @@
 {
   "Files": [
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png",
       "PackagePath": "staticwebassets\\banners\\0f2e5b92-b5fb-4143-be0d-914832d4670c_baner-1.png"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg",
       "PackagePath": "staticwebassets\\banners\\1dc6d49b-c029-4edd-88fe-ad3662cbb20f_best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg",
       "PackagePath": "staticwebassets\\banners\\1ec90233-a18a-4d48-9f95-b4e1c5e5e1fd_best-product-6.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg",
       "PackagePath": "staticwebassets\\banners\\21a676f1-1d83-4299-87e7-f157c4dadbd9_best-product-6.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg",
       "PackagePath": "staticwebassets\\banners\\46bce39c-c4a7-4dfc-998a-e6d874b408c4_banner-fruits.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg",
       "PackagePath": "staticwebassets\\banners\\6a2c01a3-4d4a-4b0f-9f9b-ad7f978ec3bf_best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg",
       "PackagePath": "staticwebassets\\banners\\7a291924-526b-4f24-8984-c30a33bad373_best-product-5.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg",
       "PackagePath": "staticwebassets\\banners\\a7eec957-a7ff-418b-8174-918da376720b_best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg",
       "PackagePath": "staticwebassets\\banners\\a8ccf5c6-9051-4ee1-b146-3b035c7c3182_best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg",
       "PackagePath": "staticwebassets\\banners\\bcd16ec1-f858-40c5-b35b-80e29916c28f_best-product-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png",
       "PackagePath": "staticwebassets\\banners\\c42edab7-9529-45d0-b838-075451bc8847_baner-1.png"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg",
       "PackagePath": "staticwebassets\\banners\\d211f14d-b1d3-4e50-a9da-928b463a8e33_best-product-4.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg",
       "PackagePath": "staticwebassets\\banners\\ebb972ed-9d2e-4ee8-971e-a5103c2b36cf_best-product-3.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg",
       "PackagePath": "staticwebassets\\banners\\eda63a12-f83d-4c1a-885e-35274ebdc777_best-product-4.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\hinhanhphu\\baner-1.png",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\baner-1.png",
       "PackagePath": "staticwebassets\\hinhanhphu\\baner-1.png"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\hinhanhphu\\best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\best-product-1.jpg",
       "PackagePath": "staticwebassets\\hinhanhphu\\best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\hinhanhphu\\featur-2.jpg",
+      "PackagePath": "staticwebassets\\hinhanhphu\\featur-2.jpg"
+    },
+    {
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg",
       "PackagePath": "staticwebassets\\icon\\08ea96f4-166a-4f5a-9034-914e21906826_best-product-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp",
       "PackagePath": "staticwebassets\\icon\\1c768f3c-b5fd-4980-b618-f402e54e3079_0f8865dc-a9b9-4519-b52e-d666e186f11c.webp"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp",
       "PackagePath": "staticwebassets\\icon\\7fd67fb5-c3e6-4caf-9bd3-550742591148_0a287c55-8129-4909-9621-acd7a9b7979b.webp"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp",
       "PackagePath": "staticwebassets\\icon\\927b3f31-2014-4e55-bf2e-983af953841e_050430a4-aa09-4343-8455-90089a2b990f.webp"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg",
       "PackagePath": "staticwebassets\\icon\\97f40ac8-3f16-4f1c-bb98-71530c65808d_best-product-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg",
       "PackagePath": "staticwebassets\\icon\\a32973fb-6595-46d4-bc57-aa3756d5dca0_th.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg",
       "PackagePath": "staticwebassets\\icon\\fc9f3112-07cf-434a-9dd3-964d1a8d945d_best-product-6.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\423715766_404396295394922_2349762636563174932_n.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\423715766_404396295394922_2349762636563174932_n.jpg",
       "PackagePath": "staticwebassets\\image\\423715766_404396295394922_2349762636563174932_n.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\image\\Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-1.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-1.jpg",
       "PackagePath": "staticwebassets\\image\\best-product-1.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-2.jpg",
       "PackagePath": "staticwebassets\\image\\best-product-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-3.jpg",
-      "PackagePath": "staticwebassets\\image\\best-product-3.jpg"
-    },
-    {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-4.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-4.jpg",
       "PackagePath": "staticwebassets\\image\\best-product-4.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\best-product-5.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\best-product-5.jpg",
       "PackagePath": "staticwebassets\\image\\best-product-5.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\featur-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\featur-2.jpg",
       "PackagePath": "staticwebassets\\image\\featur-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\image\\single-item.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\image\\single-item.jpg",
       "PackagePath": "staticwebassets\\image\\single-item.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670143006019693_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670143006019693_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670143006019693_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670143380829060_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670143380829060_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670143380829060_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638670150885262965_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670172019057391_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670172019057391_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670172019057391_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638670175434692941_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670209158968617_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670209158968617_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670209158968617_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670210275085007_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670210275085007_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670210275085007_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670211472759704_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670211472759704_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670211472759704_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670212788264160_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670212788264160_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670212788264160_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670213717129323_tải xuống.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670213717129323_tải xuống.jpg",
       "PackagePath": "staticwebassets\\upload\\638670213717129323_tải xuống.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638670214263074942_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638670241729602623_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638671886692057536_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg",
       "PackagePath": "staticwebassets\\upload\\638672217174647227_Fron-end 4_snapshot_00.03.20.064.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638674724294791227_featur-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638674724294791227_featur-2.jpg",
       "PackagePath": "staticwebassets\\upload\\638674724294791227_featur-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638675330573394177_best-product-2.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638675330573394177_best-product-2.jpg",
       "PackagePath": "staticwebassets\\upload\\638675330573394177_best-product-2.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676439497147007_best-product-5.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676439497147007_best-product-5.jpg",
       "PackagePath": "staticwebassets\\upload\\638676439497147007_best-product-5.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676850256617920_best-product-4.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676850256617920_best-product-4.jpg",
       "PackagePath": "staticwebassets\\upload\\638676850256617920_best-product-4.jpg"
     },
     {
-      "Id": "E:\\BE\\webapi\\webapi\\wwwroot\\upload\\638676866676548070_best-product-5.jpg",
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638676866676548070_best-product-5.jpg",
       "PackagePath": "staticwebassets\\upload\\638676866676548070_best-product-5.jpg"
+    },
+    {
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638677426847410164_featur-2.jpg",
+      "PackagePath": "staticwebassets\\upload\\638677426847410164_featur-2.jpg"
+    },
+    {
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678991290628344_Screenshot (874).png",
+      "PackagePath": "staticwebassets\\upload\\638678991290628344_Screenshot (874).png"
+    },
+    {
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678991354362257_Screenshot (876).png",
+      "PackagePath": "staticwebassets\\upload\\638678991354362257_Screenshot (876).png"
+    },
+    {
+      "Id": "E:\\BE\\BE-ASP\\webapi\\wwwroot\\upload\\638678992996674363_best-product-1.jpg",
+      "PackagePath": "staticwebassets\\upload\\638678992996674363_best-product-1.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.webapi.props",

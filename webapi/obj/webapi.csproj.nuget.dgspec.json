@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\BE\\webapi\\webapi\\webapi.csproj": {}
+    "E:\\BE\\BE-ASP\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "E:\\BE\\webapi\\webapi\\webapi.csproj": {
+    "E:\\BE\\BE-ASP\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\BE\\webapi\\webapi\\webapi.csproj",
+        "projectUniqueName": "E:\\BE\\BE-ASP\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "E:\\BE\\webapi\\webapi\\webapi.csproj",
+        "projectPath": "E:\\BE\\BE-ASP\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "E:\\BE\\webapi\\webapi\\obj\\",
+        "outputPath": "E:\\BE\\BE-ASP\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",

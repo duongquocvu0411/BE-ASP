@@ -184,6 +184,12 @@
             </summary>
             <returns> Lấy sản phẩm theo danh mục {danhmucid}  </returns>
         </member>
+        <member name="M:webapi.Controllers.SanphamController.GetSanphamsByDanhMucWithoutActiveSale(System.Int32)">
+            <summary>
+            Lấy sản phẩm theo danh mục {danhmucid} nhưng không bao gồm sản phẩm có sale "Đang áp dụng"
+            </summary>
+            <returns>Danh sách sản phẩm theo danh mục nhưng không có sale "Đang áp dụng"</returns>
+        </member>
         <member name="M:webapi.Controllers.SanphamController.GetTongSanPham">
             <summary>
              lấy Tổng sản phẩm đang có trong bảng
@@ -195,6 +201,18 @@
             thêm mới hình ảnh ở chitiet sản phẩm
             </summary>
             <returns> thêm mới hình ảnh ở chitiet sản phẩm </returns>
+        </member>
+        <member name="M:webapi.Controllers.SanphamController.GetSanphamkhongsal">
+            <summary>
+            Lấy danh sách sản phẩm và sale không áp dụng hoặc không có sale
+            </summary>
+            <returns>Danh sách sản phẩm và sale không áp dụng hoặc không có sale</returns>
+        </member>
+        <member name="M:webapi.Controllers.SanphamController.GetsanphamSale">
+            <summary>
+            Lấy danh sách sản phẩm có sale "Đang áp dụng"
+            </summary>
+            <returns>Danh sách sản phẩm và sale "Đang áp dụng"</returns>
         </member>
         <member name="M:webapi.Controllers.SanphamSaleController.GetAllSales">
             <summary>

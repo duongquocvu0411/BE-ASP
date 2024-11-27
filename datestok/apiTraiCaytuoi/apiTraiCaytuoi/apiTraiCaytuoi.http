@@ -1,0 +1,6 @@
+@apiTraiCaytuoi_HostAddress = http://localhost:5252
+
+GET {{apiTraiCaytuoi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -30,6 +30,7 @@ public class AppDbContext : DbContext
     public DbSet<BannerImages> BannerImages { get; set; }
     public DbSet<Menu> Menus { get; set; }
 
+
     public DbSet<Tencuahang> Tencuahangs { get; set; }
     // Cấu hình mối quan hệ và chuyển đổi dữ liệu
     protected override void OnModelCreating(ModelBuilder modelBuilder)

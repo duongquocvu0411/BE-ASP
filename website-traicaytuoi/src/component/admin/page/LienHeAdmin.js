@@ -51,8 +51,16 @@ const LienHeAdmin = () => {
 
   // Xóa liên hệ
   const xoaLienHe = async (id) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/lienhe/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/lienhe/${id}`
+        ,
+        { 
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        }
+      );
 
       toast.success('đã xóa liên hệ thành công', {
         position: 'top-right',

@@ -19,9 +19,14 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
       name: ten, 
       trangthai: isEdit && detail ? detail.trangthai : 'không sử dụng' 
     };
-  
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     if (isEdit) {
-      axios.put(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/${detail.id}`, updatedData)
+      axios.put(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/${detail.id}`, updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        })
         .then(() => {
           toast.success("Tên cửa hàng đã được sửa thành công", {
             position: "top-right",
@@ -38,7 +43,12 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
           });
         });
     } else {
-      axios.post(`${process.env.REACT_APP_BASEURL}/api/Tencuahang`, updatedData)
+      axios.post(`${process.env.REACT_APP_BASEURL}/api/Tencuahang`, updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        })
         .then(() => {
           toast.success("Tên cửa hàng đã được thêm thành công", {
             position: "top-right",

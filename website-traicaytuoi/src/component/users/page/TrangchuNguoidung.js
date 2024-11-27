@@ -37,7 +37,7 @@ const TrangchuNguoidung = () => {
   const chiSoSanPhamDau = chiSoSanPhamCuoi - sanPhamMoiTrang;
   const sanPhamHienTai = sanPham.slice(chiSoSanPhamDau, chiSoSanPhamCuoi);
   const tongSoTrang = Math.ceil(sanPham.length / sanPhamMoiTrang);
- 
+
   // Gọi API lấy danh mục và sản phẩm
   useEffect(() => {
     laySanPham();
@@ -49,17 +49,19 @@ const TrangchuNguoidung = () => {
 
   const layBanners = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/banners`);
-      setBanners(response.data || []); // Đảm bảo banners là mảng
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/banners/getTrangthaiHien`);
+      setBanners([response.data]); // Đảm bảo banners là mảng và chứa một phần tử
     } catch (error) {
-      console.error('Lỗi khi lấy banners:', error);
-      toast.error('Không thể tải banners!', {
+      console.error('Lỗi khi lấy banner đang sử dụng:', error);
+      toast.error('Không thể tải banner đang sử dụng!', {
         position: 'top-right',
         autoClose: 3000,
       });
       setBanners([]); // Gán giá trị mặc định khi lỗi
     }
   };
+
+
 
   const layDanhMuc = async () => {
     try {
@@ -90,26 +92,26 @@ const TrangchuNguoidung = () => {
   };
 
   const laySanPham = async () => {
-  setDangtai(true);
-  try {
-    const url = danhMucDuocChon
-      ? `${process.env.REACT_APP_BASEURL}/api/Sanpham/danhmuc-khongsale/${danhMucDuocChon}`
-      : `${process.env.REACT_APP_BASEURL}/api/Sanpham/spkhongsale`;
-    const response = await axios.get(url);
+    setDangtai(true);
+    try {
+      const url = danhMucDuocChon
+        ? `${process.env.REACT_APP_BASEURL}/api/Sanpham/danhmuc-khongsale/${danhMucDuocChon}`
+        : `${process.env.REACT_APP_BASEURL}/api/Sanpham/spkhongsale`;
+      const response = await axios.get(url);
 
-    if (response.data.length === 0) {
-      // Nếu không có sản phẩm nào
-      setSanPham([]); // Đặt danh sách sản phẩm thành mảng rỗng
-    } else {
-      setSanPham(response.data || []);
+      if (response.data.length === 0) {
+        // Nếu không có sản phẩm nào
+        setSanPham([]); // Đặt danh sách sản phẩm thành mảng rỗng
+      } else {
+        setSanPham(response.data || []);
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy sản phẩm thông thường:', error);
+      setSanPham([]); // Nếu có lỗi, đặt danh sách sản phẩm thành mảng rỗng
+    } finally {
+      setDangtai(false);
     }
-  } catch (error) {
-    console.error('Lỗi khi lấy sản phẩm thông thường:', error);
-    setSanPham([]); // Nếu có lỗi, đặt danh sách sản phẩm thành mảng rỗng
-  } finally {
-    setDangtai(false);
-  }
-};
+  };
 
   const laySanPhamSale = async () => {
     setDangtai(true);
@@ -141,18 +143,27 @@ const TrangchuNguoidung = () => {
               )}
             </div>
             <div className="col-md-12 col-lg-5">
-              <div id="carouselId" className="carousel slide position-relative" data-bs-ride="carousel">
+              <div
+                id="carouselId"
+                className="carousel slide position-relative"
+                data-bs-ride="carousel"
+              >
                 <div className="carousel-inner" role="listbox">
                   {banners.length > 0 &&
                     banners[0].bannerImages.map((image, index) => (
                       <div
                         key={image.id}
-                        className={`carousel-item ${index === 0 ? "active" : ""} rounded`}
+                        className={`carousel-item ${index === 0 ? "active" : ""
+                          } rounded`}
                       >
                         <img
                           src={`${process.env.REACT_APP_BASEURL}/${image.imagePath}`}
-                          className="img-fluid w-100 h-100 rounded"
+                          className="img-fluid w-100 rounded"
                           alt="banner"
+                          style={{
+                            height: "300px",
+                            objectFit: "cover",
+                          }}
                         />
                       </div>
                     ))}
@@ -163,7 +174,10 @@ const TrangchuNguoidung = () => {
                   data-bs-target="#carouselId"
                   data-bs-slide="prev"
                 >
-                  <span className="carousel-control-prev-icon" aria-hidden="true" />
+                  <span
+                    className="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  />
                   <span className="visually-hidden">Previous</span>
                 </button>
                 <button
@@ -172,7 +186,10 @@ const TrangchuNguoidung = () => {
                   data-bs-target="#carouselId"
                   data-bs-slide="next"
                 >
-                  <span className="carousel-control-next-icon" aria-hidden="true" />
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                  />
                   <span className="visually-hidden">Next</span>
                 </button>
               </div>
@@ -180,6 +197,7 @@ const TrangchuNguoidung = () => {
           </div>
         </div>
       </div>
+
       {/* Hero End */}
       {/* Featurs Section Start */}
       <div className="container-fluid featurs py-5">
@@ -275,87 +293,87 @@ const TrangchuNguoidung = () => {
             {/* Hiển thị sản phẩm */}
             <div className="tab-content mt-4">
               <div className="tab-pane fade show p-0 active">
-              {dangtai ? (
-      <div className="text-center">
-        <Spinner animation="border" variant="primary" />
-        <p>Đang tải dữ liệu...</p>
-      </div>
-    ) : sanPhamHienTai.length > 0 ? ( // Kiểm tra có sản phẩm trong danh sách phân trang
-      <div className="row g-4">
-        {sanPhamHienTai.map((sanPham) => (
-          <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-            {/* Hiển thị thông tin sản phẩm */}
-            <div className="rounded position-relative fruite-item shadow-sm">
-              <div className="fruite-img position-relative">
-                <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                  <img
-                    src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                    className="img-fluid w-100 rounded-top"
-                    alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
-                    style={{ height: 250, objectFit: "cover" }}
-                  />
-                </Link>
-                {sanPham.trangthai === "Hết hàng" && (
-                  <div
-                    className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-                    style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
-                  >
-                    <span className="text-white small fw-bold">Hết hàng</span>
+                {dangtai ? (
+                  <div className="text-center">
+                    <Spinner animation="border" variant="primary" />
+                    <p>Đang tải dữ liệu...</p>
+                  </div>
+                ) : sanPhamHienTai.length > 0 ? ( // Kiểm tra có sản phẩm trong danh sách phân trang
+                  <div className="row g-4">
+                    {sanPhamHienTai.map((sanPham) => (
+                      <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
+                        {/* Hiển thị thông tin sản phẩm */}
+                        <div className="rounded position-relative fruite-item shadow-sm">
+                          <div className="fruite-img position-relative">
+                            <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                              <img
+                                src={sanPham.hinhanh || "/path/to/default-image.jpg"}
+                                className="img-fluid w-100 rounded-top"
+                                alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                                style={{ height: 250, objectFit: "cover" }}
+                              />
+                            </Link>
+                            {sanPham.trangthai === "Hết hàng" && (
+                              <div
+                                className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
+                                style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
+                              >
+                                <span className="text-white small fw-bold">Hết hàng</span>
+                              </div>
+                            )}
+                          </div>
+                          <div
+                            className="text-white bg-secondary px-2 py-1 rounded position-absolute"
+                            style={{ top: 10, left: 10 }}
+                          >
+                            {sanPham.danhmucsanphamName || "Danh mục không rõ"}
+                          </div>
+                          <div className="p-3 rounded-bottom">
+                            <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
+                            <h5 className="fw-bold">
+                              {sanPham.mo_ta_chung?.length > 20 ? (
+                                <>
+                                  {sanPham.mo_ta_chung.slice(0, 20)}{" ...."}
+                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                                    (Xem chi tiết)
+                                  </Link>
+                                </>
+                              ) : (
+                                <>
+                                  {sanPham.mo_ta_chung || "Không có mô tả"}{" "}
+                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+                                    (Xem chi tiết)
+                                  </Link>
+                                </>
+                              )}
+                            </h5>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <p className="text-dark fs-5 fst-italic mb-0">
+                                {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                                  minimumFractionDigits: 3,
+                                })}{" "}
+                                vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
+                              </p>
+                              {sanPham.trangthai !== "Hết hàng" && (
+                                <button
+                                  onClick={() => addToCart(sanPham)}
+                                  className="btn border border-secondary rounded-pill px-3 text-primary"
+                                >
+                                  <i className="fa fa-shopping-bag me-2 text-primary" />
+                                  Thêm vào giỏ
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center mt-4">
+                    <p>Danh mục này không có sản phẩm nào</p>
                   </div>
                 )}
-              </div>
-              <div
-                className="text-white bg-secondary px-2 py-1 rounded position-absolute"
-                style={{ top: 10, left: 10 }}
-              >
-                {sanPham.danhmucsanphamName || "Danh mục không rõ"}
-              </div>
-              <div className="p-3 rounded-bottom">
-                <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
-                <h5 className="fw-bold">
-                  {sanPham.moTaChung?.length > 10 ? (
-                    <>
-                      {sanPham.moTaChung.slice(0, 10)}{" "}
-                      <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                        (Xem chi tiết)
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      {sanPham.moTaChung || "Không có mô tả"}{" "}
-                      <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                        (Xem chi tiết)
-                      </Link>
-                    </>
-                  )}
-                </h5>
-                <div className="d-flex justify-content-between align-items-center">
-                  <p className="text-dark fs-5 fst-italic mb-0">
-                    {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
-                      minimumFractionDigits: 3,
-                    })}{" "}
-                    vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
-                  </p>
-                  {sanPham.trangthai !== "Hết hàng" && (
-                    <button
-                      onClick={() => addToCart(sanPham)}
-                      className="btn border border-secondary rounded-pill px-3 text-primary"
-                    >
-                      <i className="fa fa-shopping-bag me-2 text-primary" />
-                      Thêm vào giỏ
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <div className="text-center mt-4">
-        <p>Danh mục này không có sản phẩm nào</p>
-      </div>
-    )}
                 {/* Phân trang cho sản phẩm thông thường */}
                 <div className="d-flex justify-content-center mt-4">
                   <ul className="pagination pagination-sm m-0">
@@ -423,16 +441,16 @@ const TrangchuNguoidung = () => {
                             <div className="p-3">
                               <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
                               <h5 className="fw-bold">
-                                {sanPham.moTaChung?.length > 10 ? (
+                                {sanPham.mo_ta_chung?.length > 20 ? (
                                   <>
-                                    {sanPham.moTaChung.slice(0, 10)}{" "}
+                                    {sanPham.mo_ta_chung.slice(0, 20)}{" ..."}
                                     <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                       (Xem chi tiết)
                                     </Link>
                                   </>
                                 ) : (
                                   <>
-                                    {sanPham.moTaChung || "Không có mô tả"}{" "}
+                                    {sanPham.mo_ta_chung || "Không có mô tả"}{" "}
                                     <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
                                       (Xem chi tiết)
                                     </Link>

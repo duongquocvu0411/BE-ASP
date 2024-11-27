@@ -62,8 +62,14 @@ const Menu = () => {
   };
 
   const deleteMenu = async (id, name) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/menu/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/menu/${id}` ,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
       toast.success(`Xóa menu "${name}" thành công`, {
         position: 'top-right',
         autoClose: 3000,

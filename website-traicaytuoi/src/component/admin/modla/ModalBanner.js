@@ -8,17 +8,17 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
   const [phude, setPhude] = useState(banner?.phude || '');
   const [hinhanhs, setHinhanhs] = useState([]);
 
+  // Set initial state when editing or adding a new banner
   useEffect(() => {
     if (isEdit && banner) {
       setTieude(banner.tieude || '');
       setPhude(banner.phude || '');
       const images = banner.bannerImages?.map((img) => ({
-        id: img.id, // Include image ID for later use
-        imagePath: img.imagePath, // Store image path as well
+        id: img.id, 
+        imagePath: img.imagePath, 
       })) || [];
-      setHinhanhs(images); // Update state with both id and path
+      setHinhanhs(images); 
     } else {
-      // Reset state when adding new banner
       setTieude('');
       setPhude('');
       setHinhanhs([]);
@@ -27,55 +27,74 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
 
   // Add a new file input field
   const handleAddFileInput = () => {
-    setHinhanhs([...hinhanhs, null]); // Add an empty input
+    setHinhanhs([...hinhanhs, null]);
   };
 
-  // Handle file change for the specific input field
+  // Handle file change for specific input
   const handleFileChange = (index, file) => {
     const updatedHinhanhs = [...hinhanhs];
-    updatedHinhanhs[index] = file; // Update file at index
+    updatedHinhanhs[index] = file; 
     setHinhanhs(updatedHinhanhs);
   };
 
   // Remove a file input field
   const handleRemoveFileInput = (index) => {
-    const updatedHinhanhs = hinhanhs.filter((_, i) => i !== index); // Remove file input at index
+    const updatedHinhanhs = hinhanhs.filter((_, i) => i !== index);
     setHinhanhs(updatedHinhanhs);
   };
 
-  // Handle saving or updating the banner
+  // Handle save or update action
   const handleSave = async () => {
+    const token = localStorage.getItem('adminToken');
     const formData = new FormData();
     formData.append('tieude', tieude);
     formData.append('phude', phude);
 
     hinhanhs.forEach((file) => {
-      if (file) formData.append('hinhanhs', file); // Append each image
+      if (file) formData.append('hinhanhs', file);
     });
 
     try {
       if (isEdit) {
-        await axios.put(`${process.env.REACT_APP_BASEURL}/api/banners/${banner.id}`, formData);
+        await axios.put(`${process.env.REACT_APP_BASEURL}/api/banners/${banner.id}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         toast.success('Cập nhật banner thành công!', { position: 'top-right', autoClose: 3000 });
       } else {
-        await axios.post(`${process.env.REACT_APP_BASEURL}/api/banners`, formData);
+        await axios.post(`${process.env.REACT_APP_BASEURL}/api/banners`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         toast.success('Thêm banner mới thành công!', { position: 'top-right', autoClose: 3000 });
       }
       fetchBanners();
       handleClose();
+      ResetForm();
     } catch (error) {
       console.error('Lỗi khi lưu banner:', error);
       toast.error('Không thể lưu banner!', { position: 'top-right', autoClose: 3000 });
     }
   };
 
-  // Remove a file from the UI and backend
+  const ResetForm = () => {
+    setHinhanhs([]);
+    setPhude('');
+    setTieude('');
+  };
+
+  // Handle removing a file from the UI and backend
   const handleRemoveFile = async (index) => {
+    const token = localStorage.getItem('adminToken');
     if (hinhanhs[index]?.id) {
       try {
-        // Make a DELETE request to remove the image from the backend using image id
-        await axios.delete(`${process.env.REACT_APP_BASEURL}/api/banners/DeleteImage/${hinhanhs[index].id}`);
-        // If successful, remove the image from the state (UI)
+        await axios.delete(`${process.env.REACT_APP_BASEURL}/api/banners/DeleteImage/${hinhanhs[index].id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const updatedHinhanhs = hinhanhs.filter((_, i) => i !== index);
         setHinhanhs(updatedHinhanhs);
         toast.success('Xóa hình ảnh thành công!', { position: 'top-right', autoClose: 3000 });
@@ -84,7 +103,6 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
         toast.error('Không thể xóa hình ảnh!', { position: 'top-right', autoClose: 3000 });
       }
     } else {
-      // If the image is a new one and hasn't been uploaded yet, just remove it from the UI state
       const updatedHinhanhs = hinhanhs.filter((_, i) => i !== index);
       setHinhanhs(updatedHinhanhs);
     }
@@ -120,25 +138,18 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
             {hinhanhs.map((file, index) => (
               <div key={index} className="d-flex align-items-center mb-2">
                 {file?.imagePath ? (
-                  <>
-                    <img
-                      src={`${process.env.REACT_APP_BASEURL}/${file.imagePath}`}
-                      alt="Banner"
-                      style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-                    />
-                  
-                  </>
+                  <img
+                    src={`${process.env.REACT_APP_BASEURL}/${file.imagePath}`}
+                    alt="Banner"
+                    style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
+                  />
                 ) : (
                   <Form.Control
                     type="file"
                     onChange={(e) => handleFileChange(index, e.target.files[0])}
                   />
                 )}
-                <Button
-                  variant="danger"
-                  className="ms-2"
-                  onClick={() => handleRemoveFile(index)} // Handle removing file
-                >
+                <Button variant="danger" className="ms-2" onClick={() => handleRemoveFile(index)}>
                   Xóa
                 </Button>
               </div>

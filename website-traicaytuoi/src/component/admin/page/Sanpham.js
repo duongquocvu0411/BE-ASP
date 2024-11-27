@@ -125,9 +125,14 @@ const tongSoTrang = Array.isArray(danhSachSanPham)
   // Hàm xóa sản phẩm
   const xoaSanPham = async (id) => {
     const SanphamXoa = danhSachSanPham.find((sanpham) => sanpham.id === id);
-
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/sanpham/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/sanpham/${id}`,
+        { 
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
 
       toast.success(`Sản phẩm ${SanphamXoa.tieude} đã được xóa thành công!`, {
         position: 'top-right',
@@ -281,8 +286,8 @@ const tongSoTrang = Array.isArray(danhSachSanPham)
                               </div>
                             </td>
                             <td>{sanPham.tieude}</td>
-                            <td>{sanPham.giatien} vnđ</td>
-                            <td>{sanPham.donViTinh}</td>
+                            <td> {parseFloat(sanPham.giatien).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "} vnđ</td>
+                            <td>{sanPham.don_vi_tinh}</td>
                             <td>
                               <Button
                                 variant="btn btn-primary"

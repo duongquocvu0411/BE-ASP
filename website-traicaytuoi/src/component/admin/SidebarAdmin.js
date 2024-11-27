@@ -50,6 +50,12 @@ const SiderbarAdmin = () => {
             <span> Banners</span>
           </Link>
         </li>
+        <li className={`nav-item ${vitriRoute.pathname === '/admin/tenfooter' ? 'active' : ''}`}>
+          <Link className="nav-link" to="/admin/tenfooter">
+            <i className="fas fa-fw fa-tachometer-alt"></i>
+            <span> Tenfooter</span>
+          </Link>
+        </li>
        
         {/* Divider */}
         <hr className="sidebar-divider" />

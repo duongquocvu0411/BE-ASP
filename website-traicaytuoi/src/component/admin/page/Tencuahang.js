@@ -43,8 +43,14 @@ const Tencuahang = () => {
   };
 
   const xoaTencuahang = async (id) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
       toast.success('Xóa tên cửa hàng thành công', {
         position: 'top-right',
         autoClose: 3000,
@@ -62,23 +68,60 @@ const Tencuahang = () => {
   };
 
   // Hàm chọn tên cửa hàng làm cửa hàng đang sử dụng
+  // const suDungTencuahang = async (id) => {
+  //   const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+  //   try {
+  //     await axios.post(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/setTencuahang/${id}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`, // Thêm token vào header
+  //         },
+  //       });
+  //     toast.success('Cửa hàng đã được đánh dấu là đang sử dụng', {
+  //       position: 'top-right',
+  //       autoClose: 3000,
+  //     });
+  //     layDanhSachTencuahang(); // Lấy lại danh sách sau khi sử dụng thành công
+  //   } catch (error) {
+  //     console.log('Có lỗi khi sử dụng tên cửa hàng', error);
+  //     toast.error('Có lỗi khi sử dụng tên cửa hàng', {
+  //       position: 'top-right',
+  //       autoClose: 3000,
+  //     });
+  //   }
+  // };
   const suDungTencuahang = async (id) => {
+    const token = localStorage.getItem("adminToken"); // Lấy token từ localStorage
     try {
-      await axios.post(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/setTencuahang/${id}`);
-      toast.success('Cửa hàng đã được đánh dấu là đang sử dụng', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
-      layDanhSachTencuahang(); // Lấy lại danh sách sau khi sử dụng thành công
-    } catch (error) {
-      console.log('Có lỗi khi sử dụng tên cửa hàng', error);
-      toast.error('Có lỗi khi sử dụng tên cửa hàng', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
-    }
-  };
+        // Gọi API với token trong headers
+        await axios.post(
+            `${process.env.REACT_APP_BASEURL}/api/Tencuahang/setTencuahang/${id}`,
+            {}, // Body rỗng vì không có dữ liệu gửi đi
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header
+                },
+            }
+        );
 
+        // Hiển thị thông báo thành công
+        toast.success("Cửa hàng đã được đánh dấu là đang sử dụng", {
+            position: "top-right",
+            autoClose: 3000,
+        });
+
+        // Lấy lại danh sách cửa hàng sau khi cập nhật
+        layDanhSachTencuahang();
+    } catch (error) {
+        console.error("Có lỗi khi sử dụng tên cửa hàng", error);
+
+        // Hiển thị thông báo lỗi
+        toast.error("Có lỗi khi sử dụng tên cửa hàng", {
+            position: "top-right",
+            autoClose: 3000,
+        });
+    }
+};
   return (
     <div id="wrapper">
       <SiderbarAdmin />

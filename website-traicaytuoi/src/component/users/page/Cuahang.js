@@ -11,6 +11,7 @@ import Countdown from "react-countdown";
 const Cuahang = () => {
   const [danhMuc, setDanhMuc] = useState([]);
   const [sanPham, setSanPham] = useState([]);
+  const [sanPhamSale, setSanPhamSale] = useState([]);
   const [danhMucDuocChon, setDanhMucDuocChon] = useState("");
   const { addToCart } = useContext(CartContext);
   const [dangtai, setDangtai] = useState(false);
@@ -20,8 +21,12 @@ const Cuahang = () => {
 
   useEffect(() => {
     fetchDanhMuc();
-    fetchSanPham(); // Lấy sản phẩm mặc định
-  }, [danhMucDuocChon, dangXemSanPhamSale]);
+    if (!dangXemSanPhamSale) {
+      laySanPham(); // Lấy sản phẩm mặc định
+    } else {
+      laySanPhamSale(); // Lấy sản phẩm sale khi đang xem sản phẩm sale
+    }
+  }, [danhMucDuocChon, dangXemSanPhamSale, trangHienTai]);
 
   const fetchDanhMuc = async () => {
     try {
@@ -32,27 +37,36 @@ const Cuahang = () => {
     }
   };
 
-  const fetchSanPham = async () => {
+  const laySanPham = async () => {
     setDangtai(true);
     try {
-      const baseUrl = dangXemSanPhamSale
-        ? `${process.env.REACT_APP_BASEURL}/api/Sanpham/spcosale`
-        : `${process.env.REACT_APP_BASEURL}/api/Sanpham/spkhongsale`;
-
       const url = danhMucDuocChon
-        ? `${baseUrl}/danhmuc-${dangXemSanPhamSale ? "sale" : "khongsale"}/${danhMucDuocChon}`
-        : baseUrl;
-
+        ? `${process.env.REACT_APP_BASEURL}/api/Sanpham/danhmuc-khongsale/${danhMucDuocChon}`
+        : `${process.env.REACT_APP_BASEURL}/api/Sanpham/spkhongsale`;
       const response = await axios.get(url);
-
-      if (Array.isArray(response.data)) {
-        setSanPham(response.data);
+  
+      if (response.data.length === 0) {
+        // Nếu không có sản phẩm nào
+        setSanPham([]); // Đặt danh sách sản phẩm thành mảng rỗng
       } else {
-        setSanPham([]);
+        setSanPham(response.data || []);
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
-      setSanPham([]);
+      console.error('Lỗi khi lấy sản phẩm thông thường:', error);
+      setSanPham([]); // Nếu có lỗi, đặt danh sách sản phẩm thành mảng rỗng
+    } finally {
+      setDangtai(false);
+    }
+  };
+  
+  const laySanPhamSale = async () => {
+    setDangtai(true);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/Sanpham/spcosale`);
+      setSanPhamSale(response.data || []);
+    } catch (error) {
+      console.error('Lỗi khi lấy sản phẩm khuyến mãi:', error);
+      toast.error('Không thể tải sản phẩm khuyến mãi!', { position: 'top-right', autoClose: 3000 });
     } finally {
       setDangtai(false);
     }
@@ -60,8 +74,8 @@ const Cuahang = () => {
 
   const indexOfLastProduct = trangHienTai * sanPhamMoiTrang;
   const indexOfFirstProduct = indexOfLastProduct - sanPhamMoiTrang;
-  const sanPhamHienTai = sanPham.slice(indexOfFirstProduct, indexOfLastProduct);
-  const tongSoTrang = Math.ceil(sanPham.length / sanPhamMoiTrang);
+  const sanPhamHienTai = dangXemSanPhamSale ? sanPhamSale : sanPham;
+  const tongSoTrang = Math.ceil(sanPhamHienTai.length / sanPhamMoiTrang);
   const thayDoiTrang = (soTrang) => setTrangHienTai(soTrang);
 
   return (
@@ -136,7 +150,7 @@ const Cuahang = () => {
                   <Spinner animation="border" variant="primary" />
                   <p>Đang tải dữ liệu...</p>
                 </div>
-              ) : sanPham.length > 0 ? (
+              ) : sanPhamHienTai.length > 0 ? (
                 <div className="row g-4">
                   {sanPhamHienTai.map((sanPham) => {
                     const activeSale = sanPham.sanphamSales?.find(

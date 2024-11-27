@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Footerusers = () => {
   const [chiTietDiaChi, setChiTietDiaChi] = useState({ diachi: '', email: '', sdt: '' });
-
+  const [tenFooter, setTenFooter] = useState({ tieude: "", phude: "", footerIMG: [] });
   useEffect(() => {
     const fetchCurrentDiaChi = async () => {
       try {
@@ -22,7 +22,24 @@ const Footerusers = () => {
         console.log('Lỗi khi lấy thông tin từ API:', err);
       }
     };
-  
+    const fetchTenFooter = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/TenFooter`);
+        if (response.data && response.data.length > 0) {
+          setTenFooter({
+            tieude: response.data[0].tieude,
+            phude: response.data[0].phude,
+            footerIMG: response.data[0].footerIMG,
+          });
+        } else {
+          console.log("Không có dữ liệu TenFooter");
+        }
+      } catch (err) {
+        console.log("Lỗi khi lấy thông tin từ API TenFooter:", err);
+      }
+    };
+    fetchTenFooter();
+
     fetchCurrentDiaChi();
   }, []);
 
@@ -35,16 +52,41 @@ const Footerusers = () => {
             <div className="row g-4">
               <div className="col-lg-3">
                 <span className="title">
-                  <p className="text-primary mb-0 h1 ">Trái cây</p>
-                  <p className="text-secondary mb-0 h4">Sản phẩm tươi</p>
+                  <p className="text-primary mb-0 h1">{tenFooter.tieude || "Trái cây"}</p>
+                  <p className="text-secondary mb-0 h4">{tenFooter.phude || "Sản phẩm tươi"}</p>
                 </span>
               </div>
               <div className="col-lg-3">
                 <div className="d-flex justify-content-end pt-3">
-                  <Link className="btn btn-outline-secondary me-2 btn-md-square rounded-circle" to="/"><i className="fab fa-twitter" /></Link>
-                  <Link className="btn btn-outline-secondary me-2 btn-md-square rounded-circle" to="/"><i className="fab fa-facebook-f" /></Link>
-                  <Link className="btn btn-outline-secondary me-2 btn-md-square rounded-circle" to="/"><i className="fab fa-youtube" /></Link>
-                  <Link className="btn btn-outline-secondary btn-md-square rounded-circle" to="/"><i className="fab fa-linkedin-in" /></Link>
+                  {tenFooter.footerIMG.map((img, index) => (
+                    <Link
+                      key={index}
+                      className="btn btn-outline-secondary me-2 btn-md-square rounded-circle d-flex align-items-center justify-content-center"
+                      to="#"
+                      onClick={() => window.open(img.link, "_blank")}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        overflow: "hidden",
+                      
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Hiệu ứng đổ bóng
+                        transition: "transform 0.3s ease", // Hiệu ứng hover
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                    >
+                      <img
+                        src={`${process.env.REACT_APP_BASEURL}${img.imagePath}`}
+                        alt={`Social Icon ${index}`}
+                        style={{
+                          width: "200px",
+                          height: "55px",
+                          objectFit: "cover",
+                          borderRadius: "100%",
+                        }}
+                      />
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
@@ -54,7 +96,7 @@ const Footerusers = () => {
               <div className="footer-item">
                 <h4 className="text-light mb-3">Tại sao bạn chọn chúng tôi?</h4>
                 <p className="mb-4">
-                  Chúng tôi cung cấp các loại trái cây và rau củ tươi sạch, chất lượng cao, được chọn lọc kỹ lưỡng. 
+                  Chúng tôi cung cấp các loại trái cây và rau củ tươi sạch, chất lượng cao, được chọn lọc kỹ lưỡng.
                   Đảm bảo an toàn thực phẩm và nguồn gốc rõ ràng, đem đến bữa ăn bổ dưỡng cho gia đình bạn.
                 </p>
                 <span className="btn border-secondary py-2 px-4 rounded-pill text-primary">Xem thêm</span>
@@ -127,34 +169,34 @@ const Footerusers = () => {
       {/* Footer End */}
       {/* Copyright Start */}
       <div className="container-fluid bg-dark text-light py-4" style={{ background: "linear-gradient(90deg, rgba(33,37,41,1) 0%, rgba(52,58,64,1) 100%)" }}>
-  <div className="container">
-    <div className="row align-items-center">
-      {/* Phần thông tin bản quyền */}
-      <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-        <span className="text-light">
-          <i className="fas fa-copyright text-light me-2" />
-          <Link to="/" className="text-decoration-none text-primary fw-bold">
-            Trái Cây Tươi
-          </Link> - Tất cả các quyền được bảo hộ.
-        </span>
-      </div>
+        <div className="container">
+          <div className="row align-items-center">
+            {/* Phần thông tin bản quyền */}
+            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              <span className="text-light">
+                <i className="fas fa-copyright text-light me-2" />
+                <Link to="/" className="text-decoration-none text-primary fw-bold">
+                  Trái Cây Tươi
+                </Link> - Tất cả các quyền được bảo hộ.
+              </span>
+            </div>
 
-      {/* Phần thông tin người thiết kế và phân phối */}
-      <div className="col-md-6 text-center text-md-end">
-        <p className="mb-0 text-white">
-          Thiết kế bởi 
-          <Link className="text-decoration-none text-primary fw-bold mx-1" to="https://htmlcodex.com">
-            HTML Codex
-          </Link>
-          và phân phối bởi 
-          <Link className="text-decoration-none text-primary fw-bold ms-1" to="https://themewagon.com">
-            ThemeWagon
-          </Link>.
-        </p>
+            {/* Phần thông tin người thiết kế và phân phối */}
+            <div className="col-md-6 text-center text-md-end">
+              <p className="mb-0 text-white">
+                Thiết kế bởi
+                <Link className="text-decoration-none text-primary fw-bold mx-1" to="https://htmlcodex.com">
+                  HTML Codex
+                </Link>
+                và phân phối bởi
+                <Link className="text-decoration-none text-primary fw-bold ms-1" to="https://themewagon.com">
+                  ThemeWagon
+                </Link>.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       {/* Copyright End */}
     </>

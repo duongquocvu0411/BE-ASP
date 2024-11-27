@@ -147,20 +147,25 @@ const CuahangChitiet = () => {
                   <div className="col-lg-6">
                     <div className="border rounded">
                       <img
-                        src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                        className="img-fluid rounded"
-                        alt={sanPham.tieude || "Ảnh sản phẩm"}
+                        src={sanPham.hinhanh}
+                        className="img-fluid w-100 rounded"
+                       
+                        style={{
+                          height: "300px", 
+                          objectFit: "cover", 
+                        }}
+                        alt={sanPham.tieude}
                         onClick={() => setLargeImage(sanPham.hinhanh)} // Hiển thị trong lightbox khi click
                       />
                     </div>
                     <div className="mt-3">
                       <h5>Hình ảnh khác của sản phẩm:</h5>
-                       <div className="d-flex flex-wrap">
+                      <div className="d-flex flex-wrap">
                         {hinhanhPhu.length > 0 ? (
                           hinhanhPhu.map((img, index) => (
                             <img
                               key={index}
-                              src={img.hinhanh || "/path/to/default-thumbnail.jpg"}
+                              src={img.hinhanh}
                               className="img-thumbnail me-2"
                               alt={`Hình ảnh phụ ${index + 1}`}
                               style={{ width: "100px", height: "100px", cursor: "pointer" }}
@@ -176,7 +181,7 @@ const CuahangChitiet = () => {
                   </div>
                   <div className="col-lg-6">
                     <h4 className="fw-bold mb-3">{sanPham.tieude}</h4>
-                    <p className="mb-3">Danh Mục: {sanPham.danhmucsanphamName}</p>
+                    <p className="mb-3">Danh Mục: {sanPham.danhmucsanpham.name}</p>
                     {isSaleActive ? (
                       <div>
                         <p className="text-muted mb-2" style={{ textDecoration: "line-through" }}>
@@ -245,39 +250,39 @@ const CuahangChitiet = () => {
 
             {/* Hiển thị chi tiết sản phẩm */}
             {tab === "chiTiet" && (
-  <div className="container border p-4 rounded">
-    <h4 className="fw-bold">Chi Tiết Sản Phẩm</h4>
-    {chiTiet && Object.values(chiTiet).some((value) => value) ? (
-      <>
-        <p><strong>Mô tả chung:</strong> {chiTiet.mo_ta_chung || 'Không có thông tin'}</p>
-        <p><strong>Hình dáng:</strong> {chiTiet.hinh_dang || 'Không có thông tin'}</p>
-        <p><strong>Công dụng:</strong> {chiTiet.cong_dung || 'Không có thông tin'}</p>
-        <p><strong>Xuất xứ:</strong> {chiTiet.xuat_xu || 'Không có thông tin'}</p>
-        <p><strong>Khối lượng:</strong> {chiTiet.khoi_luong || 'Không có thông tin'}</p>
-        <p><strong>Bảo quản:</strong> {chiTiet.bao_quan || 'Không có thông tin'}</p>
-        <p><strong>Thành phần dinh dưỡng:</strong> {chiTiet.thanh_phan_dinh_duong || 'Không có thông tin'}</p>
-        <p><strong>Ngày thu hoạch:</strong> {chiTiet.ngay_thu_hoach || 'Không có thông tin'}</p>
-        <p><strong>Hương vị:</strong> {chiTiet.huong_vi || 'Không có thông tin'}</p>
-        <p><strong>Nồng độ đường:</strong> {chiTiet.nong_do_duong || 'Không có thông tin'}</p>
-      </>
-    ) : (
-      <p>Không có chi tiết sản phẩm.</p>
-    )}
-  </div>
-)}
+              <div className="container border p-4 rounded">
+                <h4 className="fw-bold">Chi Tiết Sản Phẩm</h4>
+                {chiTiet && Object.values(chiTiet).some((value) => value) ? (
+                  <>
+                    <p><strong>Mô tả chung:</strong> {chiTiet.mo_ta_chung || 'Không có thông tin'}</p>
+                    <p><strong>Hình dáng:</strong> {chiTiet.hinh_dang || 'Không có thông tin'}</p>
+                    <p><strong>Công dụng:</strong> {chiTiet.cong_dung || 'Không có thông tin'}</p>
+                    <p><strong>Xuất xứ:</strong> {chiTiet.xuat_xu || 'Không có thông tin'}</p>
+                    <p><strong>Khối lượng:</strong> {chiTiet.khoi_luong || 'Không có thông tin'}</p>
+                    <p><strong>Bảo quản:</strong> {chiTiet.bao_quan || 'Không có thông tin'}</p>
+                    <p><strong>Thành phần dinh dưỡng:</strong> {chiTiet.thanh_phan_dinh_duong || 'Không có thông tin'}</p>
+                    <p><strong>Ngày thu hoạch:</strong> {chiTiet.ngay_thu_hoach || 'Không có thông tin'}</p>
+                    <p><strong>Hương vị:</strong> {chiTiet.huong_vi || 'Không có thông tin'}</p>
+                    <p><strong>Nồng độ đường:</strong> {chiTiet.nong_do_duong || 'Không có thông tin'}</p>
+                  </>
+                ) : (
+                  <p>Không có chi tiết sản phẩm.</p>
+                )}
+              </div>
+            )}
 
-          
-           {/* Hiển thị bài viết */}
-{tab === "baiViet" && (
-  <div className="container border p-4 rounded">
-    <h4 className="fw-bold">Bài Viết Đánh Giá</h4>
-    {chiTiet.bai_viet ? (
-      <div dangerouslySetInnerHTML={{ __html: chiTiet.bai_viet }} />
-    ) : (
-      <p>Sản phẩm không có bài viết</p>
-    )}
-  </div>
-)}  
+
+            {/* Hiển thị bài viết */}
+            {tab === "baiViet" && (
+              <div className="container border p-4 rounded">
+                <h4 className="fw-bold">Bài Viết Đánh Giá</h4>
+                {chiTiet.bai_viet ? (
+                  <div dangerouslySetInnerHTML={{ __html: chiTiet.bai_viet }} />
+                ) : (
+                  <p>Sản phẩm không có bài viết</p>
+                )}
+              </div>
+            )}
 
             {/* Hiển thị danh sách đánh giá */}
             {tab === "danhGia" && (

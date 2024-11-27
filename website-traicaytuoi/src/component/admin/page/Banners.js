@@ -66,8 +66,14 @@ const Banners = () => {
   };
 
   const xoaBanner = async (id, tieude) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/banners/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/banners/${id}`,
+        { 
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
       toast.success(`Xóa banner "${tieude}" thành công!`, {
         position: 'top-right',
         autoClose: 3000,
@@ -82,7 +88,38 @@ const Banners = () => {
       });
     }
   };
+  const suDungBanners = async (id) => {
+    const token = localStorage.getItem("adminToken"); // Lấy token từ localStorage
+    try {
+        // Gọi API với token trong headers
+        await axios.post(
+            `${process.env.REACT_APP_BASEURL}/api/Banners/setTrangthai/${id}`,
+            {}, // Body rỗng vì không có dữ liệu gửi đi
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header
+                },
+            }
+        );
 
+        // Hiển thị thông báo thành công
+        toast.success("Cửa hàng đã được đánh dấu là đang sử dụng", {
+            position: "top-right",
+            autoClose: 3000,
+        });
+
+        // Lấy lại danh sách cửa hàng sau khi cập nhật
+        layDanhSachBanners();
+    } catch (error) {
+        console.error("Có lỗi khi sử dụng tên cửa hàng", error);
+
+        // Hiển thị thông báo lỗi
+        toast.error("Có lỗi khi sử dụng tên cửa hàng", {
+            position: "top-right",
+            autoClose: 3000,
+        });
+    }
+};
   return (
     <div id="wrapper">
       <SiderbarAdmin />
@@ -181,6 +218,15 @@ const Banners = () => {
                             >
                               <i className="fas fa-trash"></i>
                             </Button>
+                            {banner.trangthai !== 'đang sử dụng' && (
+                                <Button
+                                  variant="success"
+                                  onClick={() => suDungBanners(banner.id)}
+                                  className="btn btn-sm btn-success"
+                                >
+                                  <i className="fas fa-check"></i> Sử dụng
+                                </Button>
+                              )}
                           </td>
                         </tr>
                       ))}

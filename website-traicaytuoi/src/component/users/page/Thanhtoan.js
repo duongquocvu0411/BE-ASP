@@ -186,7 +186,7 @@ const Thanhtoan = () => {
                                   )}
                                   {giaHienTai.toLocaleString("vi-VN", { minimumFractionDigits: 0 })} VND
                                 </td>
-                                <td>{sanPham.soLuong}</td>
+                                <td>{sanPham.soLuong}/{sanPham.don_vi_tinh}</td>
                                 <td>
                                   {(giaHienTai * sanPham.soLuong).toLocaleString("vi-VN", { minimumFractionDigits: 0 })} VND
                                 </td>

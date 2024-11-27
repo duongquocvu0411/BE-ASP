@@ -24,6 +24,7 @@ import Dactrung from "./component/admin/page/Dactrung";
 import Banners from "./component/admin/page/Banners";
 import Tencuahang from "./component/admin/page/Tencuahang";
 import Menu from "./component/admin/page/Menu";
+import TenFooterAdmin from "./component/admin/page/TenFooterAdmin";
 function App() {
   return (
 
@@ -51,6 +52,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Tencuahang />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/admin/tenfooter"
+              element={
+                <ProtectedRoute>
+                  <TenFooterAdmin />
                 </ProtectedRoute>
               }
             />

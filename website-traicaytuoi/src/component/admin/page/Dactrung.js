@@ -63,8 +63,14 @@ const Dactrung = () => {
   };
 
   const xoaDactrung = async (id, tieude) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/dactrung/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/dactrung/${id}` ,
+        { 
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
       toast.success(`Đã xóa đặc trưng "${tieude}" thành công!`, {
         position: 'top-right',
         autoClose: 3000,

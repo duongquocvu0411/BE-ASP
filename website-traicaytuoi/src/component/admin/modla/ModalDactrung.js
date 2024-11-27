@@ -36,43 +36,54 @@ const ModalDactrung = ({ show, handleClose, isEdit, dactrung, fetchDactrungs }) 
     formData.append("thutuhienthi", thutuhienthi);
     formData.append("icon", icon); // Tên icon class
     if (iconFile) {
-      formData.append("iconFile", iconFile); // File ảnh biểu tượng
+        formData.append("iconFile", iconFile); // File ảnh biểu tượng
     }
 
     try {
-      if (isEdit) {
-        // PUT: Cập nhật đặc trưng
-        await axios.put(
-          `${process.env.REACT_APP_BASEURL}/api/dactrung/${dactrung.id}`,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
-        );
-        toast.success("Đã cập nhật đặc trưng thành công!", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      } else {
-        // POST: Thêm mới đặc trưng
-        await axios.post(`${process.env.REACT_APP_BASEURL}/api/dactrung`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        toast.success("Đã thêm đặc trưng thành công!", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      }
+        // Lấy token từ localStorage
+        const token = localStorage.getItem("adminToken");
 
-      fetchDactrungs(); // Làm mới danh sách đặc trưng
-      handleClose(); // Đóng modal
-      resetFrom();
+        if (isEdit) {
+            // PUT: Cập nhật đặc trưng
+            await axios.put(
+                `${process.env.REACT_APP_BASEURL}/api/dactrung/${dactrung.id}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: `Bearer ${token}`, // Thêm token vào header
+                    },
+                }
+            );
+            toast.success("Đã cập nhật đặc trưng thành công!", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        } else {
+            // POST: Thêm mới đặc trưng
+            await axios.post(`${process.env.REACT_APP_BASEURL}/api/dactrung`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`, // Thêm token vào header
+                },
+            });
+            toast.success("Đã thêm đặc trưng thành công!", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        }
+
+        fetchDactrungs(); // Làm mới danh sách đặc trưng
+        handleClose(); // Đóng modal
+        resetFrom();
     } catch (error) {
-      console.error("Có lỗi xảy ra:", error);
-      toast.error("Có lỗi xảy ra khi xử lý đặc trưng!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+        console.error("Có lỗi xảy ra:", error);
+        toast.error("Có lỗi xảy ra khi xử lý đặc trưng!", {
+            position: "top-right",
+            autoClose: 3000,
+        });
     }
-  };
+};
 
   const resetFrom = () => {
     setIcon("");

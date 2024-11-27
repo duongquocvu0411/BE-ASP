@@ -25,12 +25,12 @@ const ModlaAdddanhsachsanpham = ({ show, handleClose, isEdit, danhmuc, fetchdanh
         await axios.put(
           `${process.env.REACT_APP_BASEURL}/api/danhmucsanpham/${danhmuc.id}`,
           { name }
-          // ,
-          // {
-          //   headers: {
-          //     Authorization: `Bearer ${token}`, // Thêm token vào header
-          //   },
-          // }
+          ,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Thêm token vào header
+            },
+          }
         );
 
         toast.success(`Danh mục ${name} đã được cập nhật thành công!`, {
@@ -46,7 +46,8 @@ const ModlaAdddanhsachsanpham = ({ show, handleClose, isEdit, danhmuc, fetchdanh
         // Thêm mới danh mục
         await axios.post(
           `${process.env.REACT_APP_BASEURL}/api/danhmucsanpham`,
-          { name },
+          { name }
+          ,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Thêm token vào header
@@ -60,6 +61,7 @@ const ModlaAdddanhsachsanpham = ({ show, handleClose, isEdit, danhmuc, fetchdanh
         });
 
         fetchdanhmucs(); // Làm mới danh sách
+        resetForm();
         handleClose(); // Đóng modal
       }
     } catch (error) {

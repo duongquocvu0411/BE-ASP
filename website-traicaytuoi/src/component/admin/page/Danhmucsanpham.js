@@ -77,8 +77,17 @@ const Danhmucsanpham = () => {
 
   // Xóa danh mục
   const xoaDanhMuc = async (id,name) => {
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+    
     try{
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/danhmucsanpham/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/danhmucsanpham/${id}`
+        ,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        }
+      );
       toast.success(`xóa danh muc "${name} " thành công`,{
         position:'top-right',
         autoClose:3000

@@ -112,11 +112,17 @@ const Khachhangs = () => {
   };
   const capNhatTrangThai = async (billId, trangthaimoi) => {
     try {
+      const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
       // Gửi trạng thái cập nhật lên backend
       await axios.put(
         `${process.env.REACT_APP_BASEURL}/api/HoaDon/UpdateStatus/${billId}`,
         { status: trangthaimoi },
-        { headers: { 'Content-Type': 'application/json' } }
+        {
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+      }
       );
   
       toast.success('Đã cập nhật trạng thái đơn hàng thành công!', {

@@ -23,18 +23,29 @@ const ModalMenu = ({ show, handleClose, isEdit, menu, fetchMenuList }) => {
 
   const handleSubmit = async () => {
     const menuData = { name, thutuhien, url };
-  
+    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
       if (isEdit && menu && menu.id) {
         // PUT request
-        await axios.put(`${process.env.REACT_APP_BASEURL}/api/menu/${menu.id}`, menuData);
+        await axios.put(`${process.env.REACT_APP_BASEURL}/api/menu/${menu.id}` ,menuData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Thêm token vào header
+            }
+          });
         toast.success('Cập nhật menu thành công', { position: 'top-right', autoClose: 3000 });
       } else {
         // POST request
-        await axios.post(`${process.env.REACT_APP_BASEURL}/api/menu`, menuData);
+        await axios.post(`${process.env.REACT_APP_BASEURL}/api/menu` ,menuData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Thêm token vào header
+            }
+          });
         toast.success('Thêm mới menu thành công', { position: 'top-right', autoClose: 3000 });
       }
       fetchMenuList();
+      resetForm();
       handleClose();
     } catch (error) {
       console.error('Lỗi khi xử lý PUT:', error.response?.data || error.message);
@@ -42,6 +53,11 @@ const ModalMenu = ({ show, handleClose, isEdit, menu, fetchMenuList }) => {
     }
   };
   
+  const resetForm = () => {
+    setName("");
+    setThutuhien("");
+    setUrl("");
+  }
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -74,6 +90,7 @@ const ModalMenu = ({ show, handleClose, isEdit, menu, fetchMenuList }) => {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="Nhập URL"
+              readOnly 
             />
           </Form.Group>
         </Form>

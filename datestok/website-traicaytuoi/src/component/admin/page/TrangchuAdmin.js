@@ -81,14 +81,16 @@ const layDoanhThuThang = async () => {
   const laySanPhamBanChay = async () => {
     setDangtai(true);
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/sanphams/ban-chay`);
-      setSanPhamBanChay(response.data);
+      // Cập nhật URL API theo API mới đã tạo
+      const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/HoaDon/SanPhamBanChayHienTai`);
+      setSanPhamBanChay(response.data); // Lưu dữ liệu sản phẩm bán chạy vào state
       setDangtai(false);
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu sản phẩm bán chạy:", error);
       toast.error("Lỗi khi lấy dữ liệu sản phẩm bán chạy!");
     }
   };
+  
 
   const layTongSanPhamTonKho = async () => {
     setDangtai(true);
@@ -124,11 +126,11 @@ const layDoanhThuThang = async () => {
   };
 
   const dataBar = {
-    labels: sanPhamBanChay.map((sp) => sp.tieude),
+    labels: sanPhamBanChay.map((sp) => sp.sanPhamNames), // Dùng SanPhamNames để làm nhãn
     datasets: [
       {
         label: 'Số lượng bán',
-        data: sanPhamBanChay.map((sp) => sp.tong_so_luong),
+        data: sanPhamBanChay.map((sp) => sp.totalQuantity), // Dùng TotalQuantity làm dữ liệu
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -145,6 +147,7 @@ const layDoanhThuThang = async () => {
       },
     ],
   };
+  
 
   const options = {
     responsive: true,
@@ -163,6 +166,33 @@ const layDoanhThuThang = async () => {
       },
     },
   };
+
+  const options2 = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            const value = tooltipItem.raw; // Lấy giá trị thô (số lượng bán)
+            const index = tooltipItem.dataIndex; // Lấy chỉ mục của item trong tooltip
+    
+            // Lấy tên sản phẩm và đơn vị tính từ mảng sản phẩm bán chạy
+            const sanPham = sanPhamBanChay[index];
+            const dvt = sanPham ? sanPham.sanPhamDonViTinh : ''; // Lấy đơn vị tính
+  
+            // Kiểm tra xem có sản phẩm và đơn vị tính không
+            if (sanPham && dvt) {
+              return `${value.toLocaleString("vi-VN")} ${dvt}`; // Hiển thị số lượng bán + đơn vị tính
+            }
+  
+            return value.toLocaleString("vi-VN"); // Nếu không có đơn vị tính thì chỉ hiển thị số lượng bán
+          },
+        },
+      },
+    },
+  };
+  
+  
 
   return (
     <div id="wrapper">
@@ -198,7 +228,7 @@ const layDoanhThuThang = async () => {
                         <p>Đang tải dữ liệu...</p>
                       </div>
                     ) : (
-                      <Bar data={dataBar} options={options} /> 
+                      <Bar data={dataBar} options={options2} /> 
                     )}
                   </Card.Body>
                 </Card>

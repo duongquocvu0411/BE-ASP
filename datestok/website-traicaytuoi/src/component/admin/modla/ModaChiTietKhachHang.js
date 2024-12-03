@@ -30,7 +30,7 @@ const ModalChiTietKhachHang = ({ show, handleClose, chiTietKhachHang, capNhatTra
             <p><strong>Họ Tên:</strong> {chiTietKhachHang.ho} {chiTietKhachHang.ten}</p>
             <p><strong>Email:</strong> {chiTietKhachHang.emailDiaChi}</p>
             <p><strong>Số Điện Thoại:</strong> {chiTietKhachHang.sdt}</p>
-            <p><strong>Địa chỉ:</strong> {chiTietKhachHang.diaChiCuThe},{chiTietKhachHang.xaphuong},{chiTietKhachHang.tinhthanhquanhuyen},{chiTietKhachHang.tenThanhpho}</p>
+            <p><strong>Địa chỉ:</strong> {chiTietKhachHang.diaChiCuThe},{chiTietKhachHang.xaphuong},{chiTietKhachHang.tinhthanhquanhuyen},{chiTietKhachHang.thanhPho}</p>
             <p><strong>Ghi chú:</strong> {chiTietKhachHang.ghiChu}</p>
 
             <h4>Danh Sách Hóa Đơn</h4>

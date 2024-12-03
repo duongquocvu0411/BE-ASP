@@ -112,8 +112,8 @@ const Thanhtoan = () => {
       ten: firstName,
       ho: lastName,
       diachicuthe: address,
-      thanhpho: thanhpho,
-      tenThanhpho: tenThanhpho,
+      thanhpho: tenThanhpho,
+      // tenThanhpho: tenThanhpho,
       tinhthanhquanhuyen: tinhthanh,
       xaphuong: xaphuong, // Thêm thông tin xã phường
       sdt: sdt,
@@ -158,7 +158,7 @@ const Thanhtoan = () => {
 
   return (
     <>
-      <div>
+      <div >
         <HeaderUsers />
         <div className="container-fluid page-header py-5">
           <h1 className="text-center text-white display-6">Checkout</h1>

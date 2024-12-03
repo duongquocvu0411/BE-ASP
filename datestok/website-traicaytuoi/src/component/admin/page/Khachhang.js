@@ -290,7 +290,7 @@ const Khachhangs = () => {
                                 <td>{item.emailDiaChi}</td>
                                 <td>{item.sdt}</td>
                                 <td>{item.diaChiCuThe}</td>
-                                <td>{item.xaphuong},{item.tinhthanhquanhuyen},{item.tenThanhpho}</td>
+                                <td>{item.xaphuong},{item.tinhthanhquanhuyen},{item.thanhPho}</td>
                                 <td>{item.ghiChu}</td>
                                 <td className={`${trangThaiDonHang.bgColor} ${trangThaiDonHang.textColor}`}>
                                   {trangThaiDonHang.text}

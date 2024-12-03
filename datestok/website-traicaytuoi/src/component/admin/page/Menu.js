@@ -64,7 +64,7 @@ const Menu = () => {
   const deleteMenu = async (id, name) => {
     const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/menu/${id}` ,
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/menu/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Thêm token vào header
@@ -86,112 +86,116 @@ const Menu = () => {
   return (
     <div id="wrapper">
       <SiderbarAdmin />
+
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           <HeaderAdmin />
-          <div className="container-fluid">
-            <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1 className="h3 mb-0 text-gray-800">Danh sách Menu</h1>
-              </div>
-              <div className="col-sm-6">
-                <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item">
-                    <Link to="/admin/trangchu">Home</Link>
-                  </li>
-                  <li className="breadcrumb-item active">Danh sách Menu</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-
-          {/* Tìm kiếm */}
-          <div className="container-fluid mb-3">
-            <div className="row">
-              <div className="col-12 col-md-6 col-lg-4 mb-3">
-                <label htmlFor="searchMenu" className="form-label">Tìm kiếm menu:</label>
-                <input
-                  id="searchMenu"
-                  type="text"
-                  className="form-control"
-                  placeholder="Nhập tên menu..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+          <div className="content-header">
+            <div className="container-fluid">
+              <div className="row mb-2">
+                <div className="col-sm-6">
+                  <h1 className="h3 mb-0 text-gray-800">Danh sách Menu</h1>
+                </div>
+                <div className="col-sm-6">
+                  <ol className="breadcrumb float-sm-right">
+                    <li className="breadcrumb-item">
+                      <Link to="/admin/trangchu">Home</Link>
+                    </li>
+                    <li className="breadcrumb-item active">Danh sách Menu</li>
+                  </ol>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Bảng danh mục menu */}
-          <div className="card shadow mb-4">
-            <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 className="m-0 font-weight-bold text-primary">Danh sách menu</h6>
-              <div className="card-tools">
-                {/* <Button variant="primary" onClick={() => openModal()}>
+            {/* Tìm kiếm */}
+            <div className="container-fluid mb-3">
+              <div className="row">
+                <div className="col-12 col-md-6 col-lg-4 mb-3">
+                  <label htmlFor="searchMenu" className="form-label">Tìm kiếm menu:</label>
+                  <input
+                    id="searchMenu"
+                    type="text"
+                    className="form-control"
+                    placeholder="Nhập tên menu..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bảng danh mục menu */}
+            <div className="container-fluid">
+              <div className="card shadow mb-4">
+                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 className="m-0 font-weight-bold text-primary">Danh sách menu</h6>
+                  <div className="card-tools">
+                    {/* <Button variant="primary" onClick={() => openModal()}>
                   <i className="fas fa-plus-circle"></i> Thêm menu
                 </Button> */}
-              </div>
-            </div>
-
-            <div className="card-body table-responsive p-0" style={{ maxHeight: '400px' }}>
-              {loading ? (
-                <div className="text-center">
-                  <Spinner animation="border" variant="primary" />
-                  <p>Đang tải dữ liệu...</p>
+                  </div>
                 </div>
-              ) : (
-                <table className="table table-bordered table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">STT</th>
-                      <th scope="col">Tên</th>
-                      <th scope="col">Thứ tự hiển thị</th>
-                      <th scope="col">URL</th>
-                      <th scope="col">Chức năng</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {menuPerPage.map((menu, index) => (
-                      <tr key={nanoid()}>
-                        <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                        <td>{menu.name}</td>
-                        <td>{menu.thutuhien}</td>
-                        <td>{menu.url}</td>
-                        <td>
-                          <Button variant="primary me-2" onClick={() => openModal(menu)}>
-                            <i className="fas fa-edit"></i>
-                          </Button>
-                          {/* <Button variant="danger" onClick={() => deleteMenu(menu.id, menu.name)}>
+
+                <div className="card-body table-responsive p-0" style={{ maxHeight: '400px' }}>
+                  {loading ? (
+                    <div className="text-center">
+                      <Spinner animation="border" variant="primary" />
+                      <p>Đang tải dữ liệu...</p>
+                    </div>
+                  ) : (
+                    <table className="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">STT</th>
+                          <th scope="col">Tên</th>
+                          <th scope="col">Thứ tự hiển thị</th>
+                          <th scope="col">URL</th>
+                          <th scope="col">Chức năng</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {menuPerPage.map((menu, index) => (
+                          <tr key={nanoid()}>
+                            <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                            <td>{menu.name}</td>
+                            <td>{menu.thutuhien}</td>
+                            <td>{menu.url}</td>
+                            <td>
+                              <Button variant="primary me-2" onClick={() => openModal(menu)}>
+                                <i className="fas fa-edit"></i>
+                              </Button>
+                              {/* <Button variant="danger" onClick={() => deleteMenu(menu.id, menu.name)}>
                             <i className="fas fa-trash"></i>
                           </Button> */}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
 
-            {/* Phân trang */}
-            <div className="card-footer clearfix">
-              <ul className="pagination pagination-sm m-0 float-right">
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                  <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>«</button>
-                </li>
-                {[...Array(totalPages)].map((_, i) => (
-                  <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                    <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
-                  </li>
-                ))}
-                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                  <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>»</button>
-                </li>
-              </ul>
+                {/* Phân trang */}
+                <div className="card-footer clearfix">
+                  <ul className="pagination pagination-sm m-0 float-right">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                      <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>«</button>
+                    </li>
+                    {[...Array(totalPages)].map((_, i) => (
+                      <li key={i + 1} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                        <button className="page-link" onClick={() => handlePageChange(i + 1)}>{i + 1}</button>
+                      </li>
+                    ))}
+                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                      <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>»</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
+          <Footer />
         </div>
-
-        <Footer />
       </div>
 
       {/* Modal Thêm/Sửa menu */}

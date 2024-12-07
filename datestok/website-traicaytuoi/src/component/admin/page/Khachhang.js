@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button, Modal, Spinner } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 
 import Footer from '../Footer';
@@ -20,6 +20,9 @@ const Khachhangs = () => {
   const [timKiemTrangThai, setTimKiemTrangThai] = useState('');
   const [khachHangHienThi, setKhachHangHienThi] = useState([]);
   const [dangtai, setDangtai] = useState(false);
+  const [showModalXoa, setShowModalXoa] = useState(false); // Hiển thị modal xóa
+  const [khachHangXoa, setKhachHangXoa] = useState(null); // Thông tin khách hàng cần xóa
+
 
   const chiSoPhanTuCuoi = trangHienTai * soPhanTuMotTrang;
   const chiSoPhanTuDau = chiSoPhanTuCuoi - soPhanTuMotTrang;
@@ -80,17 +83,33 @@ const Khachhangs = () => {
   };
 
   const xoaKhachHang = async (id, ten) => {
+    const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+    const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
+
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/khachhang/${id}`);
-      toast.success(` xóa khách hàng " ${ten}" thành công`, {
+      // Gửi yêu cầu DELETE với Authorization header
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BASEURL}/api/khachhang/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}` // Thêm token vào header
+          }
+        }
+      );
+
+      toast.success(`Xóa khách hàng "${ten}" thành công`, {
         position: 'top-right',
         autoClose: 3000
       });
+
+      // Cập nhật danh sách khách hàng sau khi xóa
       layDanhSachKhachHang();
+
+      // Đóng modal sau khi xóa thành công
       setHienThiModal(false);
     } catch (error) {
-      console.log('có lỗi khi xóa khách hàng', error);
-      toast.error(`có lỗi khi xóa khách hàng "${ten}"`, {
+      console.log('Có lỗi khi xóa khách hàng:', error);
+      toast.error(`Có lỗi khi xóa khách hàng "${ten}"`, {
         position: 'top-right',
         autoClose: 3000
       });
@@ -112,7 +131,8 @@ const Khachhangs = () => {
   };
   const capNhatTrangThai = async (billId, trangthaimoi) => {
     try {
-      const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+      const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+      const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
       // Gửi trạng thái cập nhật lên backend
       await axios.put(
         `${process.env.REACT_APP_BASEURL}/api/HoaDon/UpdateStatus/${billId}`,
@@ -171,43 +191,96 @@ const Khachhangs = () => {
 
   const layTrangThaiDonHang = (hoaDons) => {
     if (!hoaDons || hoaDons.length === 0) {
-      return { text: 'Chưa có đơn hàng', bgColor: 'bg-muted', textColor: 'text-dark' };
+      return {
+        text: 'Chưa có đơn hàng',
+        bgColor: 'badge bg-light text-muted border',
+        textColor: ''
+      };
     }
 
-    // Kiểm tra các trạng thái ưu tiên của đơn hàng
+    // Trạng thái "Đang giao"
     const hoadonDangGiao = hoaDons.find(h => h.status === 'Đang giao');
     if (hoadonDangGiao) {
-      return { text: 'Đang giao', bgColor: 'bg-warning', textColor: 'text-dark' };
+      return {
+        text: 'Đang giao',
+        bgColor: 'badge bg-warning text-dark border border-warning',
+        textColor: ''
+      };
     }
 
+    // Trạng thái "Đã giao thành công"
     const hoadonGiaoThanhCong = hoaDons.find(h => h.status === 'Đã giao thành công');
     if (hoadonGiaoThanhCong) {
-      return { text: 'Thành công', bgColor: 'bg-success', textColor: 'text-white' };
+      return {
+        text: 'Thành công',
+        bgColor: 'badge bg-success text-white border border-success shadow',
+        textColor: ''
+      };
     }
 
+    // Trạng thái "Hủy đơn"
     const hoadonHuy = hoaDons.find(h => h.status === 'Hủy đơn');
     if (hoadonHuy) {
-      return { text: 'Hủy đơn', bgColor: 'bg-danger', textColor: 'text-white' };
+      return {
+        text: 'Hủy đơn',
+        bgColor: 'badge bg-danger text-white border border-danger shadow',
+        textColor: ''
+      };
     }
 
+    // Trạng thái "Giao không thành công"
     const hoadonKhongGiaoThanhCong = hoaDons.find(h => h.status === 'Giao không thành công');
     if (hoadonKhongGiaoThanhCong) {
-      return { text: 'Không thành công', bgColor: 'bg-secondary', textColor: 'text-white' };
+      return {
+        text: 'Không thành công',
+        bgColor: 'badge bg-dark text-light border border-secondary',
+        textColor: ''
+      };
     }
 
+    // Trạng thái "Chờ xử lý"
     const hoadonChoXuLy = hoaDons.find(h => h.status === 'Chờ xử lý');
     if (hoadonChoXuLy) {
-      return { text: 'Chờ xử lý', bgColor: 'bg-primary', textColor: 'text-white' };
+      return {
+        text: 'Chờ xử lý',
+        bgColor: 'badge bg-primary text-white border border-primary shadow',
+        textColor: ''
+      };
     }
 
-    return { text: 'Chưa có đơn hàng', bgColor: 'bg-muted', textColor: 'text-dark' };
+    return {
+      text: 'Chưa có đơn hàng',
+      bgColor: 'badge bg-light text-muted border',
+      textColor: ''
+    };
   };
+  const handleHienThiModalXoa = (khachHang) => {
+    setKhachHangXoa(khachHang); // Lưu thông tin khách hàng cần xóa
+    setShowModalXoa(true); // Hiển thị modal
+  };
+
+  const handleDongModalXoa = () => {
+    setKhachHangXoa(null); // Reset thông tin khách hàng
+    setShowModalXoa(false); // Đóng modal
+  };
+
+  const handleXacNhanXoa = async () => {
+    if (khachHangXoa) {
+      await xoaKhachHang(khachHangXoa.id, `${khachHangXoa.ho} ${khachHangXoa.ten}`); // Gọi hàm xóa
+      setKhachHangXoa(null); // Reset thông tin khách hàng
+      setShowModalXoa(false); // Đóng modal
+    }
+  };
+
+
   return (
     <div id="wrapper">
       <SiderbarAdmin />
+
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           <HeaderAdmin />
+
           <div id="content">
             <div className="content-header">
               <div className="container-fluid">
@@ -221,11 +294,13 @@ const Khachhangs = () => {
                       <li className="breadcrumb-item active">Danh Sách Khách Hàng</li>
                     </ol>
                   </div>
-                  <div className=' col-sm-6'>
+
+                  <div className="col-sm-6">
+                    {/* Tìm kiếm nâng cao */}
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Tìm kiếm theo tên khách hàng"
+                      placeholder="Tìm kiếm theo tên khách hàng, email..."
                       value={timKiem}
                       onChange={xuLyTimKiem}
                       style={{ maxWidth: '300px', marginRight: '10px' }}
@@ -237,8 +312,10 @@ const Khachhangs = () => {
 
             <div className="container-fluid">
               <div className="card shadow mb-4">
-                <div className="card-header py-3 d-flex justify-content-between align-items-center">
+                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h3 className="m-0 font-weight-bold text-primary">Danh Sách Khách Hàng</h3>
+
+                  {/* Bộ lọc theo trạng thái */}
                   <select
                     className="form-control"
                     value={timKiemTrangThai}
@@ -256,29 +333,30 @@ const Khachhangs = () => {
 
                 <div className="card-body table-responsive" style={{ maxHeight: '400px' }}>
                   {dangtai ? (
-                    <div className='text-center'>
-                      <Spinner animation='border' variant='primary' />
+                    <div className="text-center">
+                      <Spinner animation="border" variant="primary" />
                       <p>Đang tải dữ liệu...</p>
                     </div>
                   ) : (
                     <table className="table table-bordered table-hover table-striped">
-                      <thead>
+                      <thead className="table-dark">
                         <tr>
                           <th scope="col">STT</th>
+                          <th scope="col">Ngày tạo</th>
                           <th scope="col">Họ Tên</th>
                           <th scope="col">Email</th>
                           <th scope="col">Số Điện Thoại</th>
-                          <th scope='col'>Địa chỉ chi tiết</th>
-                          <th scope='col'>Thành phố/Tỉnh thành/Xã</th>
-                          <th scope='col'>Ghi chú</th>
-                          <th scope='col'>Trạng thái</th>
+                          <th scope="col">Địa chỉ chi tiết</th>
+                          <th scope="col">Thành phố/Tỉnh thành/Xã</th>
+                          <th scope="col">Ghi chú</th>
+                          <th scope="col">Trạng thái</th>
                           <th scope="col">Chức Năng</th>
                         </tr>
                       </thead>
                       <tbody>
                         {danhSachKhachHang.length === 0 ? (
                           <tr>
-                            <td colSpan="9" className="text-center">Hiện tại chưa có khách hàng</td>
+                            <td colSpan="10" className="text-center">Hiện tại chưa có khách hàng</td>
                           </tr>
                         ) : cacPhanTuHienTai.length > 0 ? (
                           cacPhanTuHienTai.map((item, index) => {
@@ -286,40 +364,54 @@ const Khachhangs = () => {
                             return (
                               <tr key={nanoid()}>
                                 <td>{chiSoPhanTuDau + index + 1}</td>
+                                <td>{item.created_at ? new Date(item.created_at).toLocaleDateString("vi-VN") : 'Không có thông tin'}</td>
                                 <td>{item.ho} {item.ten}</td>
                                 <td>{item.emailDiaChi}</td>
                                 <td>{item.sdt}</td>
                                 <td>{item.diaChiCuThe}</td>
-                                <td>{item.xaphuong},{item.tinhthanhquanhuyen},{item.thanhPho}</td>
+                                <td>{item.xaphuong}, {item.tinhthanhquanhuyen}, {item.thanhPho}</td>
                                 <td>{item.ghiChu}</td>
                                 <td className={`${trangThaiDonHang.bgColor} ${trangThaiDonHang.textColor}`}>
                                   {trangThaiDonHang.text}
                                 </td>
                                 <td>
-                                  <Button variant="info" onClick={() => hienThiChiTiet(item.id)}>
-                                    Xem chi tiết
-                                  </Button>{' '}
-                                  {kiemTraTrangThaiHoaDon(item.hoaDons) && (
-                                    <Button variant="danger" onClick={() => xoaKhachHang(item.id, item.ten)}>
-                                      Xóa
-                                    </Button>
-                                  )}
+                                  <div className="d-flex align-items-center">
+                                    {/* Icon xem chi tiết */}
+                                    <button
+                                      className="btn btn-info btn-sm me-2"
+                                      title="Xem chi tiết"
+                                      onClick={() => hienThiChiTiet(item.id)}
+                                    >
+                                      <i className="bi bi-eye"></i>
+                                    </button>
+                                    {/* Icon xóa */}
+                                    {kiemTraTrangThaiHoaDon(item.hoaDons) && (
+                                      <button
+                                        className="btn btn-danger btn-sm"
+                                        title="Xóa khách hàng"
+                                        onClick={() => handleHienThiModalXoa(item)}
+                                      >
+                                        <i className="bi bi-trash"></i>
+                                      </button>
+                                    )}
+                                  </div>
                                 </td>
                               </tr>
                             );
                           })
                         ) : (
                           <tr>
-                            <td colSpan="9" className="text-center">Không tìm thấy khách hàng</td>
+                            <td colSpan="10" className="text-center">Không tìm thấy khách hàng</td>
                           </tr>
                         )}
                       </tbody>
-
                     </table>
+
                   )}
                 </div>
 
                 <div className="card-footer clearfix">
+                  {/* Phân trang */}
                   <ul className="pagination pagination-sm m-0 float-right">
                     <li className={`page-item ${trangHienTai === 1 ? 'disabled' : ''}`}>
                       <button className="page-link" onClick={() => thayDoiTrang(trangHienTai > 1 ? trangHienTai - 1 : 1)}>«</button>
@@ -339,17 +431,56 @@ const Khachhangs = () => {
           </div>
         </div>
 
+        {/* Modal chi tiết khách hàng */}
         <ModalChiTietKhachHang
           show={hienThiModal}
           handleClose={() => setHienThiModal(false)}
           chiTietKhachHang={chiTietKhachHang}
           capNhatTrangThai={capNhatTrangThai}
           xoaKhachHang={xoaKhachHang}
+          layTrangThaiDonHang={layTrangThaiDonHang}
         />
+
+
+
+        <Modal
+          show={showModalXoa}
+          onHide={handleDongModalXoa}
+          centered
+          backdrop="static" // Không cho phép đóng khi click ra ngoài
+        >
+          <Modal.Header closeButton className="bg-danger text-white">
+            <Modal.Title>
+              <i className="fas fa-exclamation-triangle me-2"></i> Xác nhận xóa
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="text-center">
+              <i className="fas fa-trash-alt fa-4x text-danger mb-3"></i>
+              <h5 className="mb-3">Bạn có chắc chắn muốn xóa khách hàng này?</h5>
+              <p className="text-muted">
+                <strong>Họ Tên:</strong> {khachHangXoa?.ho} {khachHangXoa?.ten} <br />
+                <strong>Email:</strong> {khachHangXoa?.emailDiaChi} <br />
+                <strong>Số điện thoại:</strong> {khachHangXoa?.sdt}
+              </p>
+              <p className="text-muted">Hành động này không thể hoàn tác.</p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer className="justify-content-center">
+            <Button variant="secondary" onClick={handleDongModalXoa}>
+              <i className="fas fa-times me-2"></i> Hủy
+            </Button>
+            <Button variant="danger" onClick={handleXacNhanXoa}>
+              <i className="fas fa-check me-2"></i> Xác nhận
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <Footer />
         <ToastContainer />
       </div>
     </div>
+
   );
 };
 

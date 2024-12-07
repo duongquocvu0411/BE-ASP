@@ -18,8 +18,9 @@ const ModlaAdddanhsachsanpham = ({ show, handleClose, isEdit, danhmuc, fetchdanh
   }, [isEdit, danhmuc]);
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
-
+      // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+      const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+      const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
       if (isEdit) {
         // Cập nhật danh mục hiện tại
         await axios.put(
@@ -84,32 +85,46 @@ const ModlaAdddanhsachsanpham = ({ show, handleClose, isEdit, danhmuc, fetchdanh
 
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{isEdit ? 'Chỉnh sửa danh mục ' : 'Thêm mới Danh mục'}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Form.Group>
+    <Modal show={show} onHide={handleClose} centered>
+  <Modal.Header closeButton className="bg-primary text-white">
+    <Modal.Title>{isEdit ? "Chỉnh sửa danh mục" : "Thêm mới danh mục"}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      {/* Input Tên Danh Mục */}
+      <Form.Group className="mb-4">
+        <Form.Label className="fw-bold">Tên danh mục</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Nhập tên danh mục"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="shadow-sm"
+          style={{ borderRadius: "8px" }}
+        />
+      </Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button
+      variant="secondary"
+      onClick={handleClose}
+      className="shadow-sm"
+      style={{ borderRadius: "8px" }}
+    >
+      Hủy
+    </Button>
+    <Button
+      variant="primary"
+      onClick={handleSubmit}
+      className="shadow-sm text-white"
+      style={{ borderRadius: "8px" }}
+    >
+      {isEdit ? "Cập nhật" : "Thêm mới"}
+    </Button>
+  </Modal.Footer>
+</Modal>
 
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          {isEdit ? 'Cập nhật' : 'Thêm mới'}
-        </Button>
-      </Modal.Footer>
-    </Modal>
   );
 };
 

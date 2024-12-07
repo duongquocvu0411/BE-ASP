@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios để gọi API
+
 
 const HeaderAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+
+// lấy cột hoten backend để hiện tên admin đã login
+
+  const hoten = localStorage.getItem('loginhoten') || sessionStorage.getItem('loginhoten');
 
   // Hiển thị modal xác nhận đăng xuất
   const handleClickDangXuat = () => {
@@ -14,9 +19,16 @@ const HeaderAdmin = () => {
  
   // Xác nhận đăng xuất (chỉ xóa token khỏi localStorage)
   const handleXacNhanDangXuatTaiKhoan = () => {
-    // Xóa token và trạng thái đăng nhập khỏi localStorage
+    // Xóa token và trạng thái đăng nhập khỏi localStorage && sessionStorage
     localStorage.removeItem('adminToken');
+    localStorage.removeItem('loginTime');
     localStorage.removeItem('isAdminLoggedIn');
+    localStorage.removeItem('loginhoten');
+
+    sessionStorage.removeItem('adminToken');
+    sessionStorage.removeItem('loginTime');
+    sessionStorage.removeItem('isAdminLoggedIn');
+    localStorage.removeItem('loginhoten');
 
     // Đóng modal và chuyển hướng người dùng đến trang đăng nhập
     setShowModal(false);
@@ -62,7 +74,7 @@ const HeaderAdmin = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span className="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+              <span className="mr-2 d-none d-lg-inline text-gray-600 small">{hoten || 'Admin'}</span>
               <img className="img-profile rounded-circle" src={`${process.env.PUBLIC_URL}/lte/img/undraw_profile.svg`} alt="User Profile" />
             </a>
             <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

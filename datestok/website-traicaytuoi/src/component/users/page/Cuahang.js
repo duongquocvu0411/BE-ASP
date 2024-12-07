@@ -7,33 +7,50 @@ import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 import Countdown from "react-countdown";
-
+// Định nghĩa renderer cho Countdown
+const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  if (completed) {
+    // Hiển thị khi đã hoàn thành
+    return <span>Đã kết thúc</span>;
+  } else {
+    // Hiển thị bộ đếm lùi
+    return (
+      <span>
+        {days} ngày {hours} giờ {minutes} phút {seconds} giây
+      </span>
+    );
+  }
+};
 const Cuahang = () => {
-  const [danhMuc, setDanhMuc] = useState([]);
-  const [sanPham, setSanPham] = useState([]);
+  const [danhMuc, setDanhMuc] = useState([]); // Khởi tạo state lưu trữ danh mục
+  const [sanPham, setSanPham] = useState([]); // Khởi tạo state lưu trữ sản phẩm
   const [sanPhamSale, setSanPhamSale] = useState([]);
-  const [danhMucDuocChon, setDanhMucDuocChon] = useState("");
-  const { addToCart } = useContext(CartContext);
+  const [danhMucDuocChon, setDanhMucDuocChon] = useState(""); // Danh mục được chọn
+  const { addToCart } = useContext(CartContext); // Lấy hàm thêm vào giỏ hàng từ context
   const [dangtai, setDangtai] = useState(false);
-  const [trangHienTai, setTrangHienTai] = useState(1);
-  const [dangXemSanPhamSale, setDangXemSanPhamSale] = useState(false); // Trạng thái xem sản phẩm sale hay không sale
+  // Phân trang sản phẩm thông thường
+  const [trangHienTai, datTrangHienTai] = useState(1);
   const sanPhamMoiTrang = 8;
+  const chiSoSanPhamCuoi = trangHienTai * sanPhamMoiTrang;
+  const chiSoSanPhamDau = chiSoSanPhamCuoi - sanPhamMoiTrang;
+  const sanPhamHienTai = sanPham.slice(chiSoSanPhamDau, chiSoSanPhamCuoi);
+  const tongSoTrang = Math.ceil(sanPham.length / sanPhamMoiTrang);
 
+  // Gọi API lấy danh mục và sản phẩm
   useEffect(() => {
-    fetchDanhMuc();
-    if (!dangXemSanPhamSale) {
-      laySanPham(); // Lấy sản phẩm mặc định
-    } else {
-      laySanPhamSale(); // Lấy sản phẩm sale khi đang xem sản phẩm sale
-    }
-  }, [danhMucDuocChon, dangXemSanPhamSale, trangHienTai]);
+    laySanPham();
+    layDanhMuc();
 
-  const fetchDanhMuc = async () => {
+    laySanPhamSale();
+  }, [danhMucDuocChon]); // Chạy lại khi thay đổi danh mục
+
+  const layDanhMuc = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASEURL}/api/danhmucsanpham`);
-      setDanhMuc(response.data);
+      setDanhMuc(response.data || []); // Đảm bảo danh mục là mảng
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error('Lỗi khi lấy danh mục:', error);
+      setDanhMuc([]); // Gán giá trị mặc định khi lỗi
     }
   };
 
@@ -46,6 +63,7 @@ const Cuahang = () => {
       const response = await axios.get(url);
 
       if (response.data.length === 0) {
+        // Nếu không có sản phẩm nào
         setSanPham([]); // Đặt danh sách sản phẩm thành mảng rỗng
       } else {
         setSanPham(response.data || []);
@@ -71,55 +89,39 @@ const Cuahang = () => {
     }
   };
 
-  // Tính toán các chỉ số phân trang
-  const indexOfLastProduct = trangHienTai * sanPhamMoiTrang;
-  const indexOfFirstProduct = indexOfLastProduct - sanPhamMoiTrang;
-  const sanPhamHienTai = dangXemSanPhamSale ? sanPhamSale : sanPham;
-
-  // Phân trang cho sản phẩm không sale
-  const sanPhamHienTaiTrang = sanPhamHienTai.slice(indexOfFirstProduct, indexOfLastProduct);
-  const tongSoTrang = Math.ceil(sanPhamHienTai.length / sanPhamMoiTrang);
-
-  const thayDoiTrang = (soTrang) => setTrangHienTai(soTrang);
-
   return (
-    <div>
+    <>
       <HeaderUsers />
-      <div className="container-fluid page-header py-5">
-        <h1 className="text-center text-white display-6">Cửa hàng</h1>
-      </div>
-      <div className="container-fluid fruite py-5">
-        <div className="container py-5">
-          <h1 className="mb-4">Cửa hàng trái cây tươi</h1>
 
-          {/* Filter Buttons */}
-          <div className="d-flex justify-content-start mb-4">
-            <button
-              className={`btn ${!dangXemSanPhamSale ? "btn-primary" : "btn-light"} me-3`}
-              onClick={() => {
-                setTrangHienTai(1);
-                setDangXemSanPhamSale(false);
-              }}
-            >
-              Sản phẩm không sale
-            </button>
-            <button
-              className={`btn ${dangXemSanPhamSale ? "btn-primary" : "btn-light"}`}
-              onClick={() => {
-                setTrangHienTai(1);
-                setDangXemSanPhamSale(true);
-              }}
-            >
-              Sản phẩm sale
-            </button>
+      <div className="container-fluid page-header text-white py-5" >
+  <div className="text-center">
+    <h1 className="display-4 fw-bold text-animation">
+      <span className="animated-letter">C</span>
+      <span className="animated-letter">ử</span>
+      <span className="animated-letter">a</span>
+      &nbsp;
+      <span className="animated-letter">H</span>
+      <span className="animated-letter">à</span>
+      <span className="animated-letter">n</span>
+      <span className="animated-letter">g</span>
+    </h1>
+   
+  </div>
+</div>
+
+      <div className="container my-5">
+        <div className="row g-4">
+          {/* Tiêu đề sản phẩm */}
+          <div className="col-lg-8">
+            <h2 className="text-uppercase fw-bold text-success">Sản phẩm không sale</h2>
           </div>
 
-          {/* Category Dropdown */}
-          <div className="d-flex justify-content-end mb-4">
-            <div className="bg-light ps-3 py-3 rounded d-flex align-items-center">
+          {/* Dropdown bộ lọc danh mục */}
+          <div className="col-lg-4">
+            <div className="d-flex justify-content-end">
               <div className="dropdown">
                 <button
-                  className="btn btn-secondary dropdown-toggle"
+                  className="btn btn-outline-success dropdown-toggle"
                   type="button"
                   id="dropdownCategoryButton"
                   data-bs-toggle="dropdown"
@@ -131,13 +133,21 @@ const Cuahang = () => {
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownCategoryButton">
                   <li>
-                    <button className="dropdown-item" type="button" onClick={() => setDanhMucDuocChon("")}>
+                    <button
+                      className="dropdown-item"
+                      type="button"
+                      onClick={() => setDanhMucDuocChon("")}
+                    >
                       Tất cả sản phẩm
                     </button>
                   </li>
                   {danhMuc.map((dm) => (
                     <li key={dm.id}>
-                      <button className="dropdown-item" type="button" onClick={() => setDanhMucDuocChon(dm.id)}>
+                      <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => setDanhMucDuocChon(dm.id)}
+                      >
                         {dm.name}
                       </button>
                     </li>
@@ -146,150 +156,228 @@ const Cuahang = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="tab-content mt-4">
-            <div className="tab-pane fade show p-0 active">
-              {dangtai ? (
-                <div className="text-center">
-                  <Spinner animation="border" variant="primary" />
-                  <p>Đang tải dữ liệu...</p>
+        {/* Hiển thị sản phẩm không sale */}
+        <div className="row g-4 mt-4">
+          {dangtai ? (
+            <div className="text-center py-5">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p className="text-muted mt-3">Đang tải dữ liệu...</p>
+            </div>
+          ) : sanPhamHienTai.length > 0 ? (
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+              {sanPhamHienTai.map((sanPham) => (
+                <div className="col" key={sanPham.id}>
+                  <div
+                    className="card h-100 shadow-lg border-0"
+                    style={{ transition: "transform 0.3s, box-shadow 0.3s" }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.05)";
+                      e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <Link to={`/sanpham/${sanPham.id}`} className="text-decoration-none">
+                      <img
+                        src={sanPham.hinhanh}
+                        className="card-img-top img-fluid rounded-top"
+                        alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                        style={{ height: 250, objectFit: "cover" }}
+                      />
+                    </Link>
+                    <div className="card-body d-flex flex-column text-center">
+                      <h5 className="card-title text-success fw-bold">
+                        {sanPham.tieude || "Tên sản phẩm không rõ"}
+                      </h5>
+                      <p className="card-text text-muted small mb-3">
+                        {sanPham.mo_ta_chung?.length > 50
+                          ? `${sanPham.mo_ta_chung.slice(0, 50)}...`
+                          : sanPham.mo_ta_chung || "Không có mô tả"}
+                      </p>
+                      <p className="text-dark fs-5 fw-bold">
+                        {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                          minimumFractionDigits: 3,
+                        })}{" "}
+                        VND
+                      </p>
+                      {sanPham.trangthai === "Hết hàng" ? (
+                        <span className="badge bg-danger py-2 px-3">Hết hàng</span>
+                      ) : (
+                        <button
+                          className="btn btn-outline-success mt-auto"
+                          onClick={() => addToCart(sanPham)}
+                        >
+                          <i className="fa fa-shopping-cart me-2"></i> Thêm vào giỏ hàng
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              ) : sanPhamHienTaiTrang.length > 0 ? (
-                <div className="row g-4">
-                  {sanPhamHienTaiTrang.map((sanPham) => {
-                    const activeSale = sanPham.sanphamSales?.find(
-                      (sale) =>
-                        sale.trangthai === "Đang áp dụng" &&
-                        new Date(sale.thoigianbatdau) <= new Date() &&
-                        new Date(sale.thoigianketthuc) >= new Date()
-                    );
+              ))}
+            </div>
+          ) : (
+            <div className="text-center mt-4">
+              <p className="text-muted">Không có sản phẩm nào trong danh mục này</p>
+            </div>
+          )}
+        </div>
 
-                    return (
-                      <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-                        <div className="rounded position-relative fruite-item shadow-sm">
-                          <div className="fruite-img position-relative">
-                            <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
+        {/* Pagination */}
+        <div className="d-flex justify-content-center mt-4">
+          <ul className="pagination pagination-sm">
+            <li className={`page-item ${trangHienTai === 1 ? "disabled" : ""}`}>
+              <button className="page-link" onClick={() => datTrangHienTai(1)}>
+                «
+              </button>
+            </li>
+            {[...Array(tongSoTrang)].map((_, index) => (
+              <li key={index + 1} className={`page-item ${trangHienTai === index + 1 ? "active" : ""}`}>
+                <button className="page-link" onClick={() => datTrangHienTai(index + 1)}>
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+            <li className={`page-item ${trangHienTai === tongSoTrang ? "disabled" : ""}`}>
+              <button className="page-link" onClick={() => datTrangHienTai(tongSoTrang)}>
+                »
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* Sản phẩm khuyến mãi */}
+        <div className="row g-4 mt-5">
+          <div className="col-12 text-start">
+            <h2 className="text-uppercase fw-bold text-danger">
+              Sản phẩm đang khuyến mãi
+            </h2>
+          </div>
+          <div className="row g-4 mt-3">
+          {dangtai ? (
+                  <div className="text-center py-5">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-muted mt-3">Đang tải dữ liệu...</p>
+                  </div>
+                ) : sanPhamSale?.length > 0 ? (
+                  <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                    {sanPhamSale.map((sanPham) => {
+                      const sale = sanPham.sanphamSales?.find((sale) => sale.trangthai === "Đang áp dụng");
+                      const ngayHethan = new Date(sale?.thoigianketthuc);
+                      const daHethan = ngayHethan <= new Date();
+
+                      return (
+                        <div className="col" key={sanPham.id}>
+                          <div
+                            className="card shadow-lg border-0 position-relative"
+                            style={{
+                              transition: "transform 0.3s, box-shadow 0.3s",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.3)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
+                          >
+                            {/* Hình ảnh sản phẩm */}
+                            <Link to={`/sanpham/${sanPham.id}`} className="text-decoration-none">
                               <img
                                 src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                                className="img-fluid w-100 rounded-top"
-                                alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                                className="card-img-top img-fluid rounded-top"
+                                alt={sanPham.tieude || "Không có tiêu đề"}
                                 style={{ height: 250, objectFit: "cover" }}
                               />
-                            </Link> 
-                            <div>
-                            {sanPham.trangthai === "Hết hàng" && (
+                            </Link>
+
+                            {/* Huy hiệu đếm ngược sale */}
+                            {!daHethan && (
                               <div
-                                className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-                                style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
+                                className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
+                                style={{
+                                  fontSize: "0.9rem",
+                                  fontWeight: "bold",
+                                  zIndex: 2,
+                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+                                }}
                               >
-                                <span className="text-white small fw-bold">Hết hàng</span>
+                                <Countdown date={ngayHethan} renderer={renderer} />
                               </div>
                             )}
-                          </div>
-                            <div
-                            className="text-white bg-secondary px-2 py-1 rounded position-absolute"
-                            style={{ top: 10, left: 10 }}
-                          >
-                            {sanPham.danhmucsanphamName || "Danh mục không rõ"}
-                          </div>
-                          </div>
-                          <div className="p-3 rounded-bottom">
-                            <p className="h5 fw-bold">{sanPham.tieude}</p>
-                            <div className="d-flex flex-column align-items-start">
-                              {activeSale ? (
-                                <>
-                                  <p className="text-muted mb-1" style={{ textDecoration: "line-through" }}>
-                                    {parseFloat(sanPham.giatien).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                                    vnđ / {sanPham.don_vi_tinh}
-                                  </p>
-                                  <p className="text-danger fw-bold mb-2">
-                                    {parseFloat(activeSale.giasale).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                                    vnđ / {sanPham.don_vi_tinh}
-                                  </p>
-                                  <p className="text-warning mb-2">
-                                    <Countdown
-                                      date={new Date(activeSale.thoigianketthuc).getTime()}
-                                      renderer={({ hours, minutes, seconds }) => (
-                                        <span className="fw-bold">
-                                          Còn lại: {hours}h {minutes}m {seconds}s
-                                        </span>
-                                      )}
-                                    />
-                                  </p>
-                                </>
-                              ) : (
-                                <p className="text-danger fw-bold">
-                                  {parseFloat(sanPham.giatien).toLocaleString("vi-VN", { minimumFractionDigits: 3 })} vnđ /{" "}
-                                  {sanPham.don_vi_tinh}
-                                </p>
-                              )}
-                            </div>
-                            <div className="d-flex justify-content-between mt-2">
-                            {sanPham.trangthai !== "Hết hàng" && (
-                                <button
-                                  onClick={() => addToCart(sanPham)}
-                                  className="btn border border-secondary rounded-pill px-3 text-primary"
+
+                            {/* Nội dung sản phẩm */}
+                            <div className="card-body text-center">
+                              <h5 className="card-title text-danger fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h5>
+                              <p className="text-muted small">
+                                {sanPham.mo_ta_chung?.length > 50
+                                  ? `${sanPham.mo_ta_chung.slice(0, 50)}...`
+                                  : sanPham.mo_ta_chung || "Không có mô tả"}
+                              </p>
+                              <div className="d-flex justify-content-between align-items-center mt-2">
+                                <p
+                                  className="text-muted mb-0 text-decoration-line-through"
+                                  style={{ fontSize: "0.9rem" }}
                                 >
-                                  <i className="fa fa-shopping-bag me-2 text-primary" />
+                                  {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                                    minimumFractionDigits: 3,
+                                  })}{" "}
+                                  VND
+                                </p>
+                                <p className="text-danger fw-bold fs-5 mb-0">
+                                  {parseFloat(sale?.giasale || 0).toLocaleString("vi-VN", {
+                                    minimumFractionDigits: 3,
+                                  })}{" "}
+                                  VND
+                                </p>
+                              </div>
+                              {!daHethan && sanPham.trangthai !== "Hết hàng" && (
+                                <button
+                                  className="btn btn-outline-danger w-100 mt-2"
+                                  onClick={() => addToCart(sanPham)}
+                                  style={{
+                                    borderRadius: "20px",
+                                    transition: "background-color 0.3s ease",
+                                  }}
+                                  // onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff4d4d")}
+                                  // onMouseLeave={(e) => (e.target.style.backgroundColor = "rgb(220, 53, 69)")}
+                                >
+                                  <i className="fa fa-shopping-bag me-2" />
                                   Thêm vào giỏ
                                 </button>
                               )}
-                              <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                Chi tiết
-                              </Link>
+                              {sanPham.trangthai === "Hết hàng" && (
+                                <span className="badge bg-secondary mt-3 py-2 px-3">Hết hàng</span>
+                              )}
                             </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-center">
-                  <p className="h5">Không có sản phẩm nào.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Pagination */}
-          <div className="pagination justify-content-center mt-5">
-            <nav aria-label="Page navigation">
-              <ul className="pagination">
-                <li className="page-item">
-                  <button
-                    className="page-link"
-                    onClick={() => thayDoiTrang(trangHienTai - 1)}
-                    disabled={trangHienTai === 1}
-                  >
-                    Trước
-                  </button>
-                </li>
-                {[...Array(tongSoTrang).keys()].map((index) => (
-                  <li
-                    className={`page-item ${trangHienTai === index + 1 ? "active" : ""}`}
-                    key={index}
-                  >
-                    <button className="page-link" onClick={() => thayDoiTrang(index + 1)}>
-                      {index + 1}
-                    </button>
-                  </li>
-                ))}
-                <li className="page-item">
-                  <button
-                    className="page-link"
-                    onClick={() => thayDoiTrang(trangHienTai + 1)}
-                    disabled={trangHienTai === tongSoTrang}
-                  >
-                    Sau
-                  </button>
-                </li>
-              </ul>
-            </nav>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-center mt-4">
+                    <p className="text-muted">Không có sản phẩm nào đang khuyến mãi</p>
+                  </div>
+                )}
           </div>
         </div>
       </div>
-    </div>
+
+
+
+      <Footerusers />
+      <ToastContainer />
+    </>
+
   );
 };
 

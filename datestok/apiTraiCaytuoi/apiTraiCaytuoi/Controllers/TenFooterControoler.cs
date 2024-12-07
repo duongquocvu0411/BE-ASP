@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using apiTraiCaytuoi.Model;
 using static apiTraiCaytuoi.DTO.TenFooterDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace apiTraiCaytuoi.Controllers
 {
@@ -49,6 +50,7 @@ namespace apiTraiCaytuoi.Controllers
 
         // POST: api/TenFooters
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostTenFooter([FromForm] TenFooterPostDto dto)
         {
             var tenFooter = new TenFooters
@@ -97,6 +99,7 @@ namespace apiTraiCaytuoi.Controllers
 
         // PUT: api/TenFooters/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutTenFooter(int id, [FromForm] TenFooterPuttDto dto)
         {
             var existingTenFooter = await _context.TenFooters
@@ -173,6 +176,7 @@ namespace apiTraiCaytuoi.Controllers
 
         // DELETE: api/TenFooters/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTenFooter(int id)
         {
             var tenFooter = await _context.TenFooters
@@ -200,6 +204,7 @@ namespace apiTraiCaytuoi.Controllers
             return NoContent();
         }
         [HttpDelete("DeleteImage/{imageId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteImage(int imageId)
         {
             // Tìm hình ảnh theo ID

@@ -27,117 +27,148 @@ const Giohang = () => {
   };
 
   return (
-    <>
-      <div>
-        <HeaderUsers />
-        {/* Single Page Header start */}
-        <div className="container-fluid page-header py-5">
-          <h1 className="text-center text-white display-6">Giỏ hàng</h1>
-        </div>
-        {/* Single Page Header End */}
-        {/* Cart Page Start */}
-        <div className="container-fluid py-5">
-          <div className="container py-5">
-            <div className="table-responsive">
-              <table className="table align-middle">
-                <thead>
-                  <tr>
-                    <th scope="col">Hình ảnh</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Gía</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Tổng tiền</th>
-                    <th scope="col">Chức năng</th>
+<>
+  <div>
+    <HeaderUsers />
+    {/* Single Page Header */}
+    <div className="container-fluid py-5 page-header text-white">
+      <div className="text-center py-5">
+      <h1 className="display-4 fw-bold text-animation">
+      <span className="animated-letter">G</span>
+      <span className="animated-letter">i</span>
+      <span className="animated-letter">ỏ</span>
+      &nbsp;
+      <span className="animated-letter">H</span>
+      <span className="animated-letter">à</span>
+      <span className="animated-letter">n</span>
+      <span className="animated-letter">g</span>
+    </h1>
+       
+      </div>
+    </div>
+    {/* Cart Page */}
+    <div className="container-fluid py-5">
+      <div className="container">
+        <div className="table-responsive">
+          {/* <table className="table table-bordered text-center align-middle"> */}
+          <table className="table table-bordered table-hover table-striped">
+            <thead className="table-dark">
+              <tr>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Gía</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {giohang && giohang.length > 0 ? (
+                giohang.map((sanPham, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img
+                        src={sanPham.hinhanh}
+                        className="img-thumbnail rounded-circle"
+                        style={{ width: "60px", height: "60px" }}
+                        alt={sanPham.tieude}
+                      />
+                    </td>
+                    <td>{sanPham.tieude}</td>
+                    <td>
+                      {parseFloat(sanPham.gia).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
+                      vnđ / {sanPham.don_vi_tinh}
+                    </td>
+                    <td>
+                      <div className="input-group justify-content-center">
+                        <button
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => GiamSoLuong(sanPham.id)}
+                        >
+                          <i className="bi bi-dash"></i>
+                        </button>
+                        <input
+                          type="number"
+                          className="form-control text-center"
+                          value={sanPham.soLuong || 1}
+                          min="1"
+                          onChange={(e) => CapnhatSoLuong(sanPham.id, e.target.value)}
+                          style={{ maxWidth: "60px" }}
+                        />
+                        <button
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => TangSoLuong(sanPham.id)}
+                        >
+                          <i className="bi bi-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      {(parseFloat(sanPham.gia) * sanPham.soLuong).toLocaleString("vi-VN", {
+                        minimumFractionDigits: 3,
+                      })}{" "}
+                      vnđ
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => XoaGioHang(sanPham.id)}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {giohang && giohang.length > 0 ? (
-                    giohang.map((sanPham, index) => (
-                      <tr key={index}>
-                        <td>
-                          <img
-                            src={sanPham.hinhanh}
-                            className="img-fluid rounded"
-                            style={{ width: "60px", height: "60px" }}
-                            alt={sanPham.tieude}
-                          />
-                        </td>
-                        <td>{sanPham.tieude}</td>
-                        <td>
-                          {parseFloat(sanPham.gia).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                          vnđ / {sanPham.don_vi_tinh}
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <button className="btn btn-warning btn-sm" onClick={() => GiamSoLuong(sanPham.id)}>
-                              <i className="fa fa-minus"></i>
-                            </button>
-                            <input
-                              type="number"
-                              className="form-control text-center mx-2"
-                              value={sanPham.soLuong || 1} // Đảm bảo hiển thị giá trị hợp lệ
-                              min="1"
-                              onChange={(e) => CapnhatSoLuong(sanPham.id, e.target.value)}
-                              style={{ width: "60px", minWidth: "50px" }} // Đặt chiều rộng tối thiểu
-                            />
-                            <button className="btn btn-warning btn-sm" onClick={() => TangSoLuong(sanPham.id)}>
-                              <i className="fa fa-plus"></i>
-                            </button>
-                          </div>
-                        </td>
-                        <td>
-                          {(parseFloat(sanPham.gia) * sanPham.soLuong).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                          vnđ
-                        </td>
-                        <td>
-                          <button className="btn btn-danger btn-sm" onClick={() => XoaGioHang(sanPham.id)}>
-                            <i className="bi bi-trash3-fill"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="text-center">
-                        Giỏ hàng của bạn trống vui lòng nhấn vào{" "}
-                        <Link to="/cuahang"> cửa hàng</Link> để mua hàng
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-            <div className="row g-4 justify-content-end">
-              <div className="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                <div className="bg-light rounded">
-                  <div className="p-4">
-                    <h1 className="display-6 mb-4">
-                      Tổng <span className="fw-normal">Giỏ hàng</span>
-                    </h1>
-                  </div>
-                  <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                    <h5 className="mb-0 ps-4 me-4">Tổng</h5>
-                    <p className="mb-0 pe-4">
-                      {tongTienGioHang.toLocaleString("vi-VN", { minimumFractionDigits: 3 })} vnđ
-                    </p>
-                  </div>
-                  <button className="btn btn-primary btn-sm w-100 text-uppercase mb-4" onClick={handleThanhtoan}>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center">
+                    <p className="mb-3">Giỏ hàng của bạn trống.</p>
+                    <Link to="/cuahang" className="btn btn-primary btn-sm">
+                      Mua sắm ngay
+                    </Link>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="row g-4 justify-content-end mt-4">
+          <div className="col-lg-4">
+            <div className="card border-0 shadow-sm">
+              <div className="card-body">
+                <h3 className="card-title text-center mb-4">Tổng Giỏ hàng</h3>
+                <div className="d-flex justify-content-between border-bottom pb-2">
+                  <span className="fw-bold">Tổng:</span>
+                  <span>
+                    {tongTienGioHang.toLocaleString("vi-VN", { minimumFractionDigits: 3 })} vnđ
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <button
+                    className="btn btn-primary w-100 mb-2"
+                    onClick={handleThanhtoan}
+                  >
                     Thanh toán
                   </button>
-                  <div className="text-center mb-4">
-                    <button className="btn btn-danger btn-sm w-100 text-uppercase" onClick={Xoatoanbogiohang}>
-                      Xóa hết tất cả sản phẩm
-                    </button>
-                  </div>
+                  <button
+                    className="btn btn-outline-danger w-100"
+                    onClick={Xoatoanbogiohang}
+                  >
+                    Xóa hết sản phẩm
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Footerusers />
-      <ToastContainer />
-    </>
+    </div>
+  </div>
+  <Footerusers />
+  <ToastContainer />
+</>
+
+
   );
 };
 

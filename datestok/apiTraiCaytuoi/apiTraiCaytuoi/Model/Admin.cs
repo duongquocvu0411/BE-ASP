@@ -4,15 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace apiTraiCaytuoi.Model
 {
     [Table("admins")]
-    public class Admin
+    public class Admin : BaseModel
     {
         [Key]
         public int Id { get; set; }
+
+        public string? hoten { get; set; }
+
         [Required]
-        [MaxLength(255)]
+       
         public string Username { get; set; }
         [Required]
-        [MaxLength(255)]
+    
         public string Password { get; set; } // Lưu mật khẩu đã mã hóa
     }
 }

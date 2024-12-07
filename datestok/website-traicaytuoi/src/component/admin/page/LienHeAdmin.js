@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
 import Footer from '../Footer';
 import axios from 'axios';
-import { Button, Modal, Form, Spinner, Row, Container, Col } from 'react-bootstrap';
+import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 import { toast, ToastContainer } from 'react-toastify';
 import HeaderAdmin from '../HeaderAdmin';
 import SiderbarAdmin from '../SidebarAdmin';
-import { Link } from 'react-router-dom';
+
+import ModalLienhe from '../modla/ModalLienhe';
 
 const LienHeAdmin = () => {
   const [danhSachLienHe, setDanhSachLienHe] = useState([]);
@@ -18,8 +18,10 @@ const LienHeAdmin = () => {
   const [noiDungChiTiet, setNoiDungChiTiet] = useState('');
   const [ngayLoc, setNgayLoc] = useState('');
   const [dangtai, setDangtai] = useState(false);
+  const [showModalXoa, setShowModalXoa] = useState(false); // Quản lý trạng thái hiển thị modal xóa
+  const [lienHeXoa, setLienHeXoa] = useState(null); // Lưu thông tin liên hệ cần xóa
 
-  // Logic phân trang
+
   const chiSoPhanTuCuoi = trangHienTai * soPhanTuMotTrang;
   const chiSoPhanTuDau = chiSoPhanTuCuoi - soPhanTuMotTrang;
   const cacPhanTuHienTai = danhSachLienHeLoc.slice(chiSoPhanTuDau, chiSoPhanTuCuoi);
@@ -27,7 +29,6 @@ const LienHeAdmin = () => {
 
   const thayDoiTrang = (soTrang) => setTrangHienTai(soTrang);
 
-  // Lấy danh sách liên hệ từ API
   const layDanhSachLienHe = async () => {
     setDangtai(true);
     try {
@@ -35,13 +36,12 @@ const LienHeAdmin = () => {
       setDanhSachLienHe(response.data);
       setDanhSachLienHeLoc(response.data);
       setDangtai(false);
-    }
-    catch (error) {
-      console.log('có lỗi khi lấy lien hệ', error);
-      toast.error('có lỗi khi lấy thông tin liên hê vui lòng thử lại sau', {
+    } catch (error) {
+      console.error('Lỗi khi lấy thông tin liên hệ:', error);
+      toast.error('Có lỗi khi lấy thông tin liên hệ, vui lòng thử lại sau.', {
         position: 'top-right',
-        autoClose: 3000
-      })
+        autoClose: 3000,
+      });
     }
   };
 
@@ -49,51 +49,50 @@ const LienHeAdmin = () => {
     layDanhSachLienHe();
   }, []);
 
-  // Xóa liên hệ
   const xoaLienHe = async (id) => {
-    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+    const token = localStorage.getItem('adminToken') || sessionStorage.getItem('adminToken');
     try {
-      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/lienhe/${id}`
-        ,
-        { 
-          headers: {
-            Authorization: `Bearer ${token}`, // Thêm token vào header
-          },
-        }
-      );
-
-      toast.success('đã xóa liên hệ thành công', {
-        position: 'top-right',
-        autoClose: 3000
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/lienhe/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      layDanhSachLienHe(); // cập nhật danh sách liên hệ sau khi xóa thành công 
-
+      toast.success('Đã xóa liên hệ thành công.', { position: 'top-right', autoClose: 3000 });
+      layDanhSachLienHe();
     } catch (error) {
-      console.log('có lỗi khi xóa liên hệ', error);
-
-      toast.error('có lỗi khi xóa liên hệ. vui lòng thử lại', {
-        position: 'top-right',
-        autoClose: 3000
-      });
+      console.error('Lỗi khi xóa liên hệ:', error);
+      toast.error('Có lỗi khi xóa liên hệ. Vui lòng thử lại.', { position: 'top-right', autoClose: 3000 });
     }
   };
 
-  // Hiển thị modal với nội dung chi tiết
   const hienThiChiTiet = (ghichu) => {
     setNoiDungChiTiet(ghichu);
     setHienThiModal(true);
   };
 
-  // Lọc danh sách liên hệ theo ngày
   const locTheoNgay = (ngay) => {
     setNgayLoc(ngay);
-    // kiểm tra có ngày được chọn thì truyền ngay vào hook 
     if (ngay) {
-      const danhSachLoc = danhSachLienHe.filter(item => item.created_at.startsWith(ngay));
+      const danhSachLoc = danhSachLienHe.filter((item) => item.created_at.startsWith(ngay));
       setDanhSachLienHeLoc(danhSachLoc);
     } else {
-      //ngược lại k có ngày được chọn thì truyền vào hook là danhsachLieHe
       setDanhSachLienHeLoc(danhSachLienHe);
+    }
+  };
+
+  const handleHienThiModalXoa = (lienHe) => {
+    setLienHeXoa(lienHe); // Lưu thông tin liên hệ cần xóa
+    setShowModalXoa(true); // Hiển thị modal
+  };
+
+  const handleDongModalXoa = () => {
+    setLienHeXoa(null); // Reset thông tin liên hệ cần xóa
+    setShowModalXoa(false); // Đóng modal
+  };
+
+  const handleXacNhanXoa = async () => {
+    if (lienHeXoa) {
+      await xoaLienHe(lienHeXoa.id); // Gọi hàm xóa liên hệ
+      setLienHeXoa(null); // Reset thông tin liên hệ
+      setShowModalXoa(false); // Đóng modal
     }
   };
 
@@ -101,63 +100,43 @@ const LienHeAdmin = () => {
     <div id="wrapper">
       <SiderbarAdmin />
 
-      {/* Content Wrapper */}
       <div id="content-wrapper" className="d-flex flex-column">
-        {/* Main Content */}
         <div id="content">
           <HeaderAdmin />
-          {/* Content Header */}
-          <div className="content-header">
-            <div className="container-fluid">
-              <div className="row mb-2">
-                <div className="col-sm-6">
-                  <h1 className="h3 mb-0 text-gray-800">Danh Sách Liên Hệ</h1>
-                </div>
-                <div className="col-sm-6">
-                  <ol className="breadcrumb float-sm-right">
-                    <li className="breadcrumb-item"><Link to="/admin/trangchu">Home</Link></li>
-                    <li className="breadcrumb-item active">Danh Sách Liên Hệ</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Main content */}
           <div className="container-fluid">
             <div className="card shadow mb-4">
-              <div className="card-header py-3 d-flex justify-content-between align-items-center">
+              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h3 className="m-0 font-weight-bold text-primary">Danh Sách Liên Hệ</h3>
-                <div className="card-tools">
-                  {/* Bộ lọc theo ngày */}
-                  <Form.Group controlId="formNgayLoc" className="mb-0">
-                    <Form.Control
-                      type="date"
-                      value={ngayLoc}
-                      onChange={(e) => locTheoNgay(e.target.value)}
-                    />
-                  </Form.Group>
-                </div>
+
+                {/* Bộ lọc theo ngày */}
+                <Form.Group controlId="formNgayLoc" className="mb-0">
+                  <Form.Control
+                    type="date"
+                    value={ngayLoc}
+                    onChange={(e) => locTheoNgay(e.target.value)}
+                    className="form-control"
+                  />
+                </Form.Group>
               </div>
 
-              {/* Bảng hiển thị liên hệ */}
               <div className="card-body table-responsive" style={{ maxHeight: '400px' }}>
                 {dangtai ? (
-                  <div className='text-center'>
-                    <Spinner animation='border' variant='primary' />
+                  <div className="text-center">
+                    <Spinner animation="border" variant="primary" />
                     <p>Đang tải dữ liệu...</p>
                   </div>
                 ) : (
                   <table className="table table-bordered table-hover table-striped">
-                    <thead>
+                    <thead className="table-dark">
                       <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Họ Tên</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Số Điện Thoại</th>
-                        <th scope="col">Nội Dung</th>
-                        <th scope="col">Ngày Tạo</th>
-                        <th scope="col">Chức Năng</th>
+                        <th>STT</th>
+                        <th>Họ Tên</th>
+                        <th>Email</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Nội Dung</th>
+                        <th>Ngày Tạo</th>
+                        <th>Chức Năng</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -171,7 +150,7 @@ const LienHeAdmin = () => {
                             {item.ghichu.length > 10 ? (
                               <>
                                 {item.ghichu.substring(0, 10)}...
-                                <Button variant="link" onClick={() => hienThiChiTiet(item.ghichu)}>
+                                <Button variant="link" onClick={() => hienThiChiTiet(item.ghichu)} className="text-decoration-none">
                                   Xem chi tiết
                                 </Button>
                               </>
@@ -181,11 +160,13 @@ const LienHeAdmin = () => {
                           </td>
                           <td>{new Date(item.created_at).toLocaleDateString()}</td>
                           <td>
+                            {/* Nút xóa với icon rõ ràng */}
                             <Button
                               variant="danger"
-                              onClick={() => xoaLienHe(item.id)}
+                              onClick={() => handleHienThiModalXoa(item)}
+                              className="btn-sm"
                             >
-                              <i className="bi bi-trash3-fill"></i> Xóa
+                              <i className="bi bi-trash3-fill"></i>
                             </Button>
                           </td>
                         </tr>
@@ -194,60 +175,57 @@ const LienHeAdmin = () => {
                   </table>
                 )}
               </div>
-
-              {/* Phân trang */}
-              <div className="card-footer clearfix">
-                <ul className="pagination pagination-sm m-0 float-right">
-                  <li className={`page-item ${trangHienTai === 1 ? 'disabled' : ''}`}>
-                    <button className="page-link" onClick={() => thayDoiTrang(trangHienTai > 1 ? trangHienTai - 1 : 1)}>«</button>
-                  </li>
-                  {[...Array(tongSoTrang)].map((_, i) => (
-                    <li key={i + 1} className={`page-item ${trangHienTai === i + 1 ? 'active' : ''}`}>
-                      <button className="page-link" onClick={() => thayDoiTrang(i + 1)}>{i + 1}</button>
-                    </li>
-                  ))}
-                  <li className={`page-item ${trangHienTai === tongSoTrang ? 'disabled' : ''}`}>
-                    <button className="page-link" onClick={() => thayDoiTrang(trangHienTai < tongSoTrang ? trangHienTai + 1 : tongSoTrang)}>»</button>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
 
         <Footer />
         <ToastContainer />
-
-        {/* Modal để hiển thị nội dung chi tiết */}
-        <Modal show={hienThiModal} onHide={() => setHienThiModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Chi Tiết Nội Dung</Modal.Title>
-          </Modal.Header>
-          <Modal.Body style={{ maxHeight: '400px', overflowY: 'auto' }}>
-            <Container>
-              <Row>
-                <Col>
-                  <div
-                    className="p-2"
-                    style={{
-                      wordWrap: 'break-word',
-                      whiteSpace: 'pre-wrap', // Giữ khoảng trắng và xuống dòng theo nội dung
-                    }}
-                  >
-                    {noiDungChiTiet}
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setHienThiModal(false)}>
-              Đóng
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
+
+      {/* Modal Chi Tiết Liên Hệ */}
+      <ModalLienhe
+        show={hienThiModal}
+        handleClose={() => setHienThiModal(false)}
+        noiDungChiTiet={noiDungChiTiet}
+      />
+
+
+      <Modal
+        show={showModalXoa}
+        onHide={handleDongModalXoa}
+        centered
+        backdrop="static" // Không cho phép đóng khi click ra ngoài
+      >
+        <Modal.Header closeButton className="bg-danger text-white">
+          <Modal.Title>
+            <i className="fas fa-exclamation-triangle me-2"></i> Xác nhận xóa
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="text-center">
+            <i className="fas fa-trash-alt fa-4x text-danger mb-3"></i>
+            <h5 className="mb-3">Bạn có chắc chắn muốn xóa liên hệ này?</h5>
+            <p className="text-muted">
+              <strong>Họ Tên:</strong> {lienHeXoa?.ten} <br />
+              <strong>Email:</strong> {lienHeXoa?.email} <br />
+              <strong>Ngày Tạo:</strong> {new Date(lienHeXoa?.created_at).toLocaleDateString()}
+            </p>
+            <p className="text-muted">Hành động này không thể hoàn tác.</p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <Button variant="secondary" onClick={handleDongModalXoa}>
+            <i className="fas fa-times me-2"></i> Hủy
+          </Button>
+          <Button variant="danger" onClick={handleXacNhanXoa}>
+            <i className="fas fa-check me-2"></i> Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
+
   );
 };
 

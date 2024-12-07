@@ -4953,11 +4953,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\BE\\New folder\\apiTraiCaytuoi\\apiTraiCaytuoi\\apiTraiCaytuoi.csproj",
+      "projectUniqueName": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\apiTraiCaytuoi.csproj",
       "projectName": "apiTraiCaytuoi",
-      "projectPath": "E:\\BE\\New folder\\apiTraiCaytuoi\\apiTraiCaytuoi\\apiTraiCaytuoi.csproj",
+      "projectPath": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\apiTraiCaytuoi.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "E:\\BE\\New folder\\apiTraiCaytuoi\\apiTraiCaytuoi\\obj\\",
+      "outputPath": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",

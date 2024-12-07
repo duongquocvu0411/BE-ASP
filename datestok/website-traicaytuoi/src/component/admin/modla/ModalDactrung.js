@@ -54,7 +54,9 @@ const ModalDactrung = ({ show, handleClose, isEdit, dactrung, fetchDactrungs }) 
     }
 
     try {
-      const token = localStorage.getItem("adminToken");
+       // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+     const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+     const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
 
       if (isEdit) {
         // PUT: Cập nhật đặc trưng
@@ -108,76 +110,109 @@ const ModalDactrung = ({ show, handleClose, isEdit, dactrung, fetchDactrungs }) 
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{isEdit ? "Chỉnh sửa đặc trưng" : "Thêm mới đặc trưng"}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          {/* Tiêu đề */}
-          <Form.Group className="mb-3">
-            <Form.Label>Tiêu đề</Form.Label>
-            <Form.Control
-              type="text"
-              value={tieude}
-              onChange={(e) => setTieude(e.target.value)}
-              placeholder="Nhập tiêu đề"
+    <Modal show={show} onHide={handleClose} centered>
+    <Modal.Header closeButton className="bg-primary text-white shadow-sm">
+      <Modal.Title className="fs-5 fw-bold">
+        {isEdit ? "Chỉnh sửa đặc trưng" : "Thêm mới đặc trưng"}
+      </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <Form>
+        {/* Tiêu đề */}
+        <Form.Group controlId="tieude" className="mb-4">
+          <Form.Label className="fw-bold">Tiêu đề</Form.Label>
+          <Form.Control
+            type="text"
+            value={tieude}
+            onChange={(e) => setTieude(e.target.value)}
+            placeholder="Nhập tiêu đề"
+            className="shadow-sm border-0 rounded"
+            style={{
+              backgroundColor: "#f8f9fa",
+              fontSize: "1rem",
+            }}
+          />
+        </Form.Group>
+  
+        {/* Phụ đề */}
+        <Form.Group controlId="phude" className="mb-4">
+          <Form.Label className="fw-bold">Phụ đề</Form.Label>
+          <Form.Control
+            type="text"
+            value={phude}
+            onChange={(e) => setPhude(e.target.value)}
+            placeholder="Nhập phụ đề"
+            className="shadow-sm border-0 rounded"
+            style={{
+              backgroundColor: "#f8f9fa",
+              fontSize: "1rem",
+            }}
+          />
+        </Form.Group>
+  
+        {/* Thứ tự hiển thị */}
+        <Form.Group controlId="thutuhienthi" className="mb-4">
+          <Form.Label className="fw-bold">Thứ tự hiển thị</Form.Label>
+          <Form.Control
+            type="number"
+            value={thutuhienthi}
+            onChange={(e) => setThutuhienthi(e.target.value)}
+            placeholder="Nhập thứ tự hiển thị"
+            className="shadow-sm border-0 rounded"
+            style={{
+              backgroundColor: "#f8f9fa",
+              fontSize: "1rem",
+            }}
+          />
+        </Form.Group>
+  
+        {/* Hiển thị ảnh cũ hoặc preview ảnh mới */}
+        {iconPreview && (
+          <div className="text-center mb-4">
+            <img
+              src={iconPreview}
+              alt="Icon Preview"
+              className="rounded shadow-sm"
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                border: "2px solid #ddd",
+              }}
             />
-          </Form.Group>
-
-          {/* Phụ đề */}
-          <Form.Group className="mb-3">
-            <Form.Label>Phụ đề</Form.Label>
-            <Form.Control
-              type="text"
-              value={phude}
-              onChange={(e) => setPhude(e.target.value)}
-              placeholder="Nhập phụ đề"
-            />
-          </Form.Group>
-
-          {/* Thứ tự hiển thị */}
-          <Form.Group className="mb-3">
-            <Form.Label>Thứ tự hiển thị</Form.Label>
-            <Form.Control
-              type="number"
-              value={thutuhienthi}
-              onChange={(e) => setThutuhienthi(e.target.value)}
-              placeholder="Nhập thứ tự hiển thị"
-            />
-          </Form.Group>
-
-          {/* Hiển thị ảnh cũ nếu là chế độ chỉnh sửa, hoặc preview ảnh mới nếu có */}
-          {iconPreview && (
-            <div className="mb-3">
-              <img
-                src={iconPreview}
-                alt="Icon Preview"
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
-            </div>
-          )}
-
-          {/* Icon File (ảnh biểu tượng) */}
-          <Form.Group className="mb-3">
-            <Form.Label>Icon File</Form.Label>
-            <Form.Control
-              type="file"
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Hủy
-        </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          {isEdit ? "Cập nhật" : "Thêm mới"}
-        </Button>
-      </Modal.Footer>
-    </Modal>
+          </div>
+        )}
+  
+        {/* Icon File (ảnh biểu tượng) */}
+        <Form.Group controlId="iconFile" className="mb-4">
+          <Form.Label className="fw-bold">Icon File</Form.Label>
+          <Form.Control
+            type="file"
+            onChange={handleFileChange}
+            accept="image/*"
+            className="shadow-sm border-0 rounded"
+            style={{
+              backgroundColor: "#f8f9fa",
+              fontSize: "1rem",
+            }}
+          />
+        </Form.Group>
+      </Form>
+    </Modal.Body>
+    <Modal.Footer className="bg-light border-0 shadow-sm">
+      <Button variant="outline-secondary" onClick={handleClose} className="px-4 py-2 shadow-sm rounded">
+        Hủy
+      </Button>
+      <Button
+        variant={isEdit ? "warning" : "success"}
+        onClick={handleSubmit}
+        className="px-4 py-2 shadow-sm text-white rounded"
+      >
+        {isEdit ? "Cập nhật" : "Thêm mới"}
+      </Button>
+    </Modal.Footer>
+  </Modal>
+  
   );
 };
 

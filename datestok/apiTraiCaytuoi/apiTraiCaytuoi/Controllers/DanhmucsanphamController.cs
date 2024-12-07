@@ -129,7 +129,7 @@ namespace apiTraiCaytuoi.Controllers
             _context.Danhmucsanpham.Remove(danhmucsanpham);
             await _context.SaveChangesAsync();
 
-            return Ok(danhmucsanpham);
+            return Ok(new { message = "Xóa Danh mục sản phẩm  thành công" });
         }
 
         private bool DanhmucsanphamExists(int id)

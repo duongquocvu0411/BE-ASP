@@ -235,7 +235,9 @@ const ModlaSanpham = ({
     }
 
     try {
-      const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+      // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+      const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+      const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
         const method = isEdit ? "put" : "post";
         const url = isEdit
             ? `${process.env.REACT_APP_BASEURL}/api/sanpham/${product.id}`
@@ -318,190 +320,230 @@ const ModlaSanpham = ({
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>{isEdit ? "Sửa sản phẩm" : "Thêm sản phẩm"}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Tiêu đề</Form.Label>
-              <Form.Control
-                type="text"
-                value={tieude}
-                onChange={(e) => setTieude(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Trạng thái</Form.Label>
-              <Form.Control
-                as="select"
-                value={trangthai}
-                onChange={(e) => setTrangthai(e.target.value)}
-              >
-                <option value="">Chọn trạng thái</option>
-                <option value="Còn hàng">Còn hàng</option>
-                <option value="Hết hàng">Hết hàng</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Giá</Form.Label>
-              <Form.Control
-                type="number"
-                value={giatien}
-                onChange={(e) => setGiatien(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Đơn vị tính</Form.Label>
-              <Form.Control
-                as="select"
-                value={dvt} // Make sure this is exactly `dvt` with fallback to an empty string
-                onChange={(e) => setDvt(e.target.value)} // Ensure this is updating the `dvt` state
-              >
-                <option value="">Chọn Đơn vị tính</option>
-                <option value="kg">kg</option>
-                <option value="bó">bó</option>
-                <option value="2kg">2kg</option>
-                <option value="5kg">5kg</option>
-                <option value="phần">phần</option>
-                <option value="bó">kg</option>
-                <option value="thùng">Thùng</option>
-                <option value="150gr">150gr</option>
-                <option value="300gr">300gr</option>
-                <option value="500gr">500gr</option>
-                {/* Add more options as needed */}
-              </Form.Control>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Danh mục sản phẩm</Form.Label>
-              <Form.Control
-                as="select"
-                value={danhmucsanphamID}
-                onChange={(e) => setDanhmucsanphamID(e.target.value)}
-              >
-                <option value="">Chọn danh mục sản phẩm</option>
-                {danhmuc.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Hình ảnh</Form.Label>
-              <Form.Control
-                type="file" 
-                
-                onChange={handleThaydoihinhanh}
-                  accept="image/*"
-              />
-              {xemtruochinhanh && (
-                <div className="mt-3">
-                  <p>{isEdit ? "Hình ảnh mới chọn:" : "Xem trước hình ảnh:"}</p>
-                  <img
-                    src={xemtruochinhanh}
-                    alt="Xem trước hình ảnh"
-                    style={{ width: "340px", height: "200px" }}
-                  />
-                </div>
-              )}
-            </Form.Group>
-
-            {/* Hiển thị ảnh phụ hiện có (từ API) */}
+    <Modal show={show} onHide={handleClose} size="lg" centered>
+      <Modal.Header closeButton className="bg-primary text-white">
+        <Modal.Title>{isEdit ? "Sửa sản phẩm" : "Thêm sản phẩm"}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          {/* Tiêu đề */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Tiêu đề</Form.Label>
+            <Form.Control
+              type="text"
+              value={tieude}
+              onChange={(e) => setTieude(e.target.value)}
+              placeholder="Nhập tiêu đề sản phẩm"
+              className="shadow-sm"
+            />
+          </Form.Group>
+  
+          {/* Trạng thái */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Trạng thái</Form.Label>
+            <Form.Control
+              as="select"
+              value={trangthai}
+              onChange={(e) => setTrangthai(e.target.value)}
+              className="shadow-sm"
+            >
+              <option value="">Chọn trạng thái</option>
+              <option value="Còn hàng">Còn hàng</option>
+              <option value="Hết hàng">Hết hàng</option>
+            </Form.Control>
+          </Form.Group>
+  
+          {/* Giá */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Giá</Form.Label>
+            <Form.Control
+              type="number"
+              value={giatien}
+              onChange={(e) => setGiatien(e.target.value)}
+              placeholder="Nhập giá sản phẩm"
+              className="shadow-sm"
+            />
+          </Form.Group>
+  
+          {/* Đơn vị tính */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Đơn vị tính</Form.Label>
+            <Form.Control
+              as="select"
+              value={dvt}
+              onChange={(e) => setDvt(e.target.value)}
+              className="shadow-sm"
+            >
+              <option value="">Chọn đơn vị tính</option>
+              <option value="kg">kg</option>
+              <option value="bó">bó</option>
+              <option value="thùng">Thùng</option>
+              <option value="150gr">150gr</option>
+            </Form.Control>
+          </Form.Group>
+  
+          {/* Danh mục sản phẩm */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Danh mục sản phẩm</Form.Label>
+            <Form.Control
+              as="select"
+              value={danhmucsanphamID}
+              onChange={(e) => setDanhmucsanphamID(e.target.value)}
+              className="shadow-sm"
+            >
+              <option value="">Chọn danh mục sản phẩm</option>
+              {danhmuc.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+  
+          {/* Hình ảnh chính */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Hình ảnh chính</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={handleThaydoihinhanh}
+              accept="image/*"
+              className="shadow-sm"
+            />
+            {xemtruochinhanh && (
+              <div className="mt-3">
+                <p>Xem trước hình ảnh:</p>
+                <img
+                  src={xemtruochinhanh}
+                  alt="Xem trước hình ảnh"
+                  style={{ width: "340px", height: "200px", objectFit: "cover" }}
+                  className="rounded shadow-sm"
+                />
+              </div>
+            )}
+          </Form.Group>
+  
+          {/* Hình ảnh phụ */}
+          <Form.Group className="mb-4">
+            <Form.Label className="fw-bold">Hình ảnh phụ</Form.Label>
             {existingHinhanhPhu.map((img, index) => (
-              <Form.Group key={img.id} className="mb-3">
-                <Form.Label>Hình ảnh phụ {index + 1}</Form.Label>
-                <div>
-                  <img
-                    src={img.hinhanh}
-                    alt={`Ảnh phụ ${index + 1}`}
-                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
-                  />
-                  <Button
-                    variant="danger"
-                    onClick={() => handleRemoveImage(img.id, index)}
-                  >
-                    Xóa ảnh
-                  </Button>
-                </div>
-              </Form.Group>
+              <div key={img.id} className="d-flex align-items-center mb-3">
+                <img
+                  src={img.hinhanh}
+                  alt={`Ảnh phụ ${index + 1}`}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                    marginRight: "10px",
+                  }}
+                  className="rounded shadow-sm"
+                />
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleRemoveImage(img.id, index)}
+                >
+                  Xóa
+                </Button>
+              </div>
             ))}
-
-            {/* Hiển thị input cho ảnh phụ mới */}
             {Fileanhphu.map((_, index) => (
-              <Form.Group key={index} className="mb-3">
-                <Form.Label>Hình ảnh phụ {index + 1}</Form.Label>
+              <div key={index} className="d-flex align-items-center mb-3">
                 <Form.Control
                   type="file"
                   onChange={(e) => handleDoianhphu(index, e)}
-                    accept="image/*"
+                  accept="image/*"
+                  className="shadow-sm"
                 />
                 {hinhanhPhu[index] && (
                   <img
                     src={URL.createObjectURL(hinhanhPhu[index])}
                     alt={`Preview ${index + 1}`}
-                    style={{ width: "200px", height: "150px", marginTop: "10px" }}
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                      marginLeft: "10px",
+                    }}
+                    className="rounded shadow-sm"
                   />
                 )}
                 <Button
                   variant="danger"
+                  size="sm"
                   onClick={() => handleXoaanhphu(index)}
+                  className="ms-2"
                 >
-                  Xóa ảnh
+                  Xóa
                 </Button>
-              </Form.Group>
+              </div>
             ))}
-            <Button onClick={handleThemanhphu}>Thêm ảnh phụ</Button>
-
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleThemanhphu}
+              className="mt-2"
+            >
+              Thêm ảnh phụ
+            </Button>
+          </Form.Group>
+  
+          {/* Nút chỉnh sửa */}
+          <div className="d-flex gap-2">
             <Button
               variant="info"
-              className="mt-3"
+              className="shadow-sm text-white"
               onClick={() => setShowChiTietModal(true)}
             >
               Thêm/Sửa Chi tiết sản phẩm
             </Button>
             <Button
-              variant="info"
-              className="mt-3"
+              variant="warning"
+              className="shadow-sm text-white"
               onClick={() => setShowSaleModal(true)}
             >
               {saleData ? "Chỉnh sửa khuyến mãi" : "Thêm khuyến mãi"}
             </Button>
-
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Hủy
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            {isEdit ? "Cập nhật" : "Thêm"}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Modal chi tiết sản phẩm */}
-      <MoadlChitietsanpham
-        show={showChiTietModal}
-        handleClose={() => setShowChiTietModal(false)}
-        chiTiet={chiTiet}
-        setChiTiet={setChiTiet}
-        handleSaveChiTiet={handleSaveChiTiet}
-      />
-      {/* Modal sale */}
-      <ModlaSanphamsale
-        show={showSaleModal}
-        handleClose={() => setShowSaleModal(false)}
-        saleData={saleData}
-        setSaleData={setSaleData}
-      />
-
-
-    </>
+          </div>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          onClick={handleClose}
+          className="shadow-sm"
+        >
+          Hủy
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleSubmit}
+          className="shadow-sm text-white"
+        >
+          {isEdit ? "Cập nhật" : "Thêm"}
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  
+    {/* Modal chi tiết sản phẩm */}
+    <MoadlChitietsanpham
+      show={showChiTietModal}
+      handleClose={() => setShowChiTietModal(false)}
+      chiTiet={chiTiet}
+      setChiTiet={setChiTiet}
+      isEdit={isEdit}
+      handleSaveChiTiet={handleSaveChiTiet}
+    />
+    {/* Modal sale */}
+    <ModlaSanphamsale
+      show={showSaleModal}
+      handleClose={() => setShowSaleModal(false)}
+      saleData={saleData}
+      isEdit={isEdit}
+      setSaleData={setSaleData}
+    />
+  </>
+  
   );
 };
 

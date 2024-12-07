@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import HeaderUsers from '../HeaderUsers';
 import { toast, ToastContainer } from 'react-toastify';
+import Footerusers from './../Footerusers';
 
 
 const LienHe = () => {
@@ -95,75 +96,113 @@ const LienHe = () => {
 
   return (
     <>
-     <HeaderUsers />
-      <div className="container mt-5 py-5">
-        <br /> <br /> <br />
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <h2 className="mb-4 text-center">Liên Hệ Với Chúng Tôi</h2>
-            <form onSubmit={xuLyGuiForm}>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="ten"
-                  id="formHoTen"
-                  className="form-control"
-                  placeholder="Họ tên"
-                  value={duLieuForm.ten}
-                  onChange={thayDoiDuLieu}
-                />
-                <label htmlFor="formHoTen">Họ Tên</label>
-              </div>
-
-              <div className="form-floating mb-3">
-                <input
-                  type="email"
-                  name="email"
-                  id="formEmail"
-                  className="form-control"
-                  placeholder="Email"
-                  value={duLieuForm.email}
-                  onChange={thayDoiDuLieu}
-                />
-                <label htmlFor="formEmail">Email</label>
-              </div>
-
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="sdt"
-                  id="formSoDienThoai"
-                  className="form-control"
-                  placeholder="Số điện thoại"
-                  value={duLieuForm.sdt}
-                  onChange={thayDoiDuLieu}
-                />
-                <label htmlFor="formSoDienThoai">Số Điện Thoại</label>
-              </div>
-
-              <div className="form-floating mb-3">
-                <textarea
-                  name="ghichu"
-                  id="formGhiChu"
-                  rows="5"
-                  className="form-control"
-                  placeholder="Nội dung liên hệ"
-                  value={duLieuForm.ghichu}
-                  onChange={thayDoiDuLieu}
-                  style={{ height: '100px' }}
-                ></textarea>
-                <label htmlFor="formGhiChu">Nội Dung</label>
-              </div>
-
-              <button type="submit" className="btn btn-primary">
-                Gửi Liên Hệ
-              </button>
-            </form>
+    <HeaderUsers />
+    <div className="container-fluid py-5 page-header text-white">
+      <div className="text-center py-5">
+      <h1 className="display-4 fw-bold text-animation">
+      <span className="animated-letter">L</span>
+      <span className="animated-letter">i</span>
+      <span className="animated-letter">ê</span>
+      <span className="animated-letter">n</span>
+      &nbsp;
+      <span className="animated-letter">H</span>
+      <span className="animated-letter">ệ</span>
+ 
+    </h1>
+       
+      </div>
+      </div>
+  
+    {/* Container chính cho form */}
+    <div className="container mt-5" >
+      <div className="row justify-content-center">
+        <div className="col-lg-6 col-md-8">
+          <div className="card shadow border-0">
+            {/* Tiêu đề form */}
+            <div className="card-header bg-primary text-white text-center py-4">
+              <h2 className="mb-0 text-uppercase">Liên Hệ Với Chúng Tôi</h2>
+            </div>
+  
+            {/* Nội dung form */}
+            <div className="card-body p-4">
+              <p className="text-center text-muted mb-4">
+                Vui lòng điền thông tin bên dưới để gửi liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất!
+              </p>
+              <form onSubmit={xuLyGuiForm}>
+                {/* Họ Tên */}
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    name="ten"
+                    id="formHoTen"
+                    className="form-control shadow-sm"
+                    placeholder="Họ tên"
+                    value={duLieuForm.ten}
+                    onChange={thayDoiDuLieu}
+                    required
+                  />
+                  <label htmlFor="formHoTen">Họ Tên *</label>
+                </div>
+  
+                {/* Email */}
+                <div className="form-floating mb-3">
+                  <input
+                    type="email"
+                    name="email"
+                    id="formEmail"
+                    className="form-control shadow-sm"
+                    placeholder="Email"
+                    value={duLieuForm.email}
+                    onChange={thayDoiDuLieu}
+                    required
+                  />
+                  <label htmlFor="formEmail">Email *</label>
+                </div>
+  
+                {/* Số Điện Thoại */}
+                <div className="form-floating mb-3">
+                  <input
+                    type="tel"
+                    name="sdt"
+                    id="formSoDienThoai"
+                    className="form-control shadow-sm"
+                    placeholder="Số điện thoại"
+                    value={duLieuForm.sdt}
+                    onChange={thayDoiDuLieu}
+                    required
+                  />
+                  <label htmlFor="formSoDienThoai">Số Điện Thoại *</label>
+                </div>
+  
+                {/* Nội Dung */}
+                <div className="form-floating mb-3">
+                  <textarea
+                    name="ghichu"
+                    id="formGhiChu"
+                    className="form-control shadow-sm"
+                    placeholder="Nội dung liên hệ"
+                    value={duLieuForm.ghichu}
+                    onChange={thayDoiDuLieu}
+                    style={{ height: '150px' }}
+                    required
+                  ></textarea>
+                  <label htmlFor="formGhiChu">Nội Dung *</label>
+                </div>
+  
+                {/* Nút gửi */}
+                <button type="submit" className="btn btn-primary btn-lg w-100 shadow">
+                  Gửi Liên Hệ
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <ToastContainer />
-    </>
+    </div>
+  <Footerusers/>
+    <ToastContainer />
+  </>
+  
   );
 };
 

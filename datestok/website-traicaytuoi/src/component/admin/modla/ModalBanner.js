@@ -45,7 +45,9 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
 
   // Handle save or update action
   const handleSave = async () => {
-    const token = localStorage.getItem('adminToken');
+   // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+   const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+   const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
     const formData = new FormData();
     formData.append('tieude', tieude);
     formData.append('phude', phude);
@@ -87,7 +89,9 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
 
   // Handle removing a file from the UI and backend
   const handleRemoveFile = async (index) => {
-    const token = localStorage.getItem('adminToken');
+     // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+     const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+     const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
     if (hinhanhs[index]?.id) {
       try {
         await axios.delete(`${process.env.REACT_APP_BASEURL}/api/banners/DeleteImage/${hinhanhs[index].id}`, {
@@ -109,67 +113,103 @@ const ModalBanner = ({ show, handleClose, isEdit, banner, fetchBanners }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{isEdit ? 'Chỉnh sửa banner' : 'Thêm banner mới'}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Tiêu đề</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Nhập tiêu đề"
-              value={tieude}
-              onChange={(e) => setTieude(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Phụ đề</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Nhập phụ đề"
-              value={phude}
-              onChange={(e) => setPhude(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Hình ảnh</Form.Label>
-            {hinhanhs.map((file, index) => (
-              <div key={index} className="d-flex align-items-center mb-2">
-                {file?.imagePath ? (
-                  <img
-                    src={`${process.env.REACT_APP_BASEURL}/${file.imagePath}`}
-                    alt="Banner"
-                    style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-                  />
-                ) : (
-                  <Form.Control
-                    type="file"
-                    onChange={(e) => handleFileChange(index, e.target.files[0])}
-                      accept="image/*"
-                  />
-                )}
-                <Button variant="danger" className="ms-2" onClick={() => handleRemoveFile(index)}>
-                  Xóa
-                </Button>
-              </div>
-            ))}
-            <Button variant="secondary" onClick={handleAddFileInput}>
-              Thêm ảnh
-            </Button>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Đóng
-        </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Lưu
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <Modal show={show} onHide={handleClose} centered>
+    <Modal.Header closeButton className="bg-primary text-white shadow-sm">
+      <Modal.Title className="fs-5 fw-bold">
+        {isEdit ? 'Chỉnh sửa banner' : 'Thêm banner mới'}
+      </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <Form>
+        {/* Tiêu đề */}
+        <Form.Group controlId="tieude" className="mb-4">
+          <Form.Label className="fw-bold">Tiêu đề</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Nhập tiêu đề"
+            value={tieude}
+            onChange={(e) => setTieude(e.target.value)}
+            className="shadow-sm border-0 rounded"
+            style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+          />
+        </Form.Group>
+  
+        {/* Phụ đề */}
+        <Form.Group controlId="phude" className="mb-4">
+          <Form.Label className="fw-bold">Phụ đề</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Nhập phụ đề"
+            value={phude}
+            onChange={(e) => setPhude(e.target.value)}
+            className="shadow-sm border-0 rounded"
+            style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+          />
+        </Form.Group>
+  
+        {/* Hình ảnh */}
+        <Form.Group controlId="hinhanhs" className="mb-4">
+          <Form.Label className="fw-bold">Hình ảnh</Form.Label>
+          {hinhanhs.map((file, index) => (
+            <div key={index} className="d-flex align-items-center mb-3">
+              {file?.imagePath ? (
+                <img
+                  src={`${process.env.REACT_APP_BASEURL}/${file.imagePath}`}
+                  alt="Banner"
+                  className="rounded shadow-sm border"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    objectFit: "cover",
+                    marginRight: "10px",
+                  }}
+                />
+              ) : (
+                <Form.Control
+                  type="file"
+                  onChange={(e) => handleFileChange(index, e.target.files[0])}
+                  accept="image/*"
+                  className="shadow-sm border-0 rounded"
+                  style={{ backgroundColor: "#f8f9fa" }}
+                />
+              )}
+              <Button
+                variant="outline-danger"
+                className="ms-2 shadow-sm"
+                onClick={() => handleRemoveFile(index)}
+              >
+                Xóa
+              </Button>
+            </div>
+          ))}
+          <Button
+            variant="outline-secondary"
+            onClick={handleAddFileInput}
+            className="shadow-sm rounded"
+          >
+            Thêm ảnh
+          </Button>
+        </Form.Group>
+      </Form>
+    </Modal.Body>
+    <Modal.Footer className="bg-light border-0 shadow-sm">
+      <Button
+        variant="outline-secondary"
+        onClick={handleClose}
+        className="px-4 py-2 shadow-sm rounded"
+      >
+        Đóng
+      </Button>
+      <Button
+        variant="success"
+        onClick={handleSave}
+        className="px-4 py-2 shadow-sm text-white rounded"
+      >
+        {isEdit ? "Cập nhật" : "Lưu"}
+      </Button>
+    </Modal.Footer>
+  </Modal>
+  
   );
 };
 

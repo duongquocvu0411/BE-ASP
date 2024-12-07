@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("apiTraiCaytuoi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e2d220762e07a9c599ae9664984e29f123cdb0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("apiTraiCaytuoi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("apiTraiCaytuoi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

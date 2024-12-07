@@ -40,7 +40,8 @@ namespace apiTraiCaytuoi.Controllers
                 return Ok(new
                 {
                     status = "Đăng nhập thành công",
-                    token = token
+                    token = token,
+                    hoten = admin.hoten
                 });
             }
 
@@ -73,7 +74,7 @@ namespace apiTraiCaytuoi.Controllers
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: creds
             );
 
@@ -96,6 +97,7 @@ namespace apiTraiCaytuoi.Controllers
             // Tạo đối tượng admin mới
             var newAdmin = new Admin
             {
+                hoten = request.hoten,
                 Username = request.Username,
                 Password = hashedPassword
             };

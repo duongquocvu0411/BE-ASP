@@ -41,24 +41,6 @@ namespace apiTraiCaytuoi.Controllers
             // Lặp qua các hóa đơn và chi tiết hóa đơn
             foreach (var hd in hoadons)
             {
-                //var hoaDonChiTiets = new List<object>();
-
-                //foreach (var ct in hd.HoaDonChiTiets)
-                //{
-                //    // Lấy thông tin sản phẩm từ SanPhamIds
-                //    var sanphamDetails = await GetSanPhamDetails(ct.SanPhamIds);
-
-                //    hoaDonChiTiets.Add(new
-                //    {
-                //        ct.Id,
-                //        ct.BillId,
-                //        ct.SanPhamIds,
-                //        ct.Price,
-                //        ct.Quantity,
-                //        SanphamNames = sanphamDetails.SanphamNames, // Tên sản phẩm
-                //        SanphamDonViTinh = sanphamDetails.SanphamDonViTinh // Đơn vị tính
-                //    });
-                //}
 
                 // Thêm hóa đơn và chi tiết vào kết quả
                 result.Add(new
@@ -356,16 +338,52 @@ namespace apiTraiCaytuoi.Controllers
             return madonhang;
         }
 
-        //public class HoaDonDto
-        //{
-        //    public int KhachHangId { get; set; }
-        //    public List<int> SanphamIds { get; set; }
-        //    public List<int> Quantities { get; set; }
-        //}
+        /// <summary>
+        /// Lấy danh sách sản phẩm bán chạy trong tháng và năm hiện tại
+        /// </summary>
+        /// <returns>Danh sách sản phẩm bán chạy trong tháng và năm hiện tại</returns>
+        [HttpGet("SanPhamBanChayHienTai")]
+        public async Task<ActionResult<IEnumerable<object>>> GetSanPhamBanChayHienTai()
+        {
+            // Lấy năm và tháng hiện tại
+            var currentYear = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
 
-        //public class UpdateStatusDto
-        //{
-        //    public string Status { get; set; }
-        //}
+            // Tính tổng số lượng sản phẩm bán ra trong tháng và năm hiện tại
+            var sanPhamBanChay = await _context.HoaDonChiTiets
+                .Where(hdct => hdct.HoaDon.Created_at.Year == currentYear && hdct.HoaDon.Created_at.Month == currentMonth)
+                .GroupBy(hdct => hdct.sanpham_ids)
+                .Select(g => new
+                {
+                    SanPhamIds = g.Key,
+                    TotalQuantity = g.Sum(hdct => hdct.quantity),
+                })
+                .OrderByDescending(res => res.TotalQuantity)
+                .ToListAsync();
+
+            // Lấy chi tiết sản phẩm từ các sanpham_ids
+            var result = new List<object>();
+
+            foreach (var item in sanPhamBanChay)
+            {
+                var sanphamIds = item.SanPhamIds.Split(',').Select(int.Parse).ToList();
+                var sanphams = await _context.Sanpham
+                    .Where(sp => sanphamIds.Contains(sp.Id))
+                    .Select(sp => new { sp.Tieude, sp.don_vi_tinh })
+                    .ToListAsync();
+
+                result.Add(new
+                {
+                    SanPhamIds = item.SanPhamIds,
+                    SanPhamNames = string.Join(", ", sanphams.Select(sp => sp.Tieude)),
+                    TotalQuantity = item.TotalQuantity,
+                    SanPhamDonViTinh = string.Join(", ", sanphams.Select(sp => sp.don_vi_tinh)),
+                });
+            }
+
+            return Ok(result);
+        }
+
+
     }
 }

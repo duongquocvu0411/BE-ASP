@@ -45,7 +45,7 @@ const Tracuu = () => {
       });
     }
   };
-
+ 
   // hàm để chọn class cho trạng thái đơn hàng
   const getStatusClass = (status) => {
     switch (status) {
@@ -65,90 +65,116 @@ const Tracuu = () => {
   };
   return (
     <>
-      <HeaderUsers />
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      
-      <div className="container my-5 py-5">
-        <h2 className="mb-4">Tra cứu đơn hàng</h2>
-        <form onSubmit={handleLookupOrder} className="mb-4">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Nhập mã đơn hàng"
-              value={madonhang}
-              onChange={(e) => setmadonhang(e.target.value)}
-            />
-            <button className="btn btn-primary" type="submit">
-              Tra cứu
-            </button>
-          </div>
-        </form>
-
-        {error && <div className="alert alert-danger">{error}</div>}
-
-        {dathangchitiet && (
-          <div className="card">
-            <div className="card-header">Chi tiết đơn hàng: {dathangchitiet.orderCode}</div>
-            <div className="card-body">
-              <p className="card-text">Ngày đặt hàng: {new Date(dathangchitiet.created_at).toLocaleDateString()}</p>
-              <p className="card-text">
-                <strong>Trạng thái đơn hàng:</strong> 
-                <span className={`p-2 ${getStatusClass(dathangchitiet.status)}`}>
-                  {dathangchitiet.status}
-                </span>
-              </p>
-
-              <h6 className="mt-4">Chi tiết sản phẩm:</h6>
-              <div className="table-responsive">
-                <table className="table table-bordered border-dark table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">Sản phẩm</th>
-                      <th scope="col">Số lượng</th>
-                      <th scope="col">Giá</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dathangchitiet.hoaDonChiTiets && Array.isArray(dathangchitiet.hoaDonChiTiets) ? (
-                      dathangchitiet.hoaDonChiTiets.map((item, index) => (
-                        <tr key={index}>
-                          <td>{item.sanPhamNames}</td>
-                          <td>
-                            {item.quantity} {item.sanPhamDonViTinh} {/* Hiển thị đơn vị tính ngay sau số lượng */}
-                          </td>
-                          <td> {parseFloat(item.price).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}  VND</td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="3" className="text-center">
-                          Không có chi tiết sản phẩm
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-
-              <p className="card-text"><strong>Tổng giá trị đơn hàng:</strong>  {parseFloat(dathangchitiet.total_price).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "} VND</p>
-
-              {dathangchitiet.status === "Chờ xử lý" && (
-                <button className="btn btn-danger mt-3" onClick={handleCancelOrder}>
-                  Hủy đơn hàng
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+    <HeaderUsers />
+    
+    <div className="container-fluid page-header text-white py-5" >
+      <div className="text-center">
+        <h1 className="display-4 fw-bold text-animation">
+          <span className="animated-letter">T</span>
+          <span className="animated-letter">r</span>
+          <span className="animated-letter">a</span>
+          &nbsp;
+          <span className="animated-letter">C</span>
+          <span className="animated-letter">ứ</span>
+          <span className="animated-letter">u</span>
+          &nbsp;
+          <span className="animated-letter">Đ</span>
+          <span className="animated-letter">ơ</span>
+          <span className="animated-letter">n</span>
+          &nbsp;
+          <span className="animated-letter">H</span>
+          <span className="animated-letter">à</span>
+          <span className="animated-letter">n</span>
+          <span className="animated-letter">g</span>
+        </h1>
       </div>
-      <ToastContainer />
-      <Footerusers />
-    </>
+    </div>
+  
+    <div className="container my-5 py-5">
+      {/* Form tra cứu đơn hàng */}
+      <form onSubmit={handleLookupOrder} className="mb-5">
+        <div className="input-group input-group-lg shadow-sm">
+          <input
+            type="text"
+            className="form-control border-primary"
+            placeholder="Nhập mã đơn hàng của bạn"
+            value={madonhang}
+            onChange={(e) => setmadonhang(e.target.value)}
+          />
+          <button className="btn btn-primary" type="submit">
+            <i className="fas fa-search"></i> Tra cứu
+          </button>
+        </div>
+      </form>
+  
+      {/* Hiển thị lỗi nếu có */}
+      {error && <div className="alert alert-danger text-center">{error}</div>}
+  
+      {/* Chi tiết đơn hàng */}
+      {dathangchitiet && (
+        <div className="card shadow-lg border-0 mb-5">
+          <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 className="mb-0">Chi tiết đơn hàng: {dathangchitiet.orderCode}</h5>
+            <small className="text-white">Ngày đặt hàng: {new Date(dathangchitiet.created_at).toLocaleDateString()}</small>
+          </div>
+          <div className="card-body">
+            <p className="card-text">
+              <strong>Trạng thái đơn hàng:</strong>{" "}
+              <span className={`badge ${getStatusClass(dathangchitiet.status)}`}>{dathangchitiet.status}</span>
+            </p>
+  
+            {/* Chi tiết sản phẩm */}
+            <h6 className="mt-4 text-primary">Chi tiết sản phẩm:</h6>
+            <div className="table-responsive">
+              <table className="table table-striped table-hover">
+                <thead className="table-primary">
+                  <tr>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Giá</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dathangchitiet.hoaDonChiTiets && Array.isArray(dathangchitiet.hoaDonChiTiets) ? (
+                    dathangchitiet.hoaDonChiTiets.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.sanPhamNames}</td>
+                        <td>{item.quantity} {item.sanPhamDonViTinh}</td>
+                        <td>{parseFloat(item.price).toLocaleString("vi-VN", { minimumFractionDigits: 3 })} VND</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">Không có chi tiết sản phẩm</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+  
+            {/* Tổng giá trị đơn hàng */}
+            <p className="card-text">
+              <strong>Tổng giá trị đơn hàng:</strong> {parseFloat(dathangchitiet.total_price).toLocaleString("vi-VN", { minimumFractionDigits: 3 })} VND
+            </p>
+  
+            {/* Nút hủy đơn hàng */}
+            {dathangchitiet.status === "Chờ xử lý" && (
+              <div className="text-center mt-4">
+                <button className="btn btn-danger" onClick={handleCancelOrder}>
+                  <i className="fas fa-times"></i> Hủy đơn hàng
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  
+    <ToastContainer />
+    <Footerusers />
+  </>
+  
+  
   );
 };
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using apiTraiCaytuoi.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace apiTraiCaytuoi.Controllers
 {
@@ -32,6 +33,7 @@ namespace apiTraiCaytuoi.Controllers
         /// <returns>thêm 1  địa chỉ chi tiết.</returns>
         // POST: api/Diachichitiet
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Diachichitiet>> Store(Diachichitiet diachi)
         {
             if (!ModelState.IsValid)
@@ -67,6 +69,7 @@ namespace apiTraiCaytuoi.Controllers
         /// <returns>chỉnh sửa  địa chỉ chi tiết theo {id}.</returns>
         // PUT: api/Diachichitiet/{id}
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, Diachichitiet diachi)
         {
             // Tìm đối tượng trong cơ sở dữ liệu dựa trên `id` từ URL
@@ -110,6 +113,7 @@ namespace apiTraiCaytuoi.Controllers
 
         // DELETE: api/Diachichitiet/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Destroy(int id)
         {
             var diachi = await _context.Diachichitiets.FindAsync(id);
@@ -132,6 +136,7 @@ namespace apiTraiCaytuoi.Controllers
         /// <returns>post địa chỉ chi tiết {id} status thành: "đang sử dụng"</returns>
         // Custom endpoint: Set a specific address as "đang sử dụng"
         [HttpPost("setDiaChiHien/{id}")]
+        [Authorize]
         public async Task<IActionResult> SetDiaChiHien(int id)
         {
             // Set tất cả địa chỉ khác thành "không sử dụng"

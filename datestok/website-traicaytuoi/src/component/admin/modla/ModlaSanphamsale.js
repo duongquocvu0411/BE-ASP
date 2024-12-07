@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-const ModlaSanphamsale = ({ show, handleClose, saleData, setSaleData }) => {
+const ModlaSanphamsale = ({ show, handleClose, saleData, setSaleData,isEdit }) => {
   const [giasale, setGiasale] = useState("");
   const [thoigianbatdau, setThoigianbatdau] = useState("");
   const [thoigianketthuc, setThoigianketthuc] = useState("");
@@ -47,60 +47,86 @@ const ModlaSanphamsale = ({ show, handleClose, saleData, setSaleData }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Quản lý chương trình khuyến mãi</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Giá Sale</Form.Label>
-            <Form.Control
-              type="number"
-              value={giasale}
-              onChange={(e) => setGiasale(e.target.value)}
-              placeholder="Nhập giá sale"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Thời gian bắt đầu</Form.Label>
-            <Form.Control
-              type="datetime-local"
-              value={thoigianbatdau}
-              onChange={(e) => setThoigianbatdau(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Thời gian kết thúc</Form.Label>
-            <Form.Control
-              type="datetime-local"
-              value={thoigianketthuc}
-              onChange={(e) => setThoigianketthuc(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Trạng thái</Form.Label>
-            <Form.Control
-              as="select"
-              value={trangthai}
-              onChange={(e) => setTrangthai(e.target.value)}
-            >
-                 <option value="" disabled>Chọn trạng thái</option>
-              <option value="Đang áp dụng">Đang áp dụng</option>
-              <option value="Không áp dụng">Không áp dụng</option>
-            </Form.Control>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Hủy
-        </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          Lưu
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <Modal show={show} onHide={handleClose} size="lg" centered>
+  <Modal.Header closeButton className="bg-primary text-white shadow-sm">
+    <Modal.Title className="fw-bold fs-5">
+    {isEdit ? "Chỉnh sửa chương trình khuyến mãi" : "Thêm chương trình khuyến mãi"}
+    </Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      {/* Giá Sale */}
+      <Form.Group controlId="giasale" className="mb-4">
+        <Form.Label className="fw-bold">Giá Sale</Form.Label>
+        <Form.Control
+          type="number"
+          placeholder="Nhập giá sale"
+          value={giasale}
+          onChange={(e) => setGiasale(e.target.value)}
+          className="shadow-sm border-0 rounded"
+          style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+        />
+      </Form.Group>
+
+      {/* Thời gian bắt đầu */}
+      <Form.Group controlId="thoigianbatdau" className="mb-4">
+        <Form.Label className="fw-bold">Thời gian bắt đầu</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          value={thoigianbatdau}
+          onChange={(e) => setThoigianbatdau(e.target.value)}
+          className="shadow-sm border-0 rounded"
+          style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+        />
+      </Form.Group>
+
+      {/* Thời gian kết thúc */}
+      <Form.Group controlId="thoigianketthuc" className="mb-4">
+        <Form.Label className="fw-bold">Thời gian kết thúc</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          value={thoigianketthuc}
+          onChange={(e) => setThoigianketthuc(e.target.value)}
+          className="shadow-sm border-0 rounded"
+          style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+        />
+      </Form.Group>
+
+      {/* Trạng thái */}
+      <Form.Group controlId="trangthai" className="mb-4">
+        <Form.Label className="fw-bold">Trạng thái</Form.Label>
+        <Form.Control
+          as="select"
+          value={trangthai}
+          onChange={(e) => setTrangthai(e.target.value)}
+          className="shadow-sm border-0 rounded"
+          style={{ backgroundColor: "#f8f9fa", fontSize: "1rem" }}
+        >
+          <option value="" disabled>Chọn trạng thái</option>
+          <option value="Đang áp dụng">Đang áp dụng</option>
+          <option value="Không áp dụng">Không áp dụng</option>
+        </Form.Control>
+      </Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer className="bg-light border-0 shadow-sm">
+    <Button
+      variant="outline-secondary"
+      onClick={handleClose}
+      className="px-4 py-2 shadow-sm rounded"
+    >
+      Hủy
+    </Button>
+    <Button
+      variant="success"
+      onClick={handleSubmit}
+      className="px-4 py-2 shadow-sm text-white rounded"
+    >
+       {isEdit ? "Cập nhật" : "Lưu"}
+    </Button>
+  </Modal.Footer>
+</Modal>
+
   );
 };
 

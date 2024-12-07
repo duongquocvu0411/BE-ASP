@@ -131,30 +131,53 @@ const TrangchuNguoidung = () => {
       <HeaderUsers />
 
       {/* Hero Start */}
-      <div className="container-fluid py-5 mb-5 hero-header">
+      <div
+        className="container-fluid py-5 mb-5 hero-header"
+        style={{ background: "linear-gradient(to bottom, #f5f5f5, #ffffff)" }}
+      >
         <div className="container py-5">
           <div className="row g-5 align-items-center">
+            {/* Phần tiêu đề và phụ đề */}
             <div className="col-md-12 col-lg-7">
               {banners.length > 0 && (
-                <>
-                  <h4 className="mb-3 text-secondary">{banners[0].tieude}</h4>
-                  <h1 className="mb-5 display-3 text-primary">{banners[0].phude}</h1>
-                </>
+                <div className="text-center text-lg-start">
+                  <h4
+                    className="mb-3 text-uppercase text-secondary"
+                    style={{
+                      letterSpacing: "3px",
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {banners[0].tieude}
+                  </h4>
+                  <h1
+                    className="mb-5 display-3 text-primary fw-bold position-relative"
+                    style={{
+                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
+                      lineHeight: "1.2",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <span className="glowing-text">{banners[0].phude}</span>
+                  </h1>
+                </div>
               )}
             </div>
+
+            {/* Phần carousel */}
             <div className="col-md-12 col-lg-5">
               <div
                 id="carouselId"
-                className="carousel slide position-relative"
+                className="carousel slide position-relative shadow-lg rounded"
                 data-bs-ride="carousel"
               >
-                <div className="carousel-inner" role="listbox">
+                <div className="carousel-inner rounded" role="listbox">
                   {banners.length > 0 &&
                     banners[0].bannerImages.map((image, index) => (
                       <div
                         key={image.id}
-                        className={`carousel-item ${index === 0 ? "active" : ""
-                          } rounded`}
+                        className={`carousel-item ${index === 0 ? "active" : ""}`}
                       >
                         <img
                           src={`${process.env.REACT_APP_BASEURL}/${image.imagePath}`}
@@ -163,6 +186,7 @@ const TrangchuNguoidung = () => {
                           style={{
                             height: "300px",
                             objectFit: "cover",
+                            boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
                           }}
                         />
                       </div>
@@ -175,7 +199,7 @@ const TrangchuNguoidung = () => {
                   data-bs-slide="prev"
                 >
                   <span
-                    className="carousel-control-prev-icon"
+                    className="carousel-control-prev-icon bg-dark rounded-circle p-2"
                     aria-hidden="true"
                   />
                   <span className="visually-hidden">Previous</span>
@@ -187,7 +211,7 @@ const TrangchuNguoidung = () => {
                   data-bs-slide="next"
                 >
                   <span
-                    className="carousel-control-next-icon"
+                    className="carousel-control-next-icon bg-dark rounded-circle p-2"
                     aria-hidden="true"
                   />
                   <span className="visually-hidden">Next</span>
@@ -198,78 +222,110 @@ const TrangchuNguoidung = () => {
         </div>
       </div>
 
+
       {/* Hero End */}
       {/* Featurs Section Start */}
-      <div className="container-fluid featurs py-5">
+      <div className="container-fluid features-section py-5 bg-light">
         <div className="container py-5">
+          <div className="text-center mb-5">
+
+            <p className="text-muted">
+              Những đặc điểm nổi bật mà chúng tôi mang đến để phục vụ bạn
+            </p>
+          </div>
           <div className="row g-4">
             {dangtai ? (
-              <div className="text-center">
-                <p>Đang tải...</p>
+              <div className="text-center w-100">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="mt-3">Đang tải...</p>
               </div>
             ) : dactrungs.length > 0 ? (
-              dactrungs.map((item) => (
-                <div className="col-md-6 col-lg-3" key={item.id}>
-                  <div className="featurs-item text-center rounded bg-light p-4">
-                    <div className=" btn-square rounded-circle bg-secondary mb-5 mx-auto">
+              dactrungs.map((item, index) => (
+                <div
+                  className={`col-md-6 col-lg-3 d-flex align-items-stretch animate-feature animate-delay-${index}`}
+                  key={item.id}
+                >
+                  <div className="feature-item text-center rounded shadow-lg bg-white p-4 border border-light">
+                    {/* Icon hình tròn */}
+                    <div className="feature-icon btn-square rounded-circle bg-primary mb-4 mx-auto d-flex align-items-center justify-content-center">
                       <img
                         src={`${process.env.REACT_APP_BASEURL}/${item.icon}`}
                         alt={item.tieude}
                         className="img-fluid"
                         style={{
-                          width: "50px",
-                          height: "50px",
+                          width: "60px",
+                          height: "60px",
                           objectFit: "cover",
                           borderRadius: "50%",
                         }}
                       />
                     </div>
-                    <div className="featurs-content text-center">
-                      <h5>{item.tieude}</h5>
-                      <p className="mb-0">{item.phude}</p>
+                    {/* Nội dung */}
+                    <div className="feature-content">
+                      <h5 className="fw-bold text-primary">{item.tieude}</h5>
+                      <p className="text-muted mb-0">{item.phude}</p>
                     </div>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="text-center">
+              <div className="text-center w-100">
                 <p>Không có dữ liệu đặc trưng nào để hiển thị.</p>
               </div>
             )}
           </div>
         </div>
       </div>
+
+
       {/* Featurs Section End */}
 
+
       {/* Sản phẩm của chúng tôi */}
-      <div className="container-fluid fruite py-5 OurProduct ">
-        <div className="container py-5 ">
+      <div className="container-fluid fruite py-5 OurProduct">
+        <div className="container py-5">
           <div className="tab-class text-center">
-            <div className="row g-4 align-items-center">
-              {/* Tiêu đề sản phẩm */}
-              <div className="col-lg-4 text-start">
-                <h1 className="text-uppercase fw-bold">Sản phẩm của chúng tôi</h1>
+            {/* Tiêu đề chính */}
+            <div class="row mb-4 align-items-center">
+              <div class="col-12 text-center">
+                <h1 class="text-uppercase fw-bold glowing-text">
+                  Sản phẩm của chúng tôi
+                </h1>
+                <p class="text-muted">
+                  Khám phá các sản phẩm chất lượng với mức giá phù hợp.
+                </p>
               </div>
-              {/* Bộ lọc danh mục sản phẩm */}
-              <div className="col-sm-2">
-                <div className="dropdown">
+            </div>
+
+
+            {/* Bộ lọc sản phẩm */}
+            <div className="row g-4 align-items-center">
+              <div className="col-lg-6 text-start">
+                <h2 className="text-uppercase fw-bold text-success">
+                  Sản phẩm không sale
+                </h2>
+              </div>
+              <div className="col-lg-6 d-flex justify-content-end">
+                <div className="dropdown me-3">
                   <button
-                    className="btn btn-secondary dropdown-toggle"
+                    className="btn btn-outline-success dropdown-toggle"
                     type="button"
                     id="dropdownCategoryButton"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     {danhMucDuocChon
-                      ? danhMuc.find((dm) => dm.id === danhMucDuocChon)?.name || 'Danh mục không rõ'
-                      : 'Tất cả sản phẩm'}
+                      ? danhMuc.find((dm) => dm.id === danhMucDuocChon)?.name || "Danh mục không rõ"
+                      : "Tất cả sản phẩm"}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownCategoryButton">
                     <li>
                       <button
                         className="dropdown-item"
                         type="button"
-                        onClick={() => setDanhMucDuocChon('')}
+                        onClick={() => setDanhMucDuocChon("")}
                       >
                         Tất cả sản phẩm
                       </button>
@@ -290,195 +346,205 @@ const TrangchuNguoidung = () => {
               </div>
             </div>
 
-            {/* Hiển thị sản phẩm */}
-            <div className="tab-content mt-4 ">
-              <div className="tab-pane fade show p-0 active">
-                {dangtai ? (
-                  <div className="text-center">
-                    <Spinner animation="border" variant="primary" />
-                    <p>Đang tải dữ liệu...</p>
+            {/* Danh sách sản phẩm không sale */}
+            <div className="row g-4 mt-4">
+              {dangtai ? (
+                <div className="text-center py-5">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
                   </div>
-                ) : sanPhamHienTai.length > 0 ? ( // Kiểm tra có sản phẩm trong danh sách phân trang
-                  <div className="row g-4">
-                    {sanPhamHienTai.map((sanPham) => (
-                      <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-                        {/* Hiển thị thông tin sản phẩm */}
-                        <div className="rounded position-relative fruite-item shadow-sm bg-white">
-                          <div className="fruite-img position-relative">
-                            <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                              <img
-                                src={sanPham.hinhanh }
-                                className="img-fluid w-100 rounded-top"
-                                alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
-                                style={{ height: 250, objectFit: "cover" }}
-                              />
-                            </Link> 
-                            {sanPham.trangthai === "Hết hàng" && (
-                              <div
-                                className="position-absolute top-50 start-50 translate-middle d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-                                style={{ zIndex: 1, padding: "5px 10px", borderRadius: "5px" }}
-                              >
-                                <span className="text-white small fw-bold">Hết hàng</span>
-                              </div>
-                            )}
-                          </div>
-                          <div
-                            className="text-white bg-secondary px-2 py-1 rounded position-absolute"
-                            style={{ top: 10, left: 10 }}
-                          >
-                            {sanPham.danhmucsanphamName || "Danh mục không rõ"}
-                          </div>
-                          <div className="p-3 rounded-bottom">
-                            <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
-                            <h5 className="fw-bold">
-                              {sanPham.mo_ta_chung?.length > 20 ? (
-                                <>
-                                  {sanPham.mo_ta_chung.slice(0, 20)}{" ...."}
-                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                    (Xem chi tiết)
-                                  </Link>
-                                </>
-                              ) : (
-                                <>
-                                  {sanPham.mo_ta_chung || "Không có mô tả"}{" "}
-                                  <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                    (Xem chi tiết)
-                                  </Link>
-                                </>
-                              )}
-                            </h5>
-                            <div className="d-flex justify-content-between align-items-center">
-                              <p className="text-dark fs-5 fst-italic mb-0">
-                                {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
-                                  minimumFractionDigits: 3,
-                                })}{" "}
-                                vnđ / {sanPham.don_vi_tinh || "Đơn vị không rõ"}
-                              </p>
-                              {sanPham.trangthai !== "Hết hàng" && (
-                                <button
-                                  onClick={() => addToCart(sanPham)}
-                                  className="btn border border-secondary rounded-pill px-3 text-primary"
-                                >
-                                  <i className="fa fa-shopping-bag me-2 text-primary" />
-                                  Thêm vào giỏ
-                                </button>
-                              )}
-                            </div>
-                          </div>
+                  <p className="text-muted mt-3">Đang tải dữ liệu...</p>
+                </div>
+              ) : sanPhamHienTai.length > 0 ? (
+                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                  {sanPhamHienTai.map((sanPham) => (
+                    <div className="col" key={sanPham.id}>
+                      <div
+                        className="card h-100 shadow-lg border-0"
+                        style={{ transition: "transform 0.3s, box-shadow 0.3s" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "scale(1.05)";
+                          e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.3)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "scale(1)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        <Link to={`/sanpham/${sanPham.id}`} className="text-decoration-none">
+                          <img
+                            src={sanPham.hinhanh}
+                            className="card-img-top img-fluid rounded-top"
+                            alt={sanPham.tieude || "Sản phẩm không có tiêu đề"}
+                            style={{ height: 250, objectFit: "cover" }}
+                          />
+                        </Link>
+                        <div className="card-body d-flex flex-column text-center">
+                          <h5 className="card-title text-success fw-bold">
+                            {sanPham.tieude || "Tên sản phẩm không rõ"}
+                          </h5>
+                          <p className="card-text text-muted small mb-3">
+                            {sanPham.mo_ta_chung?.length > 50
+                              ? `${sanPham.mo_ta_chung.slice(0, 50)}...`
+                              : sanPham.mo_ta_chung || "Không có mô tả"}
+                          </p>
+                          <p className="text-dark fs-5 fw-bold">
+                            {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
+                              minimumFractionDigits: 3,
+                            })}{" "}
+                            VND
+                          </p>
+                          {sanPham.trangthai === "Hết hàng" ? (
+                            <span className="badge bg-danger py-2 px-3">Hết hàng</span>
+                          ) : (
+                            <button
+                              className="btn btn-outline-success mt-auto"
+                              onClick={() => addToCart(sanPham)}
+                            >
+                              <i className="fa fa-shopping-cart me-2"></i> Thêm vào giỏ hàng
+                            </button>
+                          )}
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center mt-4">
-                    <p>Danh mục này không có sản phẩm nào</p>
-                  </div>
-                )}
-                {/* Phân trang cho sản phẩm thông thường */}
-                <div className="d-flex justify-content-center mt-4">
-                  <ul className="pagination pagination-sm m-0">
-                    <li className={`page-item ${trangHienTai === 1 ? "disabled" : ""}`}>
-                      <button className="page-link" onClick={() => datTrangHienTai(1)}>
-                        «
-                      </button>
-                    </li>
-                    {[...Array(tongSoTrang)].map((_, i) => (
-                      <li key={i + 1} className={`page-item ${trangHienTai === i + 1 ? "active" : ""}`}>
-                        <button className="page-link" onClick={() => datTrangHienTai(i + 1)}>
-                          {i + 1}
-                        </button>
-                      </li>
-                    ))}
-                    <li className={`page-item ${trangHienTai === tongSoTrang ? "disabled" : ""}`}>
-                      <button className="page-link" onClick={() => datTrangHienTai(tongSoTrang)}>
-                        »
-                      </button>
-                    </li>
-                  </ul>
+                    </div>
+                  ))}
                 </div>
+              ) : (
+                <div className="text-center mt-4">
+                  <p className="text-muted">Không có sản phẩm nào trong danh mục này</p>
+                </div>
+              )}
+
+              {/* Phân trang */}
+              <div className="d-flex justify-content-center mt-4">
+                <ul className="pagination pagination-sm">
+                  <li className={`page-item ${trangHienTai === 1 ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={() => datTrangHienTai(1)}>
+                      «
+                    </button>
+                  </li>
+                  {[...Array(tongSoTrang)].map((_, index) => (
+                    <li key={index + 1} className={`page-item ${trangHienTai === index + 1 ? "active" : ""}`}>
+                      <button className="page-link" onClick={() => datTrangHienTai(index + 1)}>
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+                  <li className={`page-item ${trangHienTai === tongSoTrang ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={() => datTrangHienTai(tongSoTrang)}>
+                      »
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            {/* Hiển thị sản phẩm khuyến mãi */}
-            <div className="container-fluid fruite py-5 OurProduct bg-light">
-              <div className="container py-5">
-                <h2 className="text-center text-uppercase fw-bold mb-4">Sản phẩm đang khuyến mãi</h2>
+
+            {/* Danh sách sản phẩm đang sale */}
+            <div className="row g-4 mt-5">
+              <div className="col-12 text-start">
+                <h2 className="text-uppercase fw-bold text-danger">
+                  Sản phẩm đang khuyến mãi
+                </h2>
+              </div>
+              <div className="row g-4 mt-3">
                 {dangtai ? (
-                  <div className="text-center">
-                    <Spinner animation="border" variant="primary" />
-                    <p>Đang tải dữ liệu...</p>
+                  <div className="text-center py-5">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="text-muted mt-3">Đang tải dữ liệu...</p>
                   </div>
                 ) : sanPhamSale?.length > 0 ? (
-                  <div className="row g-4">
+                  <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
                     {sanPhamSale.map((sanPham) => {
                       const sale = sanPham.sanphamSales?.find((sale) => sale.trangthai === "Đang áp dụng");
                       const ngayHethan = new Date(sale?.thoigianketthuc);
                       const daHethan = ngayHethan <= new Date();
 
                       return (
-                        <div className="col-md-6 col-lg-4 col-xl-3" key={sanPham.id}>
-                          <div className="rounded position-relative fruite-item shadow-sm bg-white">
-                            <div className="fruite-img position-relative">
-                              <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                <img
-                                  src={sanPham.hinhanh || "/path/to/default-image.jpg"}
-                                  className="img-fluid w-100 rounded-top"
-                                  alt={sanPham.tieude || "Không có tiêu đề"}
-                                  style={{ height: 250, objectFit: "cover" }}
-                                />
-                              </Link>
+                        <div className="col" key={sanPham.id}>
+                          <div
+                            className="card shadow-lg border-0 position-relative"
+                            style={{
+                              transition: "transform 0.3s, box-shadow 0.3s",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = "scale(1.05)";
+                              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.3)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = "scale(1)";
+                              e.currentTarget.style.boxShadow = "none";
+                            }}
+                          >
+                            {/* Hình ảnh sản phẩm */}
+                            <Link to={`/sanpham/${sanPham.id}`} className="text-decoration-none">
+                              <img
+                                src={sanPham.hinhanh || "/path/to/default-image.jpg"}
+                                className="card-img-top img-fluid rounded-top"
+                                alt={sanPham.tieude || "Không có tiêu đề"}
+                                style={{ height: 250, objectFit: "cover" }}
+                              />
+                            </Link>
+
+                            {/* Huy hiệu đếm ngược sale */}
+                            {!daHethan && (
                               <div
-                                className="position-absolute top-0 start-0 px-3 py-1 bg-danger text-white rounded-end"
+                                className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
                                 style={{
                                   fontSize: "0.9rem",
                                   fontWeight: "bold",
-                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+                                  zIndex: 2,
+                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
                                 }}
                               >
                                 <Countdown date={ngayHethan} renderer={renderer} />
                               </div>
-                            </div>
-                            <div className="p-3">
-                              <h3 className="fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h3>
-                              <h5 className="fw-bold">
-                                {sanPham.mo_ta_chung?.length > 20 ? (
-                                  <>
-                                    {sanPham.mo_ta_chung.slice(0, 20)}{" ..."}
-                                    <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                      (Xem chi tiết)
-                                    </Link>
-                                  </>
-                                ) : (
-                                  <>
-                                    {sanPham.mo_ta_chung || "Không có mô tả"}{" "}
-                                    <Link to={`/sanpham/${sanPham.id}`} className="btn btn-link">
-                                      (Xem chi tiết)
-                                    </Link>
-                                  </>
-                                )}
-                              </h5>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <p className="text-muted mb-0" style={{ textDecoration: "line-through" }}>
+                            )}
+
+                            {/* Nội dung sản phẩm */}
+                            <div className="card-body text-center">
+                              <h5 className="card-title text-danger fw-bold">{sanPham.tieude || "Tên sản phẩm không rõ"}</h5>
+                              <p className="text-muted small">
+                                {sanPham.mo_ta_chung?.length > 50
+                                  ? `${sanPham.mo_ta_chung.slice(0, 50)}...`
+                                  : sanPham.mo_ta_chung || "Không có mô tả"}
+                              </p>
+                              <div className="d-flex justify-content-between align-items-center mt-2">
+                                <p
+                                  className="text-muted mb-0 text-decoration-line-through"
+                                  style={{ fontSize: "0.9rem" }}
+                                >
                                   {parseFloat(sanPham.giatien || 0).toLocaleString("vi-VN", {
                                     minimumFractionDigits: 3,
                                   })}{" "}
-                                  vnđ
+                                  VND
                                 </p>
-                                <p className="text-danger fw-bold mb-0">
+                                <p className="text-danger fw-bold fs-5 mb-0">
                                   {parseFloat(sale?.giasale || 0).toLocaleString("vi-VN", {
                                     minimumFractionDigits: 3,
                                   })}{" "}
-                                  vnđ ({sanPham.don_vi_tinh || "Đơn vị không rõ"})
+                                  VND
                                 </p>
                               </div>
-                              {!daHethan && (
+                              {!daHethan && sanPham.trangthai !== "Hết hàng" && (
                                 <button
+                                  className="btn btn-outline-danger w-100 mt-2"
                                   onClick={() => addToCart(sanPham)}
-                                  className="btn border border-secondary rounded-pill px-3 text-primary"
+                                  style={{
+                                    borderRadius: "20px",
+                                    transition: "background-color 0.3s ease",
+                                  }}
+                                  // onMouseEnter={(e) => (e.target.style.backgroundColor = "#ff4d4d")}
+                                  // onMouseLeave={(e) => (e.target.style.backgroundColor = "rgb(220, 53, 69)")}
                                 >
-                                  <i className="fa fa-shopping-bag me-2 text-primary" />
+                                  <i className="fa fa-shopping-bag me-2" />
                                   Thêm vào giỏ
                                 </button>
+                              )}
+                              {sanPham.trangthai === "Hết hàng" && (
+                                <span className="badge bg-secondary mt-3 py-2 px-3">Hết hàng</span>
                               )}
                             </div>
                           </div>
@@ -488,20 +554,19 @@ const TrangchuNguoidung = () => {
                   </div>
                 ) : (
                   <div className="text-center mt-4">
-                    <p>Không có sản phẩm nào đang khuyến mãi</p>
+                    <p className="text-muted">Không có sản phẩm nào đang khuyến mãi</p>
                   </div>
                 )}
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
-      {/* Fruits Shop End */}
       <Footerusers />
       <ToastContainer />
     </>
+
+
   );
 };
 

@@ -136,7 +136,28 @@ const CuahangChitiet = () => {
 
         {/* Hiển thị thông tin sản phẩm */}
         <div className="container-fluid page-header py-5">
-          <h1 className="text-center text-white display-6">Chi Tiết Sản Phẩm</h1>
+        <div className="text-center">
+    <h1 className="display-4 fw-bold text-animation">
+      <span className="animated-letter">C</span>
+      <span className="animated-letter">h</span>
+      <span className="animated-letter">i</span>
+      &nbsp;
+      <span className="animated-letter">T</span>
+      <span className="animated-letter">i</span>
+      <span className="animated-letter">ế</span>
+      <span className="animated-letter">t</span>
+      &nbsp;
+      <span className="animated-letter">S</span>
+      <span className="animated-letter">ả</span>
+      <span className="animated-letter">n</span>
+      &nbsp;
+      <span className="animated-letter">P</span>
+      <span className="animated-letter">h</span>
+      <span className="animated-letter">ẩ</span>
+      <span className="animated-letter">m</span>
+    </h1>
+   
+  </div>
         </div>
 
         <div className="container-fluid py-5 mt-5">
@@ -149,10 +170,10 @@ const CuahangChitiet = () => {
                       <img
                         src={sanPham.hinhanh}
                         className="img-fluid w-100 rounded"
-                       
+
                         style={{
-                          height: "300px", 
-                          objectFit: "cover", 
+                          height: "300px",
+                          objectFit: "cover",
                         }}
                         alt={sanPham.tieude}
                         onClick={() => setLargeImage(sanPham.hinhanh)} // Hiển thị trong lightbox khi click
@@ -250,148 +271,269 @@ const CuahangChitiet = () => {
 
             {/* Hiển thị chi tiết sản phẩm */}
             {tab === "chiTiet" && (
-              <div className="container border p-4 rounded">
-                <h4 className="fw-bold">Chi Tiết Sản Phẩm</h4>
+              <div className="container border p-4 rounded shadow-sm bg-light">
+                <h4 className="fw-bold text-primary mb-4">
+                  <i className="fa fa-info-circle me-2"></i>Chi Tiết Sản Phẩm
+                </h4>
                 {chiTiet && Object.values(chiTiet).some((value) => value) ? (
-                  <>
-                    <p><strong>Mô tả chung:</strong> {chiTiet.mo_ta_chung || 'Không có thông tin'}</p>
-                    <p><strong>Hình dáng:</strong> {chiTiet.hinh_dang || 'Không có thông tin'}</p>
-                    <p><strong>Công dụng:</strong> {chiTiet.cong_dung || 'Không có thông tin'}</p>
-                    <p><strong>Xuất xứ:</strong> {chiTiet.xuat_xu || 'Không có thông tin'}</p>
-                    <p><strong>Khối lượng:</strong> {chiTiet.khoi_luong || 'Không có thông tin'}</p>
-                    <p><strong>Bảo quản:</strong> {chiTiet.bao_quan || 'Không có thông tin'}</p>
-                    <p><strong>Thành phần dinh dưỡng:</strong> {chiTiet.thanh_phan_dinh_duong || 'Không có thông tin'}</p>
-                    <p><strong>Ngày thu hoạch:</strong> {chiTiet.ngay_thu_hoach ? new Date(chiTiet.ngay_thu_hoach).toLocaleDateString("vi-VN") : 'Không có thông tin'}</p>
-                    <p><strong>Hương vị:</strong> {chiTiet.huong_vi || 'Không có thông tin'}</p>
-                    <p><strong>Nồng độ đường:</strong> {chiTiet.nong_do_duong || 'Không có thông tin'}</p>
-                  </>
-                ) : (
-                  <p>Không có chi tiết sản phẩm.</p>
-                )}
-              </div>
-            )}
-
-
-            {/* Hiển thị bài viết */}
-            {tab === "baiViet" && (
-              <div className="container border p-4 rounded">
-                <h4 className="fw-bold">Bài Viết Đánh Giá</h4>
-                {chiTiet.bai_viet ? (
-                  <div dangerouslySetInnerHTML={{ __html: chiTiet.bai_viet }} />
-                ) : (
-                  <p>Sản phẩm không có bài viết</p>
-                )}
-              </div>
-            )}
-
-            {/* Hiển thị danh sách đánh giá */}
-            {tab === "danhGia" && (
-              <div>
-                <div className="mt-4">
-                  <h4 className="fw-bold">Viết Đánh Giá của bạn</h4>
-                  <p>Chọn số sao:</p>
-                  {[1, 2, 3, 4, 5].map((soSaoItem) => (
-                    <span
-                      key={soSaoItem}
-                      className={`fa fa-star ${soSao >= soSaoItem ? "text-warning" : ""}`}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => moModalVietDanhGia(soSaoItem)}
-                    />
-                  ))}
-                </div>
-                {sanPham.danhgiakhachhangs && sanPham.danhgiakhachhangs.length > 0 ? (
-                  <div className="container border p-4 rounded mt-4">
-                    <h4 className="fw-bold">Đánh Giá Sản Phẩm</h4>
-                    {sanPham.danhgiakhachhangs.map((dg, index) => (
-                      <div key={index} className="mb-3">
-                        <h4>Họ và tên:  <b> {dg.ho_ten}</b></h4>
-                        <h5>Tiêu đề: <b>{dg.tieude}</b></h5>
-                        <p>
-                          {Array(dg.so_sao)
-                            .fill()
-                            .map((_, i) => (
-                              <span key={i} className="fa fa-star text-warning"></span>
-                            ))}
-                          {Array(5 - dg.so_sao)
-                            .fill()
-                            .map((_, i) => (
-                              <span key={i} className="fa fa-star"></span>
-                            ))}
-                        </p>
-                        <p> Nội dung: <b>{dg.noi_dung}</b></p>
-                        <p>
-                          Ngày tạo: <b>{new Date(dg.created_at).toLocaleDateString("vi-VN")}</b>
-                        </p>
-
+                  <div className="row g-3">
+                    {/* Mỗi chi tiết được hiển thị dưới dạng card */}
+                    {[
+                      { label: "Mô tả chung", value: chiTiet.mo_ta_chung },
+                      { label: "Hình dáng", value: chiTiet.hinh_dang },
+                      { label: "Công dụng", value: chiTiet.cong_dung },
+                      { label: "Xuất xứ", value: chiTiet.xuat_xu },
+                      { label: "Khối lượng", value: chiTiet.khoi_luong },
+                      { label: "Bảo quản", value: chiTiet.bao_quan },
+                      { label: "Thành phần dinh dưỡng", value: chiTiet.thanh_phan_dinh_duong },
+                      {
+                        label: "Ngày thu hoạch",
+                        value: chiTiet.ngay_thu_hoach
+                          ? new Date(chiTiet.ngay_thu_hoach).toLocaleDateString("vi-VN")
+                          : null,
+                      },
+                      { label: "Hương vị", value: chiTiet.huong_vi },
+                      { label: "Nồng độ đường", value: chiTiet.nong_do_duong },
+                    ].map((item, index) => (
+                      <div className="col-md-6" key={index}>
+                        <div
+                          className="border rounded p-3 shadow-sm bg-white"
+                          style={{
+                            transition: "transform 0.3s ease",
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                        >
+                          <h6 className="fw-bold text-secondary mb-1">{item.label}:</h6>
+                          <p className="mb-0 text-dark">
+                            {item.value || <span className="text-muted">Không có thông tin</span>}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="container border p-4 rounded mt-4">
-                    <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                  <p className="text-muted text-center">
+                    <i className="fa fa-exclamation-circle me-2"></i>Không có chi tiết sản phẩm.
+                  </p>
+                )}
+              </div>
+            )}
+
+
+
+            {/* Hiển thị bài viết */}
+            {tab === "baiViet" && (
+              <div className="container border p-4 rounded shadow-sm bg-light">
+                <h4 className="fw-bold mb-3 text-primary">
+                  <i className="fa fa-file-alt me-2"></i> Bài Viết Đánh Giá
+                </h4>
+                {chiTiet.bai_viet ? (
+                  <div
+                    className="p-3 bg-white rounded"
+                    style={{
+                      fontSize: "1rem",
+                      lineHeight: "1.6",
+                      color: "#333",
+                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                    }}
+                    dangerouslySetInnerHTML={{ __html: chiTiet.bai_viet }}
+                  />
+                ) : (
+                  <div
+                    className="p-3 bg-white rounded text-center"
+                    style={{
+                      color: "#6c757d",
+                      fontStyle: "italic",
+                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    <i className="fa fa-exclamation-circle me-2"></i> Sản phẩm không có bài viết
                   </div>
                 )}
               </div>
             )}
+
+
+            {/* Hiển thị danh sách đánh giá */}
+            {/* Hiển thị danh sách đánh giá */}
+            {tab === "danhGia" && (
+              <div>
+                {/* Phần viết đánh giá */}
+                <div className="mt-4">
+                  <h4 className="fw-bold text-primary">Viết Đánh Giá của bạn</h4>
+                  <p className="text-muted">Chọn số sao:</p>
+                  <div className="d-flex align-items-center">
+                    {[1, 2, 3, 4, 5].map((soSaoItem) => (
+                      <span
+                        key={soSaoItem}
+                        className={`fa fa-star ${soSao >= soSaoItem ? "text-warning" : "text-muted"}`}
+                        style={{
+                          cursor: "pointer",
+                          fontSize: "1.5rem",
+                          marginRight: "5px",
+                          transition: "color 0.3s ease",
+                        }}
+                        onClick={() => moModalVietDanhGia(soSaoItem)}
+                        onMouseEnter={(e) => (e.target.style.color = "#ffcc00")} // Hover effect on mouse enter
+                        onMouseLeave={(e) => (e.target.style.color = soSao >= soSaoItem ? "#ffcc00" : "#6c757d")} // Reset on mouse leave
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Phần hiển thị danh sách đánh giá */}
+                {sanPham.danhgiakhachhangs && sanPham.danhgiakhachhangs.length > 0 ? (
+                  <div className="container border p-4 rounded mt-4 bg-light shadow-sm">
+                    <h4 className="fw-bold text-success mb-4">Đánh Giá Sản Phẩm</h4>
+                    {sanPham.danhgiakhachhangs.map((dg, index) => (
+                      <div
+                        key={index}
+                        className="mb-4 p-3 bg-white rounded shadow-sm"
+                        style={{
+                          transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "scale(1.02)";
+                          e.currentTarget.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.2)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "scale(1)";
+                          e.currentTarget.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
+                        }}
+                      >
+                        <div className="d-flex align-items-center mb-2">
+                          <h5 className="mb-0 me-3 fw-bold">{dg.ho_ten}</h5>
+                          <div>
+                            {Array(dg.so_sao)
+                              .fill()
+                              .map((_, i) => (
+                                <span key={i} className="fa fa-star text-warning"></span>
+                              ))}
+                            {Array(5 - dg.so_sao)
+                              .fill()
+                              .map((_, i) => (
+                                <span key={i} className="fa fa-star text-muted"></span>
+                              ))}
+                          </div>
+                        </div>
+                        <h6 className="fw-bold text-primary">{dg.tieude}</h6>
+                        <p className="text-muted mb-2">{dg.noi_dung}</p>
+                        <p className="text-secondary small mb-0">
+                          Ngày tạo: <b>{new Date(dg.created_at).toLocaleDateString("vi-VN")}</b>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="container border p-4 rounded mt-4 bg-light shadow-sm">
+                    <p className="text-center text-muted">Chưa có đánh giá nào cho sản phẩm này.</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+
 
             {/* Modal viết đánh giá */}
             <Modal
               show={showModal}
               onHide={() => {
-                setShowModal(false); // tắt modal khi ấn hủy 
+                setShowModal(false); // Tắt modal khi ấn hủy
                 setSoSao(0);
               }}
+              centered
             >
-              <Modal.Header closeButton>
-                <Modal.Title>Viết Đánh Giá</Modal.Title>
+              <Modal.Header closeButton className="bg-primary text-white">
+                <Modal.Title className="fw-bold">
+                  <i className="fa fa-star me-2"></i>Viết Đánh Giá
+                </Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className="bg-light">
                 <Form>
+                  {/* Họ và tên */}
                   <Form.Group className="mb-3">
-                    <Form.Label>Họ và tên</Form.Label>
+                    <Form.Label className="fw-bold">Họ và Tên</Form.Label>
                     <Form.Control
                       type="text"
                       value={hoTen}
                       onChange={(e) => setHoTen(e.target.value)}
                       placeholder="Nhập họ và tên của bạn"
+                      className="shadow-sm"
+                      style={{ borderRadius: "10px" }}
                       required
                     />
                   </Form.Group>
+
+                  {/* Tiêu đề đánh giá */}
                   <Form.Group className="mb-3">
-                    <Form.Label>Tiêu đề đánh giá</Form.Label>
+                    <Form.Label className="fw-bold">Tiêu đề Đánh Giá</Form.Label>
                     <Form.Control
                       type="text"
                       value={tieude}
                       onChange={(e) => setTieude(e.target.value)}
                       placeholder="Nhập tiêu đề đánh giá của bạn"
+                      className="shadow-sm"
+                      style={{ borderRadius: "10px" }}
                       required
                     />
                   </Form.Group>
+
+                  {/* Nội dung đánh giá */}
                   <Form.Group className="mb-3">
-                    <Form.Label>Nội dung đánh giá</Form.Label>
+                    <Form.Label className="fw-bold">Nội Dung Đánh Giá</Form.Label>
                     <Form.Control
                       as="textarea"
-                      rows={3}
+                      rows={4}
                       value={noiDung}
                       onChange={(e) => setNoiDung(e.target.value)}
-                      placeholder="Nhập nội dung đánh giá"
+                      placeholder="Nhập nội dung đánh giá của bạn"
+                      className="shadow-sm"
+                      style={{ borderRadius: "10px" }}
                       required
                     />
                   </Form.Group>
+
+                  {/* Chọn số sao */}
+                  <div className="mb-3">
+                    <Form.Label className="fw-bold">Đánh Giá Số Sao</Form.Label>
+                    <div className="d-flex align-items-center">
+                      {[1, 2, 3, 4, 5].map((soSaoItem) => (
+                        <span
+                          key={soSaoItem}
+                          className={`fa fa-star ${soSao >= soSaoItem ? "text-warning" : "text-muted"}`}
+                          style={{ cursor: "pointer", fontSize: "1.5rem", marginRight: "5px" }}
+                          onClick={() => setSoSao(soSaoItem)}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </Form>
               </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={() => {
-                  setShowModal(false);
-                  setSoSao(0);
-                }}>
-                  Hủy
+              <Modal.Footer className="d-flex justify-content-between">
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setShowModal(false);
+                    setSoSao(0);
+                  }}
+                  className="shadow-sm"
+                  style={{ borderRadius: "10px" }}
+                >
+                  <i className="fa fa-times me-2"></i>Hủy
                 </Button>
-                <Button variant="primary" onClick={guiDanhGia}>
-                  Gửi đánh giá
+                <Button
+                  variant="success"
+                  onClick={guiDanhGia}
+                  className="shadow-sm"
+                  style={{ borderRadius: "10px" }}
+                >
+                  <i className="fa fa-paper-plane me-2"></i>Gửi Đánh Giá
                 </Button>
               </Modal.Footer>
             </Modal>
+
           </div>
         </div>
 

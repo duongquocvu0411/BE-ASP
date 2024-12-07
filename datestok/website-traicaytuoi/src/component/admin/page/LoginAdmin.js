@@ -5,60 +5,79 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const [tenDangNhap, setTenDangNhap] = useState(''); // Tên đăng nhập (username)
-  const [matKhau, setMatKhau] = useState(''); // Mật khẩu (password)
-  const [dangXuLy, setDangXuLy] = useState(false); // Trạng thái xử lý (loading spinner)
-  const dieuHuong = useNavigate(); // Hàm điều hướng người dùng (navigate)
+  const [tenDangNhap, setTenDangNhap] = useState('');
+  const [matKhau, setMatKhau] = useState('');
+  const [dangXuLy, setDangXuLy] = useState(false);
+  const [luuDangNhap, setLuuDangNhap] = useState(false); // Trạng thái của checkbox lưu thông tin đăng nhập
+  const dieuHuong = useNavigate();
 
   const xuLyDangNhap = async (e) => {
     e.preventDefault();
-    setDangXuLy(true); // Bắt đầu hiển thị spinner khi bắt đầu xử lý đăng nhập
+    setDangXuLy(true);
 
     try {
-      // Gửi yêu cầu POST đến API để đăng nhập
       const phanHoi = await axios.post(`${process.env.REACT_APP_BASEURL}/api/admin/login`, {
         username: tenDangNhap,
         password: matKhau,
       });
 
-      // Kiểm tra trạng thái đăng nhập từ phản hồi
       if (phanHoi.data.status === 'Đăng nhập thành công') {
-        // Lưu token vào localStorage để sử dụng cho các yêu cầu tiếp theo
-        localStorage.setItem('adminToken', phanHoi.data.token);
-        localStorage.setItem('isAdminLoggedIn', 'true'); // Lưu trạng thái đăng nhập thành công
+        const loginTime = new Date().getTime();
 
-        console.log('Đăng nhập thành công:', phanHoi.data.token);
+        // Kiểm tra nếu người dùng chọn lưu đăng nhập
+        if (luuDangNhap) {
+          // Lưu vào localStorage nếu người dùng chọn lưu
+          localStorage.setItem('adminToken', phanHoi.data.token);
+          localStorage.setItem('loginTime', loginTime);
+          localStorage.setItem('loginhoten',phanHoi.data.hoten)
+          localStorage.setItem('isAdminLoggedIn', 'true');
+        } else {
+          // Lưu vào sessionStorage nếu không chọn lưu
+          sessionStorage.setItem('adminToken', phanHoi.data.token);
+          sessionStorage.setItem('loginTime', loginTime);
+          localStorage.setItem('loginhoten',phanHoi.data.hoten)
+          sessionStorage.setItem('isAdminLoggedIn', 'true');
+        }
 
-        // Điều hướng người dùng đến trang chủ admin
         dieuHuong('/admin/trangchu');
       } else {
-        // Nếu thông tin đăng nhập sai, hiển thị cảnh báo
         toast.warning('Thông tin đăng nhập không đúng. Vui lòng kiểm tra lại.', {
           position: 'top-center',
           autoClose: 3000,
         });
       }
     } catch (error) {
-      // Xử lý lỗi khi đăng nhập thất bại (ví dụ: lỗi mạng, lỗi máy chủ)
       console.error('Lỗi đăng nhập:', error);
       toast.error('Đăng nhập thất bại. Vui lòng thử lại.', {
         position: 'top-center',
         autoClose: 3000,
       });
     } finally {
-      setDangXuLy(false); // Dừng spinner khi quá trình xử lý hoàn tất
+      setDangXuLy(false);
     }
   };
 
   return (
     <div className="container d-flex vh-100">
-      <div className="row justify-content-center align-self-center w-100">
+       <ul className="bubbles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+      <div className="row justify-content-center align-self-center w-100 ">
         <div className="col-md-4">
           <div className="card shadow-lg">
             <div className="card-header text-bg-primary text-center">
-              <h4 className="mb-0">
-                <i className="bi bi-grid-3x3-gap-fill me-2"></i> Đăng Nhập
-              </h4>
+            <h4 className="card-title mb-0 text-center">
+            <i className="bi-shop-window" /> Welcome To Login Admin
+          </h4>
             </div>
             <div className="card-body">
               <form onSubmit={xuLyDangNhap}>
@@ -88,6 +107,19 @@ const Login = () => {
                     required
                     autoComplete="current-password"
                   />
+                </div>
+
+                <div className="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="luuDangNhap"
+                    checked={luuDangNhap}
+                    onChange={(e) => setLuuDangNhap(e.target.checked)} // Thay đổi trạng thái checkbox
+                  />
+                  <label className="form-check-label" htmlFor="luuDangNhap">
+                    Lưu thông tin đăng nhập 
+                  </label>
                 </div>
 
                 <div className="d-grid">

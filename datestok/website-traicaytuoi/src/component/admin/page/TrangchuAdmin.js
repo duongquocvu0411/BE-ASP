@@ -113,61 +113,54 @@ const layDoanhThuThang = async () => {
   }, []);
 
   const dataLine = {
-    labels: dsDoanhThuThang.map((muc) => `${muc.month}/${muc.year}`), // Tháng/Năm
+    labels: dsDoanhThuThang.map((muc) => `${muc.month}/${muc.year}`),
     datasets: [
       {
         label: 'Doanh thu (VND)',
-        data: dsDoanhThuThang.map((muc) => muc.totalRevenue), // Tổng doanh thu
-        fill: false,
-        backgroundColor: 'rgb(75, 192, 192)',
-        borderColor: 'rgba(75, 192, 192, 0.2)',
+        data: dsDoanhThuThang.map((muc) => muc.totalRevenue),
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        tension: 0.4,
       },
     ],
   };
 
   const dataBar = {
-    labels: sanPhamBanChay.map((sp) => sp.sanPhamNames), // Dùng SanPhamNames để làm nhãn
+    labels: sanPhamBanChay.map((sp) => sp.sanPhamNames),
     datasets: [
       {
         label: 'Số lượng bán',
-        data: sanPhamBanChay.map((sp) => sp.totalQuantity), // Dùng TotalQuantity làm dữ liệu
+        data: sanPhamBanChay.map((sp) => sp.totalQuantity),
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#4BC0C0',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#4BC0C0',
         ],
         borderWidth: 1,
       },
     ],
   };
-  
 
-  const options = {
+  const chartOptions = {
     responsive: true,
     plugins: {
       tooltip: {
         callbacks: {
-          label: function (tooltipItem) {
-            const value = tooltipItem.raw; // Lấy giá trị thô
-            return `${value.toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-              minimumFractionDigits: 3,
-            })}`;
-          },
+          label: (tooltipItem) => `${tooltipItem.raw.toLocaleString('vi-VN')} VND`,
         },
       },
     },
   };
 
-  const options2 = {
+  const options = {
     responsive: true,
     plugins: {
       tooltip: {
@@ -196,106 +189,103 @@ const layDoanhThuThang = async () => {
 
   return (
     <div id="wrapper">
-      <SiderbarAdmin />
-      <div id="content-wrapper" className="d-flex flex-column">
-        <div id="content">
-          <HeaderAdmin />
-          
-          <div className="container-fluid mt-3">
-            <Row>
-              <Col md={6}>
-                <Card className="shadow-sm mb-4">
-                  <Card.Body>
-                    <Card.Title>Doanh thu tháng</Card.Title>
-                    {loading ? (
-                      <div className='text-center'>
-                        <Spinner animation='border' variant='primary'/>
-                         <p>Đang tải dữ liệu...</p>
-                      </div>
-                    ) : (
-                      <Line data={dataLine} options={options} />
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={6}>
-                <Card className="shadow-sm mb-4">
-                  <Card.Body>
-                    <Card.Title>Top sản phẩm bán chạy</Card.Title>
-                    {loading ? (
-                      <div className='text-center'>
-                        <Spinner animation='border' variant='primary'/>
-                        <p>Đang tải dữ liệu...</p>
-                      </div>
-                    ) : (
-                      <Bar data={dataBar} options={options2} /> 
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+    <SiderbarAdmin />
+    <div id="content-wrapper" className="d-flex flex-column">
+      <div id="content">
+        <HeaderAdmin />
 
-            <Row>
-              <Col md={4}>
-                <Card className="text-white bg-primary shadow-sm mb-4">
-                  <Card.Body>
-                    <Card.Title>Khách hàng mới</Card.Title>
-                    {loading ? (
-                      <div className='text-center'>
-                        <Spinner animation='border' variant='dark'/>
-                        <p>Đang tải dữ liệu...</p>
-                      </div>
-                    ) : (
-                      <>
-                         <Card.Text>{`Tháng này có ${soLuongKhachHangMoi} khách hàng mới.`}</Card.Text>
-                         <Link to={'/admin/khachhang'} className='btn btn-light'>Chi tiết</Link>
-                      </>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={4}>
-                <Card className="text-white bg-success shadow-sm mb-4">
-                  <Card.Body>
-                    <Card.Title>Doanh thu hôm nay</Card.Title>
-                    {loading ? (
-                      <div className='text-center'>
-                        <Spinner animation='border' variant='primary'/>
-                        <p>Đang tải dữ liệu...</p>
-                      </div>
-                    ) : (
-                      <>
-                       <Card.Text>{`Doanh thu hôm nay đạt ${parseFloat(doanhThuHomNay).toLocaleString("vi-VN", { minimumFractionDigits: 3 })} VND.`}</Card.Text>
-                         <Link to={'/admin/khachhang'} className='btn btn-light'>Chi tiết</Link>
-                      </>
-                    )}                   
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={4}>
-                <Card className="text-white bg-warning shadow-sm mb-4">
-                  <Card.Body>
-                    <Card.Title>Sản phẩm tồn kho</Card.Title>
-                    {loading ? (
-                      <div className='text-center'>
-                        <Spinner animation='border' variant='primary'/>
-                        <p> Đang tải dữ liệu....</p>
-                      </div>
-                    ) :(
-                      <>
-                          <Card.Text>{`Hiện tại có ${tongSanPhamTonKho} sản phẩm đang tồn kho.`}</Card.Text>
-                          <Link to={'/admin/sanpham'} className="btn btn-light">Chi tiết</Link>
-                      </>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </div>
+        <div className="container-fluid mt-3">
+          <Row>
+            {/* Doanh thu tháng */}
+            <Col md={6}>
+              <Card className="shadow-sm mb-4 hover-card">
+                <Card.Body>
+                  <Card.Title>
+                    <i className="bi bi-graph-up-arrow text-primary me-2"></i> Doanh thu tháng
+                  </Card.Title>
+                  {loading ? (
+                    <div className="text-center">
+                      <Spinner animation="border" variant="primary" />
+                      <p>Đang tải dữ liệu...</p>
+                    </div>
+                  ) : (
+                    <Line data={dataLine} options={chartOptions} />
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* Top sản phẩm bán chạy */}
+            <Col md={6}>
+              <Card className="shadow-sm mb-4 hover-card">
+                <Card.Body>
+                  <Card.Title>
+                    <i className="bi bi-bar-chart-fill text-success me-2"></i> Top sản phẩm bán chạy
+                  </Card.Title>
+                  {loading ? (
+                    <div className="text-center">
+                      <Spinner animation="border" variant="success" />
+                      <p>Đang tải dữ liệu...</p>
+                    </div>
+                  ) : (
+                    <Bar data={dataBar} options={options} />
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            {/* Khách hàng mới */}
+            <Col md={4}>
+              <Card className="bg-primary text-white shadow-sm mb-4 hover-card">
+                <Card.Body>
+                  <Card.Title>
+                    <i className="bi bi-people-fill me-2"></i> Khách hàng mới
+                  </Card.Title>
+                  <Card.Text>{`Tháng này có ${soLuongKhachHangMoi} khách hàng mới.`}</Card.Text>
+                  <Link to="/admin/khachhang" className="btn btn-light">
+                    Chi tiết
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* Doanh thu hôm nay */}
+            <Col md={4}>
+              <Card className="bg-success text-white shadow-sm mb-4 hover-card">
+                <Card.Body>
+                  <Card.Title>
+                    <i className="bi bi-currency-exchange me-2"></i> Doanh thu hôm nay
+                  </Card.Title>
+                  <Card.Text>{`Hôm nay đạt ${doanhThuHomNay.toLocaleString('vi-VN')} VND.`}</Card.Text>
+                  <Link to="/admin/hoadon" className="btn btn-light">
+                    Chi tiết
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* Sản phẩm tồn kho */}
+            <Col md={4}>
+              <Card className="bg-warning text-dark shadow-sm mb-4 hover-card">
+                <Card.Body>
+                  <Card.Title>
+                    <i className="bi bi-box-seam me-2"></i> Sản phẩm tồn kho
+                  </Card.Title>
+                  <Card.Text>{`Có ${tongSanPhamTonKho} sản phẩm tồn kho.`}</Card.Text>
+                  <Link to="/admin/sanpham" className="btn btn-dark">
+                    Chi tiết
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </div>
+  </div>
   );
 };
 

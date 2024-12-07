@@ -99,7 +99,7 @@ const HeaderUsers = () => {
           </div>
         </div>
 
-        <div className="container px-0">
+        <div className="container px-0 ">
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
             <Link to="/" className="navbar-brand">
               <h1 className="text-primary display-6">{tencuahang || "Tên cửa hàng mặc định"}</h1>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using apiTraiCaytuoi.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace apiTraiCaytuoi.Controllers
 {
@@ -30,7 +31,7 @@ namespace apiTraiCaytuoi.Controllers
         {
             var khachHangs = await _context.KhachHangs
                 .Include(kh => kh.HoaDons)
-                  
+
                 .ToListAsync();
 
             var result = new List<object>();
@@ -42,8 +43,8 @@ namespace apiTraiCaytuoi.Controllers
 
                 foreach (var bill in kh.HoaDons)
                 {
-                   
-                    
+
+
 
                     hoaDons.Add(new
                     {
@@ -54,7 +55,7 @@ namespace apiTraiCaytuoi.Controllers
                         bill.status,
                         bill.Created_at,
                         bill.Updated_at
-                     
+
                     });
                 }
 
@@ -63,15 +64,14 @@ namespace apiTraiCaytuoi.Controllers
                     kh.Id,
                     kh.Ten,
                     kh.Ho,
-                   
                     kh.ThanhPho,
-                    kh.tenThanhpho,
                     kh.tinhthanhquanhuyen,
                     kh.xaphuong,
                     kh.DiaChiCuThe,
                     kh.Sdt,
                     kh.EmailDiaChi,
                     kh.GhiChu,
+                    kh.Created_at,
                     HoaDons = hoaDons
                 });
             }
@@ -129,7 +129,7 @@ namespace apiTraiCaytuoi.Controllers
                 khachHang.Ho,
                 khachHang.DiaChiCuThe,
                 khachHang.ThanhPho,
-                khachHang.tenThanhpho,
+                //khachHang.tenThanhpho,
                 khachHang.tinhthanhquanhuyen,
                 khachHang.xaphuong,
                 khachHang.Sdt,
@@ -163,12 +163,13 @@ namespace apiTraiCaytuoi.Controllers
 
         // DELETE: api/KhachHang/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteKhachHang(int id)
         {
 
             var KhachHang = await _context.KhachHangs.FindAsync(id);
 
-            if(KhachHang == null)
+            if (KhachHang == null)
             {
                 return NotFound(new { mewssage = " không tìm thấy khách hàng với id này" });
             }

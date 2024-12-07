@@ -19,7 +19,9 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
       name: ten, 
       trangthai: isEdit && detail ? detail.trangthai : 'không sử dụng' 
     };
-    const token = localStorage.getItem('adminToken'); // Lấy token từ localStorage
+    // Kiểm tra xem người dùng có chọn "Lưu thông tin đăng nhập" hay không
+    const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true'; // Kiểm tra trạng thái lưu đăng nhập
+    const token = isLoggedIn ? localStorage.getItem('adminToken') : sessionStorage.getItem('adminToken'); // Lấy token từ localStorage nếu đã lưu, nếu không lấy từ sessionStorage
     if (isEdit) {
       axios.put(`${process.env.REACT_APP_BASEURL}/api/Tencuahang/${detail.id}`, updatedData,
         {
@@ -33,6 +35,7 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
             autoClose: 3000,
           });
           fetchDetails();
+          ResetForm();
           handleClose();
         })
         .catch((error) => {
@@ -55,6 +58,7 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
             autoClose: 3000,
           });
           fetchDetails();
+          ResetForm();
           handleClose();
         })
         .catch((error) => {
@@ -66,31 +70,41 @@ const ModalTencuahang = ({ show, handleClose, isEdit, detail, fetchDetails }) =>
         });
     }
   };
+  const ResetForm = () =>{
+    setTen('');
+  }
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton className="bg-primary text-white">
         <Modal.Title>{isEdit ? "Sửa Tên Cửa Hàng" : "Thêm Tên Cửa Hàng"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group controlId="formTenCuahang">
-            <Form.Label>Tên Cửa Hàng</Form.Label>
+          <Form.Group controlId="formTenCuahang" className="mb-3">
+            <Form.Label className="fw-bold">Tên Cửa Hàng</Form.Label>
             <Form.Control
               type="text"
               placeholder="Nhập tên cửa hàng"
               value={ten}
               onChange={(e) => setTen(e.target.value)}
+              className="shadow-sm"
+              style={{ borderRadius: "8px" }}
             />
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose} className="shadow-sm">
           Đóng
         </Button>
-        <Button variant="primary" onClick={handleSave}>
-          Lưu
+        <Button
+          variant="success"
+          onClick={handleSave}
+          className="shadow-sm text-white"
+          style={{ borderRadius: "8px" }}
+        >
+          {isEdit ? "Cập nhật" : "Lưu"}
         </Button>
       </Modal.Footer>
     </Modal>

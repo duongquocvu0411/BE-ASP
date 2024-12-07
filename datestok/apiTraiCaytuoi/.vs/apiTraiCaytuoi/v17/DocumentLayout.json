@@ -1,10 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\BE\\New folder\\apiTraiCaytuoi\\",
+  "WorkspaceRootPath": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|e:\\be\\new folder\\apitraicaytuoi\\apitraicaytuoi\\model\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|solutionrelative:apitraicaytuoi\\model\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|e:\\be\\be-asp\\datestok\\apitraicaytuoi\\apitraicaytuoi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|solutionrelative:apitraicaytuoi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|e:\\be\\be-asp\\datestok\\apitraicaytuoi\\apitraicaytuoi\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|solutionrelative:apitraicaytuoi\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|e:\\be\\be-asp\\datestok\\apitraicaytuoi\\apitraicaytuoi\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|solutionrelative:apitraicaytuoi\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|e:\\be\\be-asp\\datestok\\apitraicaytuoi\\apitraicaytuoi\\model\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CEE572-E621-4280-94E3-71204420DE9F}|apiTraiCaytuoi\\apiTraiCaytuoi.csproj|solutionrelative:apitraicaytuoi\\model\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "E:\\BE\\New folder\\apiTraiCaytuoi\\apiTraiCaytuoi\\Model\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "apiTraiCaytuoi\\Model\\AppDbContext.cs",
-              "ToolTip": "E:\\BE\\New folder\\apiTraiCaytuoi\\apiTraiCaytuoi\\Model\\AppDbContext.cs",
-              "RelativeToolTip": "apiTraiCaytuoi\\Model\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "LoginDTO.cs",
+              "DocumentMoniker": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\DTO\\LoginDTO.cs",
+              "RelativeDocumentMoniker": "apiTraiCaytuoi\\DTO\\LoginDTO.cs",
+              "ToolTip": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\DTO\\LoginDTO.cs",
+              "RelativeToolTip": "apiTraiCaytuoi\\DTO\\LoginDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T11:56:21.438Z",
+              "WhenOpened": "2024-12-07T03:41:32.802Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "apiTraiCaytuoi\\Controllers\\AdminController.cs",
+              "ToolTip": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "apiTraiCaytuoi\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwCsAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T03:38:40.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminDTO.cs",
+              "DocumentMoniker": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\DTO\\AdminDTO.cs",
+              "RelativeDocumentMoniker": "apiTraiCaytuoi\\DTO\\AdminDTO.cs",
+              "ToolTip": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\DTO\\AdminDTO.cs",
+              "RelativeToolTip": "apiTraiCaytuoi\\DTO\\AdminDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T03:38:07.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Admin.cs",
+              "DocumentMoniker": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\Model\\Admin.cs",
+              "RelativeDocumentMoniker": "apiTraiCaytuoi\\Model\\Admin.cs",
+              "ToolTip": "E:\\BE\\BE-ASP\\datestok\\apiTraiCaytuoi\\apiTraiCaytuoi\\Model\\Admin.cs",
+              "RelativeToolTip": "apiTraiCaytuoi\\Model\\Admin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T03:34:15.909Z",
               "EditorCaption": ""
             }
           ]

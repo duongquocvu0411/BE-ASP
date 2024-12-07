@@ -207,6 +207,12 @@
             </summary>
             <returns> Lấy toàn bộ danh thu của các tháng </returns>
         </member>
+        <member name="M:apiTraiCaytuoi.Controllers.HoaDonController.GetSanPhamBanChayHienTai">
+            <summary>
+            Lấy danh sách sản phẩm bán chạy trong tháng và năm hiện tại
+            </summary>
+            <returns>Danh sách sản phẩm bán chạy trong tháng và năm hiện tại</returns>
+        </member>
         <member name="M:apiTraiCaytuoi.Controllers.KhachHangController.GetKhachHangs">
             <summary>
             Lấy danh sách của Khách hàng và hóa đơn

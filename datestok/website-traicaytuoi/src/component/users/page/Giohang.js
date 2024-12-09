@@ -76,8 +76,8 @@ const Giohang = () => {
                     </td>
                     <td>{sanPham.tieude}</td>
                     <td>
-                      {parseFloat(sanPham.gia).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "}
-                      vnđ / {sanPham.don_vi_tinh}
+                      {parseFloat(sanPham.gia).toLocaleString("vi-VN", { minimumFractionDigits: 3 })} {"VND"}
+                       / {sanPham.don_vi_tinh}
                     </td>
                     <td>
                       <div className="input-group justify-content-center">
@@ -106,8 +106,8 @@ const Giohang = () => {
                     <td>
                       {(parseFloat(sanPham.gia) * sanPham.soLuong).toLocaleString("vi-VN", {
                         minimumFractionDigits: 3,
-                      })}{" "}
-                      vnđ
+                      })} {"VND "}
+                      
                     </td>
                     <td>
                       <button

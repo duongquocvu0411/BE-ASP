@@ -5,7 +5,7 @@ import HeaderUsers from "../HeaderUsers";
 import { CartContext } from "./CartContext";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Spinner } from "react-bootstrap";
+// import { Spinner } from "react-bootstrap";
 import Countdown from "react-countdown";
 // Định nghĩa renderer cho Countdown
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -300,7 +300,18 @@ const Cuahang = () => {
                             </Link>
 
                             {/* Huy hiệu đếm ngược sale */}
-                            {!daHethan && (
+                            <div
+                                className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
+                                style={{
+                                  fontSize: "0.9rem",
+                                  fontWeight: "bold",
+                                  zIndex: 2,
+                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+                                }}
+                              >
+                                <Countdown date={ngayHethan} renderer={renderer} />
+                              </div>
+                            {/* {!daHethan && (
                               <div
                                 className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
                                 style={{
@@ -312,7 +323,7 @@ const Cuahang = () => {
                               >
                                 <Countdown date={ngayHethan} renderer={renderer} />
                               </div>
-                            )}
+                            )} */}
 
                             {/* Nội dung sản phẩm */}
                             <div className="card-body text-center">

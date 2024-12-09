@@ -351,17 +351,18 @@ const Thanhtoan = () => {
                             <img
                               src={sanPham.hinhanh}
                               alt={sanPham.tieude}
-                              className="img-fluid rounded-circle"
+                              className="img-fluid rounded-circle" 
                               style={{ width: 50, height: 50 }}
                             />
                           </td>
                           <td>{sanPham.tieude}</td>
                           <td className="text-nowrap">
-                            {parseFloat(sanPham.gia).toLocaleString("vi-VN")} VND
+                          {parseFloat(sanPham.gia).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" "} {"VND"}
                           </td>
                           <td>{sanPham.soLuong}</td>
                           <td className="text-nowrap">
-                            {(sanPham.soLuong * parseFloat(sanPham.gia)).toLocaleString("vi-VN")} VND
+                            {(sanPham.soLuong * parseFloat(sanPham.gia)).toLocaleString("vi-VN",{ minimumFractionDigits: 3 })} {"VND"}
+                   
                           </td>
                         </tr>
                       ))
@@ -373,7 +374,8 @@ const Thanhtoan = () => {
                     <tr>
                       <td colSpan="4" className="text-end fw-bold">Tổng cộng:</td>
                       <td className="text-nowrap text-success fw-bold">
-                        {tongTienGioHang.toLocaleString("vi-VN")} VND
+                        {/* {tongTienGioHang.toLocaleString("vi-VN")} VND */}
+                        {parseFloat(tongTienGioHang).toLocaleString("vi-VN", { minimumFractionDigits: 3 })}{" VND"}
                       </td>
                     </tr>
                   </tbody>

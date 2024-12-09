@@ -489,7 +489,18 @@ const TrangchuNguoidung = () => {
                             </Link>
 
                             {/* Huy hiệu đếm ngược sale */}
-                            {!daHethan && (
+                            <div
+                                className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
+                                style={{
+                                  fontSize: "0.9rem",
+                                  fontWeight: "bold",
+                                  zIndex: 2,
+                                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+                                }}
+                              >
+                                <Countdown date={ngayHethan} renderer={renderer} />
+                              </div>
+                            {/* {!daHethan && (
                               <div
                                 className="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 rounded-end"
                                 style={{
@@ -501,7 +512,7 @@ const TrangchuNguoidung = () => {
                               >
                                 <Countdown date={ngayHethan} renderer={renderer} />
                               </div>
-                            )}
+                            )} */}
 
                             {/* Nội dung sản phẩm */}
                             <div className="card-body text-center">
